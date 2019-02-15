@@ -1,0 +1,19 @@
+opam-version: "2.0"
+name: "satysfi-lib-dist"
+version: "0.0.3"
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: [
+  "gfngfn"
+]
+homepage: "https://github.com/gfngfn/SATySFi"
+dev-repo: "git+https://github.com/gfngfn/SATySFi.git"
+bug-reports: "https://github.com/gfngfn/SATySFi/issues"
+build: [ ]
+install: [ ]
+remove: [ ]
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.3+dev2019.02.10" }
+]
+synopsis: "Standard library of SATySFi"
+description: """
+Provides the standard library of SATySFi (dummy package)"""
