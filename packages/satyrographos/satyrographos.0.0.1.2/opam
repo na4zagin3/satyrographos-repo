@@ -1,5 +1,5 @@
 opam-version: "2.0"
-name: "styrographos"
+name: "satyrographos"
 version: "0.0.1.2"
 maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
 authors: [
@@ -40,7 +40,7 @@ Satyrographos is distributed under the LGPL-3.0 license.
   [Satyrographos]: https://github.com/na4zagin3/satyrographos"""
 url {
   src: "https://github.com/na4zagin3/satyrographos/archive/v0.0.1.2.tar.gz"
-  checksum [
+  checksum: [
     "sha256=eb9b614fd09baec6a8d33fcf59e9ba82f6dd3f345bc769af4b444255af254580"
     "sha512=a2725e2a3532aa92147b59cec47fe9f03cfaf2aa92a42da9af7e44e48f7128f03551c8e39885c62c3890320e7f077297b496bf348a8a13b1e72c61e6886191a7"
   ]
