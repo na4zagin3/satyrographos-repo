@@ -7,6 +7,9 @@ homepage: "https://github.com/na4zagin3/satyrographos-repo"
 dev-repo: "git+https://github.com/na4zagin3/satyrographos-repo.git"
 bug-reports: "https://github.com/na4zagin3/satyrographos-repo/issues"
 license: "LGPL3+"
+
+synopsis: "Internal library to test Satyrographos Repo"
+
 build: [
   ["dune" "subst"] {pinned}
   ["dune" "build" "-p" name "-j" jobs]
