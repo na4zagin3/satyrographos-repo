@@ -3,8 +3,12 @@ sudo: required
 install: test -e .travis.opam.sh || wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-opam.sh
 script: bash -ex .travis-opam.sh
 env:
-  - OCAML_VERSION=4.06 EXTRA_REMOTES="." PACKAGE="satyrographos-repo-test" EXTRA_DEPS="satysfi-lib-dist.0.0.3 satysfi.0.0.3"
-  - OCAML_VERSION=4.06 EXTRA_REMOTES="." PACKAGE="satyrographos-repo-test" EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.03.10 satysfi.0.0.3+dev2019.03.10"
-  - OCAML_VERSION=4.06 EXTRA_REMOTES="." PACKAGE="satyrographos-repo-test" EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos"
+  global:
+  - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
+  - PACKAGE="satyrographos-repo-test"
+  matrix:
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3 satysfi.0.0.3"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.03.10 satysfi.0.0.3+dev2019.03.10"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos"
 os:
   - linux
