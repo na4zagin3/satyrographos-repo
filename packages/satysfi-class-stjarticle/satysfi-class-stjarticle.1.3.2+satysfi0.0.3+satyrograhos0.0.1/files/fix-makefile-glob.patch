@@ -1,0 +1,14 @@
+diff --git a/Makefile b/Makefile
+index a2a6205..7cfd097 100644
+--- a/Makefile
++++ b/Makefile
+@@ -11,7 +11,8 @@ doc: stjarticle-demo.pdf
+ 
+ install:
+ 	install -d "$(PACKAGE_DIR)/doc"
+-	install -m 644 stjarticle-demo.{saty,pdf} "$(PACKAGE_DIR)/doc"
++	install -m 644 stjarticle-demo.saty "$(PACKAGE_DIR)/doc"
++	install -m 644 stjarticle-demo.pdf "$(PACKAGE_DIR)/doc"
+ 	install -d "$(PACKAGE_DIR)/packages"
+ 	install -m 644 *.satyh "$(PACKAGE_DIR)/packages"
+ 
