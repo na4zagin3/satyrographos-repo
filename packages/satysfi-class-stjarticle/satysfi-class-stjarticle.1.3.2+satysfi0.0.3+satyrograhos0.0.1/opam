@@ -24,6 +24,8 @@ install: [
 remove: [
   [make "-f" "Makefile" "uninstall" "LIBDIR=%{share}%/satysfi"]
 ]
+extra-files: ["fix-makefile-glob.patch" "sha512=2c7627c8eef3f0d1b8ba40a5b7fb69ecca0417ea495ad0c4bbac23473adba6f0c3d494d5a2dad425851a8e1efe446f56ac22cd4f0f5aaef29b483d45ad91c7df"]
+patches: ["fix-makefile-glob.patch"]
 url {
   git: "git+https://github.com/puripuri2100/stjarticle.git#94d19396cd0d32a787fb9b3177b16e273c23b105"
 }
