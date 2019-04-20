@@ -7,7 +7,8 @@ env:
   - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
   - PACKAGE="satyrographos-repo-test"
   matrix:
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos satysfi-class-stjarticle satysfi-siunitx"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos satysfi-class-stjarticle"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos satysfi-class-stjarticle"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3 satysfi.0.0.3"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.03.10 satysfi.0.0.3+dev2019.03.10"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi satysfi-lib-dist satyrographos"
