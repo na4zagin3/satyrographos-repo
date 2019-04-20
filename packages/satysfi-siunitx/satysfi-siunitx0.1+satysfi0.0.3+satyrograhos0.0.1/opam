@@ -24,4 +24,7 @@ install: [
 remove: [
     [make "-f" "Makefile" "uninstall" "LIBDIR=%{share}%/satysfi"]
 ]
+url {
+  git: "git+https://github.com/puripuri2100/SATySFi-siunitx/commit/933d607a4a8816f70199908a2f19e1d38fbdfa80"
+}
 
