@@ -25,6 +25,6 @@ remove: [
     [make "-f" "Makefile" "uninstall" "LIBDIR=%{share}%/satysfi"]
 ]
 url {
-  url: "git+https://github.com/puripuri2100/SATySFi-siunitx.git#933d607a4a8816f70199908a2f19e1d38fbdfa80"
+  src: "git+https://github.com/puripuri2100/SATySFi-siunitx.git#933d607a4a8816f70199908a2f19e1d38fbdfa80"
 }
 
