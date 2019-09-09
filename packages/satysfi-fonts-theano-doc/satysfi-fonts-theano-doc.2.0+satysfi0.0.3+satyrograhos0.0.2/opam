@@ -1,0 +1,44 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Alexey Kryukov's Theano Classical Fonts"
+description: """
+Document of SATySFi Font Package for Alexey Kryukov's Theano Classical Fonts
+
+This package installs fonts from https://github.com/akryukov/theano.
+"""
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+license: "OFL"
+homepage: "https://github.com/na4zagin3/SATySFi-fonts-theano"
+bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-theano/issues"
+dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-theano.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-fonts-theano"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-theano-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-theano-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+remove: [
+  ["satyrographos" "opam" "uninstall"
+   "-name" "fonts-theano-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/na4zagin3/SATySFi-fonts-theano/archive/v2.0+satysfi0.0.3+satyrograhos0.0.2.tar.gz"
+  checksum: [
+    "md5=6d977fbdaf8fa26a4f06cecdaf79d828"
+    "sha512=5f81b9c15804d36942e07103b54b43cbf99c45ba6faf77ca0df5d5080b69ce70a8a078e5a98599e35c6abd37735539941d4ae23e4b91f3b13bd51cd51e634ec4"
+  ]
+}
