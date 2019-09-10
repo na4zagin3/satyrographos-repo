@@ -34,6 +34,8 @@ env:
       satysfi-fonts-theano-doc
       satysfi-grcnum
       satysfi-grcnum-doc
+      satysfi-karnaugh
+      satysfi-karnaugh-doc
       satysfi-make-html
       satysfi-make-markdown
       satysfi-matrix
