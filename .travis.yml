@@ -11,6 +11,8 @@ env:
     satyrographos=0.0.2.1
     satysfi-fonts-theano
     satysfi-fonts-theano-doc
+    satysfi-grcnum
+    satysfi-grcnum-doc
     satysfi-lib-dist"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
     satyrographos=0.0.1.7
