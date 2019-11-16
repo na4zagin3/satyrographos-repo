@@ -1,0 +1,32 @@
+opam-version: "2.0"
+name: "satysfi-lib"
+version: "0.0.0+dev2019.11.10"
+synopsis: "A collection of utility functions and modules for SATySFi"
+description: """
+This is a collection of utility functions and modules for SATySFi. Because the library bundled with the default installation configuration of SATySFi is currently not rich enough, this project aims to provide a complementary library sufficient for most situations in typesetting.
+
+this requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Yuichi Nishiwaki <yuichi.nishiwaki@gmail.com>"
+authors: "Yuichi Nishiwaki <yuichi.nishiwaki@gmail.com>"
+license: "Unlicense"
+homepage: "https://github.com/nyuichi/satysfi-lib"
+bug-reports: "https://github.com/nyuichi/satysfi-lib/issues"
+dev-repo: "git+https://github.com/nyuichi/satysfi-lib.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [ ]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "lib"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+
+extra-files: ["satyristes.patch" "sha512=ddfc32b601413a84f08412e7937a24d0d68c4789f10a78a07f00460cd8f84f92451d3393b81148d4793d420c1383e7a91d62390850b2606ce0b3c11417b8366c"]
+patches: ["satyristes.patch"]
+url {
+  git: "git+https://github.com/nyuichi/satysfi-lib.git#d8d2f889e3c4336284d7cb06607ac20cd6740655"
+}
