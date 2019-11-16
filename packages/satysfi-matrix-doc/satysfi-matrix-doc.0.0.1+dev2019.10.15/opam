@@ -1,0 +1,42 @@
+opam-version: "2.0"
+version: "0.0.1+dev2019.10.15"
+synopsis: "Document: Math matrix library for SATySFi"
+description: """
+Document: Matrices in SATySFi!
+
+this requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "nekketsuuu <nekketsuuu@users.noreply.github.com>"
+authors: "nekketsuuu <nekketsuuu@users.noreply.github.com>"
+license: "Unlicense"
+homepage: "https://github.com/nekketsuuu/satysfi-matrix"
+bug-reports: "https://github.com/nekketsuuu/satysfi-matrix/issues"
+dev-repo: "git+https://github.com/nekketsuuu/satysfi-matrix.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-matrix" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "matrix-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "matrix-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+
+extra-files: [
+  ["example.patch" "sha512=ac0e6d8b1d84dad459d681d5363232dbf83c56441b59b3d6e56954f461fd25c259da122a462df093a49b31475c0a7ed39971a4818a8e16da6c59d7854afeedea"]
+  ["readme-ja.patch" "sha512=ffd7f71fc88c88c6389569a784a325ef393b3d8ae76039246c924040f9e287a2946ebae55f3c547ee69a42e9c18c444de9e3643bc6ca558f16196c709f1fc07e"]
+  ["readme.patch" "sha512=493c88efd2030bf27d5e6c3f4170950dd849da14019f8f49e035b1c1bf0064419b72f14424f288526f02938694503c29c503e4af9cacbb38dd9f6772755358d5"]
+  ["satyristes.patch" "sha512=613995b90620859d6a3b9c22f52cf976f5e7f6545f9ccbee1b2bfb460280e4982c1794e3bf0074ca47c0c78d49baaf31ab7c7d9d4723eacad1f2aa45da82b9cb"]
+]
+patches: [ "example.patch" "satyristes.patch" "readme-ja.patch" "readme.patch" ]
+url {
+  git: "git+https://github.com/nekketsuuu/satysfi-matrix.git#366d80b7f3e58d89686bc8b381e5a373e0699b5f"
+}

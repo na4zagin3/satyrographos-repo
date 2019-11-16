@@ -1,0 +1,11 @@
+diff --git a/example/main.saty b/example/main.saty
+index 88b3dc9..f3c51d8 100644
+--- a/example/main.saty
++++ b/example/main.saty
+@@ -1,5 +1,5 @@
+ @require: stdjareport
+-@require: matrix
++@require: matrix/matrix
+ 
+ document (|
+   title = {Examples of Matrix Library};
