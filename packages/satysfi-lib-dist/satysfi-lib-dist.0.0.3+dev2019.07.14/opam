@@ -27,7 +27,7 @@ extra-source "temp/junicode-1.002.zip" {
   ]
 }
 extra-source "temp/IPAexfont00301.zip" {
-  archive: "https://oscdl.ipa.go.jp/IPAexfont/IPAexfont00301.zip"
+  archive: "https://ipafont.ipa.go.jp/IPAexfont/IPAexfont00301.zip"
   checksum: [
     "sha256=c7de095cfded3a549b439b7874cc21b8d73aa16a40d15c31b87bfe0c02f4ae5a"
     "sha512=92df9f6a1002ea68cfd88f2b1fe4a5a5d6dfdb0ac4be7f4c0815200ce1962d3db7330ec17e7380efe4ba0735a55e0f5160b0cd6c1553a79fc8a860c434958388"
