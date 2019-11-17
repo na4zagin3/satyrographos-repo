@@ -1,5 +1,5 @@
 opam-version: "2.0"
-name: "satysfi-lib-dist"
+name: "satysfi-dist"
 version: "0.0.3"
 maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
 authors: [
@@ -12,10 +12,8 @@ build: [ ]
 install: [ ]
 remove: [ ]
 depends: [
-  "satysfi-dist" {= "%{version}%"}
+  "satysfi" {>= "0.0.3" & < "0.0.3+dev2019.02.10" }
 ]
-synopsis: "DEPRECATED: Install satysfi-dist instead!"
+synopsis: "Standard library of SATySFi"
 description: """
-DEPRECATED: Install satysfi-dist instead!
-
 Provides the standard library of SATySFi (dummy package)"""
