@@ -13,6 +13,8 @@ env:
     satysfi-fonts-theano-doc
     satysfi-grcnum
     satysfi-grcnum-doc
+    satysfi-matrix
+    satysfi-matrix-doc
     satysfi-lib-dist"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
     satyrographos=0.0.1.7

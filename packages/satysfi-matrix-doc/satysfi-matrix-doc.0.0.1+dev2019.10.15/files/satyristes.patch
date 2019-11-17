@@ -1,0 +1,29 @@
+diff --git a/Satyristes b/Satyristes
+new file mode 100644
+index 0000000..f46ac07
+--- /dev/null
++++ b/Satyristes
+@@ -0,0 +1,23 @@
++(version "0.0.2")
++(library
++  (name "matrix")
++  (version "0.0.1")
++  (sources
++    ((package "matrix.satyh" "./matrix.satyh")))
++  (opam "satysfi-matrix.opam"))
++(libraryDoc
++  (name "matrix-doc")
++  (version "0.2")
++  (workingDirectory "example")
++  (build
++    ((satysfi "main.saty" "-o" "main.pdf")))
++  (sources
++    ((doc "example/main.saty" "example/main.saty")
++     (doc "example/main.pdf" "example/main.pdf")
++     (doc "CHANGELOG.md" "./CHANGELOG.md")
++     (doc "LICENSE" "./LICENSE")
++     (doc "README-ja.md" "./README-ja.md")
++     (doc "README.md" "./README.md")
++     (doc "doc/img/sample_matrix.png" "./doc/img/sample_matrix.png")))
++  (opam "satysfi-matrix-doc.opam")
++  (dependencies ((matrix ()))))
