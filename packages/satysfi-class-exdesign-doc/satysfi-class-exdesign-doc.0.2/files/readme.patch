@@ -1,0 +1,22 @@
+diff --git a/readme.md b/readme.md
+index 89bedbb..b39336d 100644
+--- a/readme.md
++++ b/readme.md
+@@ -32,8 +32,8 @@ $ sudo ./UnInstaller.sh
+ # 使い方
+ 
+ ~~~
+-@require: exdesign
+-@import: article-ja
++@require: class-exdesign/exdesign
++@import: class-exdesign/article-ja
+ 
+ document (|
+         title = {title};
+@@ -72,4 +72,4 @@ stdjaを使用するのに対して、`style`・`design`・`header-footer`・`fo
+ 
+ (c) Naoki Kaneko and T. Suwa 2018
+ 
+-https://github.com/puripuri2100/exdesign
+\ No newline at end of file
++https://github.com/puripuri2100/exdesign

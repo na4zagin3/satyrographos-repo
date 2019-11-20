@@ -1,0 +1,29 @@
+diff --git a/Satyristes b/Satyristes
+new file mode 100644
+index 0000000..4e64b67
+--- /dev/null
++++ b/Satyristes
+@@ -0,0 +1,23 @@
++;; For Satyrographos 0.0.2 series
++(version 0.0.2)
++
++(library
++  (name "class-exdesign")
++  (version "0.2")
++  (sources
++    ((package "article-ja.satyh" "article-ja.satyh")
++     (package "exdesign.satyh" "exdesign.satyh")))
++  (opam "satysfi-class-exdesign.opam")
++  (dependencies ())
++  (compatibility ((satyrographos "0.0.1"))))
++
++(libraryDoc
++  (name "class-exdesign-doc")
++  (version "0.2")
++  (workingDirectory "doc")
++  (build
++    ((satysfi "manual.saty" "-o" "manual.pdf")))
++  (sources
++    ((doc "manual.pdf" "doc/manual.pdf")))
++  (opam "satysfi-class-exdesign-doc.opam")
++  (dependencies ((class-exdesign ()))))

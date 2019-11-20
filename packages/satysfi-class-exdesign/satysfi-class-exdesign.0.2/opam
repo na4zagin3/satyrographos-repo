@@ -1,0 +1,43 @@
+opam-version: "2.0"
+name: "satysfi-class-exdesign"
+version: "0.2"
+synopsis: "A class file easy to customize with SATySFi"
+description: """A class file easy to customize with SATySFi."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "LGPLv3"
+homepage: "https://github.com/puripuri2100/exdesign"
+bug-reports: "https://github.com/puripuri2100/exdesign/issues"
+dev-repo: "git+https://github.com/puripuri2100/exdesign.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [ ]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "class-exdesign"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+
+extra-files: [
+  ["article-ja.patch" "sha512=a09af57245be87695633adfe66a2041c66686179d272461f0acf1abf2e6026ecb2ab2803fcdfe3c94bfa7740eb2ab4602ef6a480cac4a1b7fabd25a9178e79f0"]
+  ["manual.patch"     "sha512=213af6d4e0c655e41901af31200be6fd2b61378c0d2ee6b3011ef0ddd94a9313796e0c8c1a15f3f0fa10d6cc7c768062b9fd05ecb6cc97e0389dee9a84f8ba20"]
+  ["readme.patch"     "sha512=2e857e0d0ee83d4fb29c5a94ff4b698d380a362ecf51ea7af36ef3dbb7a2f909bb98872cc331549bb9a18963dd8825fc19482cc7116d2898ad16dd92f552f207"]
+  ["satyristes.patch" "sha512=098868d448c51bf8caa43402330071eb09d88b2adfe30dcf5e307d17b3e5b43c3505bc36c884e247c3dbffc0b9d5205e45322915bc7006aa7b9af42565f26622"]
+]
+patches: [
+  "article-ja.patch"
+  "manual.patch"    
+  "readme.patch"    
+  "satyristes.patch"
+]
+url {
+  src: "https://github.com/puripuri2100/exdesign/archive/v0.2.tar.gz"
+  checksum: [
+    "sha512=c8ee018f2dcb0962361016fab3331ac7f8e687df923700cfc037f0bfaa86087b0c46b241e6dd583a9e496f30a93e72fe1cb4300a1fe48aafd305e49770d5b5ac"
+  ]
+}
