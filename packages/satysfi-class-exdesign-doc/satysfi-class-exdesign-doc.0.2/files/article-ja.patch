@@ -1,0 +1,13 @@
+diff --git a/article-ja.satyh b/article-ja.satyh
+index 6310b14..4b9a12d 100644
+--- a/article-ja.satyh
++++ b/article-ja.satyh
+@@ -3,7 +3,7 @@
+ %https://github.com/puripuri2100/exdesign
+ %v0.2
+ 
+-@require: exdesign
++@import: exdesign
+ 
+ module ArticleJa : sig
+ 

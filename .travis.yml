@@ -9,6 +9,8 @@ env:
   matrix:
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
     satyrographos=0.0.2.1
+    satysfi-class-exdesign
+    satysfi-class-exdesign-doc
     satysfi-fonts-theano
     satysfi-fonts-theano-doc
     satysfi-grcnum

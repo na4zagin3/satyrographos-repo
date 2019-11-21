@@ -1,0 +1,39 @@
+diff --git a/doc/manual.saty b/doc/manual.saty
+index 6d871c7..193338c 100644
+--- a/doc/manual.saty
++++ b/doc/manual.saty
+@@ -1,5 +1,5 @@
+-@require: exdesign
+-@require: article-ja
++@require: class-exdesign/exdesign
++@require: class-exdesign/article-ja
+ @require: code
+ @require: itemize
+ 
+@@ -22,8 +22,8 @@ document (|
+   +section{簡単な使用方法}<
+       +p{補助パッケージを使用する際にはこのように書きます。}
+         +code(`
+-@require: exdesign
+-@require: article-ja
++@require: class-exdesign/exdesign
++@require: class-exdesign/article-ja
+ 
+ document (|
+         title = {title;
+@@ -39,7 +39,7 @@ document (|
+     +p{test}
+ >`
+ );
+-+pn{このように、\code(`@require : exdesign`);でパッケージを読み込み、補助パッケージであるarticle-ja.satyhを\code(`@require : article-ja`);で読み込みます（勿論、article-ja.satyhの置き場所によってどのコマンドを使用して読み込むかは変わりますが）。}
+++pn{このように、\code(`@require : class-exdesign/exdesign`);でパッケージを読み込み、補助パッケージであるarticle-ja.satyhを\code(`@require : class-exdesign/article-ja`);で読み込みます（勿論、article-ja.satyhの置き場所によってどのコマンドを使用して読み込むかは変わりますが）。}
+ 
+ +p{そして、\code(`document`);コマンドの引数であるレコード型に必要な値を入れていきます。}
+ 
+@@ -236,4 +236,4 @@ val document : 'a -> block-text -> document
+ +section{今後の開発について}<
+     +p{これからフォント関係やdeco関係で機能を拡張していく予定。多くの人が開発に参加してこのクラスファイルを広めてくれるとすごく嬉しい。}
+ >
+->
+\ No newline at end of file
++>
