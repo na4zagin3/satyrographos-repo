@@ -19,6 +19,7 @@ env:
     satysfi-lib-doc
     satysfi-matrix
     satysfi-matrix-doc
+    satysfi-zrbase
     satysfi-lib-dist"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
     satyrographos=0.0.1.7
