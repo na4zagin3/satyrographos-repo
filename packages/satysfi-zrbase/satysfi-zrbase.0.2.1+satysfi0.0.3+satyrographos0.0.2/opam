@@ -1,0 +1,31 @@
+opam-version: "2.0"
+name: "satysfi-zrbase"
+version: "0.2.1+satysfi0.0.3+satyrograhos0.0.2"
+synopsis: "SATySFi Packages for Ordinary Programming"
+description: """
+ZR's SATySFi Package Collection for Ordinary Programming.
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Takayuki YATO <zr_tex8r-allez@yahoo.co.jp>"
+authors: "Takayuki YATO <zr_tex8r-allez@yahoo.co.jp>"
+license: "MIT"
+homepage: "https://github.com/zr-tex8r/satysfi-zrbase"
+bug-reports: "https://github.com/zr-tex8r/satysfi-zrbase"
+dev-repo: "git+https://github.com/zr-tex8r/satysfi-zrbase.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [ ]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "zrbase"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+extra-files: ["satyristes.patch" "sha512=8a78a0640e805428dab4f996162211ac9a883f1912f63100b8d6968e0d3fa53c4b7d33cbe78fe28a6bd98f2c7c52ab666bbd8d3807dae09e7d28256a2a81f134"]
+patches: ["satyristes.patch"]
+url {
+  src: "https://github.com/zr-tex8r/satysfi-zrbase/archive/0.2.1.tar.gz"
+}

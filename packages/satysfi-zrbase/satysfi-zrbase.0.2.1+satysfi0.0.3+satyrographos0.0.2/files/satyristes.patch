@@ -1,0 +1,25 @@
+diff --git a/Satyristes b/Satyristes
+new file mode 100644
+index 0000000..1d9a6ce
+--- /dev/null
++++ b/Satyristes
+@@ -0,0 +1,19 @@
++(version "0.0.2")
++(library
++  (name "zrbase")
++  (version "0.2.1")
++  (sources
++    ((package "zexn0.satyh" "zexn0.satyh")
++     (package "zfmt0.satyh" "zfmt0.satyh")
++     (package "zl0.satyh" "zl0.satyh")
++     (package "zlist0.satyh" "zlist0.satyh")
++     (package "zlog0.satyh" "zlog0.satyh")
++     (package "zmtdoc0.satyh" "zmtdoc0.satyh")
++     (package "znum0.satyh" "znum0.satyh")
++     (package "zp0.satyh" "zp0.satyh")
++     (package "zrandom0.satyh" "zrandom0.satyh")
++     (package "zrbase0.satyh" "zrbase0.satyh")
++     (package "zresult0.satyh" "zresult0.satyh")
++     (package "zs0.satyh" "zs0.satyh")))
++  (opam "satysfi-zrbase.opam")
++  (compatibility ((satyrographos 0.0.1))))
