@@ -1,8 +1,10 @@
 opam-version: "2.0"
 name: "satysfi-lib"
 version: "0.0.0+dev2019.11.10"
-synopsis: "A collection of utility functions and modules for SATySFi"
+synopsis: "DEPRECATED: A collection of utility functions and modules for SATySFi"
 description: """
+DEPRECATED: This package has been renamed with satysfi-base.
+
 This is a collection of utility functions and modules for SATySFi. Because the library bundled with the default installation configuration of SATySFi is currently not rich enough, this project aims to provide a complementary library sufficient for most situations in typesetting.
 
 this requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
@@ -30,3 +32,10 @@ patches: ["satyristes.patch"]
 url {
   git: "git+https://github.com/nyuichi/satysfi-lib.git#d8d2f889e3c4336284d7cb06607ac20cd6740655"
 }
+
+conflicts: [
+  "satysfi-base"
+]
+messages: [
+  "Package satysfi-lib has been renamed with satysfi-base."
+]

@@ -16,3 +16,7 @@ description: """
 DEPRECATED: Install satysfi-dist instead!
 
 Provides the standard library of SATySFi (dummy package)"""
+
+messages: [
+  "Package satysfi-lib-dist has been renamed with satysfi-dist."
+]
