@@ -38,3 +38,7 @@ patches: ["satyristes.patch"]
 url {
   git: "git+https://github.com/nyuichi/satysfi-lib.git#d8d2f889e3c4336284d7cb06607ac20cd6740655"
 }
+
+messages: [
+  "Package satysfi-lib has been renamed with satysfi-base."
+]
