@@ -1,0 +1,44 @@
+opam-version: "2.0"
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: [
+  "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+]
+homepage: "https://github.com/na4zagin3/satyrographos"
+dev-repo: "git+https://github.com/na4zagin3/satyrographos.git"
+bug-reports: "https://github.com/na4zagin3/satyrographos/issues"
+license: "LGPL-3.0-or-later"
+build: [
+  ["dune" "subst"] {pinned}
+  ["dune" "build" "-p" name "-j" jobs]
+]
+
+depends: [
+  "ocaml" {>= "4.06.0"}
+  "core" {< "v0.14"}
+  "dune" {>= "1.4"}
+  "fileutils"
+  "json-derivers"
+  "ppx_deriving"
+  "ppx_jane" {< "v0.13"}
+  "opam-format" {>= "2.0" & < "2.1"}
+  "uri" {>= "3.0.0"}
+  "uri-sexp" {>= "3.0.0"}
+  "shexp" {< "v0.13"}
+  "yojson"
+]
+synopsis: "A package manager for SATySFi"
+description: """
+Satyrographos is a package manager for [SATySFi].
+
+Satyrographos is distributed under the LGPL-3.0 license.
+
+
+  [SATySFi]: https://github.com/gfngfn/SATySFi
+  [Satyrographos]: https://github.com/na4zagin3/satyrographos"""
+url {
+  src: "https://github.com/na4zagin3/satyrographos/archive/v0.0.2.2.tar.gz"
+  checksum: [
+    "md5=674aa6d455c283b58b32706dbd5d9024"
+    "sha512=8fb73a2cc0266fb714478d5e7fa34f2b1b04164effd93f76d4179d12a60e7cec7a86d19cd4be1bc3e79081b7e71f4c6a1e88a418a9ce2ab1f127cd9001e238e8"
+  ]
+}
