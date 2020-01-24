@@ -14,6 +14,8 @@ env:
     satysfi-class-stjarticle
     satysfi-class-stjarticle-doc
     satysfi-base
+    satysfi-fonts-dejavu
+    satysfi-fonts-dejavu-doc
     satysfi-fonts-theano
     satysfi-fonts-theano-doc
     satysfi-grcnum
