@@ -23,15 +23,15 @@ env:
     satysfi-matrix
     satysfi-matrix-doc
     satysfi-zrbase
-    satysfi-lib-dist"
+    satysfi-dist"
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
     satyrographos=0.0.1.7
     satysfi-class-stjarticle
     satysfi-siunitx
     satysfi-zrbase
-    satysfi-lib-dist"
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.4 satysfi.0.0.4"
+    satysfi-dist"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-dist.0.0.4 satysfi.0.0.4"
 # We do not have develop snapshot yet.
-# - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.11.16 satysfi.0.0.3+dev2019.11.16"
+# - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-dist.0.0.3+dev2019.11.16 satysfi.0.0.3+dev2019.11.16"
 os:
   - linux
