@@ -15,7 +15,7 @@ depends: [
   "satysfi" {>= "0.0.3" & < "0.0.4"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-class-stjarticle" {= "1.3.2"}
-  "satysfi-lib-dist"
+  "satysfi-dist"
 ]
 build: [
   ["satyrographos" "opam" "build"
