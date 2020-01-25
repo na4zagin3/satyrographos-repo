@@ -18,7 +18,7 @@ extra-source "dejavu-fonts-ttf-2.37.zip" {
   ]
 }
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 build: [
