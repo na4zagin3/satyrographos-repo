@@ -14,7 +14,7 @@ homepage: "https://github.com/zr-tex8r/satysfi-zrbase"
 bug-reports: "https://github.com/zr-tex8r/satysfi-zrbase"
 dev-repo: "git+https://github.com/zr-tex8r/satysfi-zrbase.git"
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 build: [ ]
