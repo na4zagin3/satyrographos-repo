@@ -30,7 +30,8 @@ env:
     satysfi-siunitx
     satysfi-zrbase
     satysfi-lib-dist"
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3 satysfi.0.0.3"
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.11.16 satysfi.0.0.3+dev2019.11.16"
+  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.4 satysfi.0.0.4"
+# We do not have develop snapshot yet.
+# - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-lib-dist.0.0.3+dev2019.11.16 satysfi.0.0.3+dev2019.11.16"
 os:
   - linux
