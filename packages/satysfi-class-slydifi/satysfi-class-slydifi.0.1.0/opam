@@ -1,0 +1,28 @@
+opam-version: "2.0"
+synopsis: "A SATySFi document class for creating presentations slides"
+description: """A SATySFi document class for creating presentations slides."""
+
+maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+license: "MIT"
+homepage: "https://github.com/monaqa/slydifi"
+bug-reports: "https://github.com/monaqa/slydifi/issues"
+dev-repo: "git+https://github.com/monaqa/slydifi.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "class-slydifi"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/slydifi/archive/v0.1.0.tar.gz"
+  checksum: [
+    "md5=659f2028be150c72fc65213a5b7ec547"
+    "sha512=1359eac2dcb4e0a4383176379116b42792b24917ee42ff6ad22c40151d0ab322702c1b41feb8660f4863bfd12d7d885e39269353b838b96b7258398e4ec48590"
+  ]
+}
