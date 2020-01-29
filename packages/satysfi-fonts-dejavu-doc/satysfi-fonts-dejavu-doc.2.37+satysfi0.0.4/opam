@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for DejaVu Fonts"
+description: """
+SATySFi font package for DejaVu fonts.
+
+This package installs fonts from https://dejavu-fonts.github.io/.
+"""
+maintainer: "MURASE Yuito <yuito.murase@gmail.com>"
+authors: "MURASE Yuito <yuito.murase@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-dejavu"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-dejavu/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-dejavu.git"
+depends: [
+  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-fonts-dejavu" {= "2.37+satysfi0.0.4"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-dejavu-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-dejavu-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-dejavu/archive/2.37+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=d378e79e7379bcd6e826446b21709305"
+    "sha512=7afeae5d21d8df13adadb4e9dc3388394fe78708ef7a7627758828b6c356c6838488c2486d008ed043abdfe12fb322f56aa4f02f224213cc564203eeff97dc0a"
+  ]
+}

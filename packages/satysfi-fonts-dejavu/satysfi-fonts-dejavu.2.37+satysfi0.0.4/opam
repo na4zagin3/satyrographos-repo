@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for DejaVu Fonts"
+description: """
+SATySFi font package for DejaVu fonts.
+
+This package installs fonts from https://dejavu-fonts.github.io/.
+"""
+maintainer: "MURASE Yuito <yuito.murase@gmail.com>"
+authors: "MURASE Yuito <yuito.murase@gmail.com>"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-dejavu"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-dejavu/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-dejavu.git"
+extra-source "dejavu-fonts-ttf-2.37.zip" {
+  archive: "http://sourceforge.net/projects/dejavu/files/dejavu/2.37/dejavu-fonts-ttf-2.37.zip"
+  checksum: [
+    "sha256=7576310b219e04159d35ff61dd4a4ec4cdba4f35c00e002a136f00e96a908b0a"
+    "sha512=f5628efe484b6220d0bf8177aa826c28e7a36f0bcca2019e057c20f5915d579057f931377ec686dbfeebef05fcf6453472be77a21ef282bd9d8d0eaf62549a49"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-j" "-d" "dejavu" "-o" "dejavu-fonts-ttf-2.37.zip" "*.ttf"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-dejavu"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-dejavu/archive/2.37+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=d378e79e7379bcd6e826446b21709305"
+    "sha512=7afeae5d21d8df13adadb4e9dc3388394fe78708ef7a7627758828b6c356c6838488c2486d008ed043abdfe12fb322f56aa4f02f224213cc564203eeff97dc0a"
+  ]
+}
