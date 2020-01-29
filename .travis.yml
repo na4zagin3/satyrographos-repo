@@ -15,6 +15,8 @@ env:
     satysfi-class-stjarticle-doc
     satysfi-class-slydifi
     satysfi-base
+    satysfi-fonts-asana-math
+    satysfi-fonts-asana-math-doc
     satysfi-fonts-dejavu
     satysfi-fonts-dejavu-doc
     satysfi-fonts-theano
