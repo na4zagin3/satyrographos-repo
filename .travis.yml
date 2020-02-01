@@ -4,55 +4,44 @@ install: test -e .travis.opam.sh || wget https://raw.githubusercontent.com/ocaml
 script: bash -ex .travis-opam.sh
 env:
   global:
-  - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
-  - PACKAGE="satyrographos-repo-test"
+    - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
+    - PACKAGE="satyrographos-repo-test"
+    - >-
+      PACKAGES_FOR_STABLE="
+      satysfi-base
+      satysfi-class-exdesign
+      satysfi-class-exdesign-doc
+      satysfi-class-stjarticle
+      satysfi-class-stjarticle-doc
+      satysfi-class-slydifi
+      satysfi-enumitem
+      satysfi-fonts-asana-math
+      satysfi-fonts-asana-math-doc
+      satysfi-fonts-dejavu
+      satysfi-fonts-dejavu-doc
+      satysfi-fonts-theano
+      satysfi-fonts-theano-doc
+      satysfi-grcnum
+      satysfi-grcnum-doc
+      satysfi-matrix
+      satysfi-matrix-doc
+      satysfi-zrbase
+      "
+    - PACKAGES_FOR_DEVELOP="$PACKAGES_FOR_DEVELOP"
   matrix:
+  # Stable version
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi.0.0.4
+    satysfi-dist
     satyrographos=0.0.2.2
-    satysfi-class-exdesign
-    satysfi-class-exdesign-doc
-    satysfi-class-stjarticle
-    satysfi-class-stjarticle-doc
-    satysfi-class-slydifi
-    satysfi-base
-    satysfi-fonts-asana-math
-    satysfi-fonts-asana-math-doc
-    satysfi-fonts-dejavu
-    satysfi-fonts-dejavu-doc
-    satysfi-fonts-theano
-    satysfi-fonts-theano-doc
-    satysfi-enumitem
-    satysfi-grcnum
-    satysfi-grcnum-doc
-    satysfi-matrix
-    satysfi-matrix-doc
-    satysfi-zrbase
-    satysfi-dist"
+    $PACKAGES_FOR_STABLE"
+  # Develop version
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi.0.0.3+dev2019.11.16
+    satysfi-dist
     satyrographos=0.0.2.2
-    satysfi-class-exdesign
-    satysfi-class-exdesign-doc
-    satysfi-class-stjarticle
-    satysfi-class-stjarticle-doc
-    satysfi-base
-    satysfi-fonts-dejavu
-    satysfi-fonts-dejavu-doc
-    satysfi-fonts-theano
-    satysfi-fonts-theano-doc
-    satysfi-grcnum
-    satysfi-grcnum-doc
-    satysfi-matrix
-    satysfi-matrix-doc
-    satysfi-zrbase
-    satysfi-dist"
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi
-    satyrographos=0.0.1.7
-    satysfi-class-stjarticle
-    satysfi-siunitx
-    satysfi-zrbase
-    satysfi-dist"
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-dist.0.0.4 satysfi.0.0.4"
-# We do not have develop snapshot yet.
-# - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi-dist.0.0.3+dev2019.11.16 satysfi.0.0.3+dev2019.11.16"
+    $PACKAGES_FOR_STABLE"
 os:
   - linux
+cache:
+  - $HOME/.opam/archives
+  - $HOME/.opam/download-cache
+# vim: set et fenc=utf-8 ff=unix sts=0 sw=2 ts=4 :
