@@ -21,6 +21,7 @@ env:
     satysfi-fonts-dejavu-doc
     satysfi-fonts-theano
     satysfi-fonts-theano-doc
+    satysfi-enumitem
     satysfi-grcnum
     satysfi-grcnum-doc
     satysfi-matrix
