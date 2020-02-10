@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Donald Knuth's Computer Modern Fonts"
+description: """
+Document package for satysfi-fonts-computer-modern
+"""
+maintainer: "MURASE Yuito <yuito.murase@gmail.com>"
+authors: "MURASE Yuito <yuito.murase@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-computer-modern"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-computer-modern/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-computer-modern.git"
+depends: [
+  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.0"}
+  "satysfi-fonts-computer-modern" {= "0.7.0+satysfi0.0.4"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-computer-modern-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-computer-modern-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-computer-modern/archive/0.7.0+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=7f8c11a39b6d0dab1b02c8139ce6e6aa"
+    "sha512=145e3d2980427a54b5812306e0bdfde9c79ffb7a9e30f361a99a770047a0f714b3f6328dcab15401f07a2e7a67469c26f7d985dc14fd504bada9e768bd467fc5"
+  ]
+}
