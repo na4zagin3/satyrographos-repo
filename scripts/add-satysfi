@@ -1,0 +1,121 @@
+#!/usr/bin/env ocaml
+(* install shexp *)
+(* TODO: pass -noinit to ocaml toplevel *)
+#use "topfind"
+#warnings "+a"
+#thread
+(* #require "ppx_jane,core" *)
+#require "shexp.process"
+module List' = List
+open Shexp_process
+open Shexp_process.Infix
+(* open Core *)
+
+let packages_dir = Sys.getcwd () ^ "/packages"
+let resources_dir = Sys.getcwd () ^ "/resources"
+let satysfi_dir = Sys.getcwd () ^ "/tmp/satysfi"
+
+let satysfi_repo_url = "https://github.com/gfngfn/SATySFi.git"
+let satysfi_dist_template = resources_dir ^ "/satysfi-dist.template"
+let satysfi_dist_patch = resources_dir ^ "/fix-install-libs.patch"
+
+let get_satysfi branch =
+  run_exit_code "git" ["clone"; satysfi_repo_url; satysfi_dir]
+  >>= (function
+    | 0 | 128 -> return ()
+    | n -> failwith ("Git clone failed" ^ string_of_int n))
+  >> chdir satysfi_dir (run "git" ["checkout"; branch] >> run "git" ["pull"])
+
+let get_commit_hash branch =
+  (* Run at satysfi_dir *)
+  run "git" ["show"; "-s"; "--format=%H"; branch]
+  |> capture_unit [Std_io.Stdout]
+  >>| String.trim
+
+let get_commit_datetime branch =
+  (* Run at satysfi_dir *)
+  run "git" ["show"; "-s"; "--format=%ci"; branch]
+  |> capture_unit [Std_io.Stdout]
+  >>| String.trim
+
+let datetime_to_date datetime =
+  match String.split_on_char ' ' datetime with
+  | d :: _ -> d
+  | _ -> failwith "Expect datetime in space separated format"
+
+let construct_version original_version tag date =
+  echo (original_version ^ "+" ^ tag ^ date)
+  |- (run "tr" ["\\055"; "."] |> capture_unit [Std_io.Stdout])
+  >>| String.trim
+
+let gen_url_section hash =
+  String.concat "\n"
+    [  "url {";
+      {|  git: "git+https://github.com/gfngfn/SATySFi.git#|} ^ hash ^ {|"|};
+       "}";
+    ]
+
+let get_version_from_opam_file opam =
+  stdin_from opam (
+    run "sed" ["-e"; {|/^version:/!d|}; "-e"; {|s/.*"\(.*\)".*/\1/|}]
+    |> capture_unit [Std_io.Stdout]
+    >>| String.trim )
+
+let get_version branch tag =
+  get_commit_datetime branch >>= (fun datetime ->
+  let date = datetime_to_date datetime in
+  get_version_from_opam_file "satysfi.opam" >>= (fun version ->
+  construct_version version tag date))
+
+let copy_satysfi version hash =
+  let satysfi_package_dir version =
+    packages_dir ^ "/satysfi/satysfi." ^ version in
+  mkdir ~p:() (satysfi_package_dir version)
+  >> stdout_to (satysfi_package_dir version ^ "/opam") (
+    stdin_from "satysfi.opam" (
+      run "sed" ["-e"; {|/^version:/d|}; "-e"; {|/^name:/d|}])
+    >> echo (gen_url_section hash))
+
+let echo_line x = echo ?n:None x
+
+let copy_satysfi_dist version hash =
+  let satysfi_dist_package_dir version =
+    packages_dir ^ "/satysfi-dist/satysfi-dist." ^ version in
+  mkdir ~p:() (satysfi_dist_package_dir version)
+  >> stdout_to (satysfi_dist_package_dir version ^ "/opam") (
+    stdin_from satysfi_dist_template (iter_lines echo_line)
+    >> echo (gen_url_section hash))
+  >> mkdir ~p:() (satysfi_dist_package_dir version ^ "/files")
+  >> stdout_to (satysfi_dist_package_dir version ^ "/files/fix-install-libs.patch") (
+    stdin_from satysfi_dist_patch (iter_lines echo_line))
+
+let create_satysfi branch tag =
+  let command =
+    get_version branch tag >>= (fun version ->
+    get_commit_hash branch >>= fun hash ->
+    copy_satysfi version hash >>
+    copy_satysfi_dist version hash) in
+  get_satysfi branch
+  >> chdir satysfi_dir command
+
+let option_branch = ref "master"
+let option_version_tag = ref None
+let specs =
+  [ ("-b", Arg.Set_string(option_branch), "Branch name");
+    ("-t", Arg.String(fun tag -> option_version_tag := Some tag), "Version tag (default: branch name)");
+  ]
+let usage =
+  {|USAGE: add-satysfi -b <branch>
+
+OPTIONS:
+ -b <branch> Branch name. (default: master)
+ -t <tag> Version tag name (e.g., dev in satysfi.0.0.4+dev2020.02.16). (default: <branch>)
+|}
+
+let _ =
+  Arg.parse specs (fun _ -> failwith usage) usage;
+  let c = create_satysfi (!option_branch) (match !option_version_tag with
+    | None -> !option_branch
+    | Some tag -> tag)
+  in
+  Traced.eval_exn c
