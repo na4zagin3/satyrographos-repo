@@ -19,6 +19,8 @@ env:
       satysfi-fonts-asana-math-doc
       satysfi-fonts-dejavu
       satysfi-fonts-dejavu-doc
+      satysfi-fonts-noto-serif-cjk-jp
+      satysfi-fonts-noto-serif-cjk-jp-doc
       satysfi-fonts-theano
       satysfi-fonts-theano-doc
       satysfi-grcnum
