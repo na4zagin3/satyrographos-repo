@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Computer Modern Unicode fonts"
+description: """
+Document package for satysfi-fonts-computer-modern-unicode
+"""
+maintainer: "Yuito Murase <yuito.murase@gmail.com>"
+authors: "Yuito Murase <yuito.murase@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode.git"
+depends: [
+  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.0"}
+  "satysfi-fonts-computer-modern-unicode" {= "0.7.0+satysfi0.0.4"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-computer-modern-unicode-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-computer-modern-unicode-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode/archive/0.7.0+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=110f4fd4a8c0b9bdf2bd8ddf8c86d92c"
+    "sha512=94cf67729a380c1986b8b47a59fe8106d5dd997bb9d2f270274efe9e30774d2c9c143108ea4e0c31ac7d92ab835f9957697343c5cc833a9629c816fba46ae02f"
+  ]
+}

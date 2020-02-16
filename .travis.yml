@@ -17,6 +17,8 @@ env:
       satysfi-enumitem
       satysfi-fonts-asana-math
       satysfi-fonts-asana-math-doc
+      satysfi-fonts-computer-modern-unicode
+      satysfi-fonts-computer-modern-unicode-doc
       satysfi-fonts-dejavu
       satysfi-fonts-dejavu-doc
       satysfi-fonts-theano
