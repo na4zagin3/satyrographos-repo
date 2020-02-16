@@ -36,12 +36,12 @@ env:
   # Stable version
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi.0.0.4
     satysfi-dist
-    satyrographos=0.0.2.2
+    satyrographos=0.0.2.3
     $PACKAGES_FOR_STABLE"
   # Develop version
   - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi.0.0.3+dev2019.11.16
     satysfi-dist
-    satyrographos=0.0.2.2
+    satyrographos=0.0.2.3
     $PACKAGES_FOR_STABLE"
 os:
   - linux
