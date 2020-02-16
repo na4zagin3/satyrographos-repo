@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Noto Serif CJK JP fonts"
+description: """
+Document package for satysfi-fonts-noto-serif-cjk-jp
+"""
+maintainer: "Yuito Murase <yuito.murase@gmail.com>"
+authors: "Yuito Murase <yuito.murase@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp.git"
+depends: [
+  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.0"}
+  "satysfi-fonts-noto-serif-cjk-jp" {= "1.001+satysfi0.0.4"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-noto-serif-cjk-jp-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-noto-serif-cjk-jp-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp/archive/1.001+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=d021dd64599ff7c7de3f060cfa8be94c"
+    "sha512=6729a38f786fe239c02b8ae9cb1e03322858561490cc876865203dd6562ab9747d1420cd862e3980579c646be87778046f72ca10ee9221409a7b2f105dd4fdbd"
+  ]
+}
