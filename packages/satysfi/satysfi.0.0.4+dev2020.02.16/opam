@@ -1,0 +1,43 @@
+opam-version: "2.0"
+maintainer: "gfngfn"
+authors: [
+  "gfngfn"
+]
+homepage: "https://github.com/gfngfn/SATySFi"
+dev-repo: "git+https://github.com/gfngfn/SATySFi.git"
+bug-reports: "https://github.com/gfngfn/SATySFi/issues"
+build: [
+  ["mkdir" "-p" "temp"]
+  [make "-f" "Makefile" "PREFIX=%{prefix}%"]
+]
+install: [
+  [make "-f" "Makefile" "install" "PREFIX=%{prefix}%"]
+]
+remove: [
+  [make "-f" "Makefile" "uninstall" "PREFIX=%{prefix}%"]
+]
+# Packages whose version suffix is "+satysfi" are distributed on satysfi-external-repo.
+depends: [
+  "ocaml" {>= "4.06.0"}
+  "batteries"
+  "camlimages" {>= "5.0.1"}
+  "camlpdf" {= "2.2.2+satysfi"}
+  "core_kernel" {>= "v0.10.0"}
+  "cppo" {build & >= "1.6.4" & < "1.7.0"}
+  "depext"
+  "dune" {build}
+  "menhir"
+  "ocamlfind" {build}
+  "otfm" {= "0.3.7+satysfi"}
+  "ppx_deriving"
+  "re" {build}
+  "uutf"
+  "yojson" {= "1.4.1+satysfi"}
+  "omd"
+]
+synopsis: "A statically-typed, functional typesetting system"
+description: """
+SATySFi is a typesetting system with a static type system. It consists mainly of two “layers” ― the text layer and the program layer. The former is for writing documents in LaTeX-like syntax. The latter, which has ML-like syntax, is for defining functions and commands. SATySFi enables you to write documents markuped with flexible commands of your own making. In addition, its informative type error reporting will be a good help to your writing."""
+url {
+  git: "git+https://github.com/gfngfn/SATySFi.git#1243829f9dcaf955e4ba0f5222a0f95b34e74e32"
+}
