@@ -1,4 +1,4 @@
-## Satyrographos Repo
+# Satyrographos Repo
 
 [![Build Status](https://travis-ci.com/na4zagin3/satyrographos-repo.svg?branch=master)](https://travis-ci.com/na4zagin3/satyrographos-repo)
 
@@ -15,6 +15,32 @@ opam repository add satyrographos https://github.com/na4zagin3/satyrographos-rep
 ## Contributing
 
 We welcome contributions! If you notice a problem of *packaging*, then send a PR or write an issue here. If it's a problem of the content of package itself, then refer to its repository.
+
+To submit a PR for your project in GitHub, run the following command in your repository.
+
+```sh
+git tag -a <version> # For example, git tag -a v0.1
+git push origin <version>
+opam publish --repo=na4zagin3/satyrographos-repo
+```
+
+Maintainers may ask contributors to add packages to `.travis.yml` for automation tests.
+
+## Development version
+
+We have `develop` branch which has development versions, especially SATySFi.
+Execute the following command to use them.
+
+```sh
+# This repository depends on containts in satysfi-external repo
+opam repository add satyrographos-develop https://github.com/na4zagin3/satyrographos-repo.git#develop
+```
+
+To submit a PR to `devel` branch, specify `-b` option.
+
+```sh
+opam publish --repo=na4zagin3/satyrographos-repo -b develop
+```
 
 ### Reference
 
