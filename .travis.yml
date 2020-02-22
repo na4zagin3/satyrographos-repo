@@ -25,6 +25,8 @@ env:
       satysfi-fonts-noto-sans-doc
       satysfi-fonts-noto-sans-cjk-jp
       satysfi-fonts-noto-sans-cjk-jp-doc
+      satysfi-fonts-noto-serif
+      satysfi-fonts-noto-serif-doc
       satysfi-fonts-noto-serif-cjk-jp
       satysfi-fonts-noto-serif-cjk-jp-doc
       satysfi-fonts-theano
