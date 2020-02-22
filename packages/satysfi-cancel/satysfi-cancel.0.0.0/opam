@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "The cancel package"
+description: """
+The SATySFi equivalent of the LateX's cancel package.
+"""
+maintainer: "Yu Shimura <mail@yuhr.org>"
+authors: "Yu Shimura <mail@yuhr.org>"
+license: "CC0-1.0"
+homepage: "https://github.com/yuhr/satysfi-cancel"
+bug-reports: "https://github.com/yuhr/satysfi-cancel/issues"
+dev-repo: "git+https://github.com/yuhr/satysfi-cancel.git"
+depends: [
+  "satysfi"
+  "satyrographos"
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "cancel"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/yuhr/satysfi-cancel/archive/v0.0.0.tar.gz"
+  checksum: [
+    "md5=58a5b049e117e1f349644c19bbd1a3f3"
+    "sha512=a94b55df983fbc8e7e8fb7c778679c40e7e52d9d6d8d652901dfa277fed4b69d727dad49fcfec1ff416c934086b08a79630118600c05375a7f46620ae6da5aa2"
+  ]
+}
