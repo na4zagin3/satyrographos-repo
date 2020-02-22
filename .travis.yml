@@ -9,6 +9,7 @@ env:
     - >-
       PACKAGES_FOR_STABLE="
       satysfi-base
+      satysfi-cancel
       satysfi-class-exdesign
       satysfi-class-exdesign-doc
       satysfi-class-stjarticle
