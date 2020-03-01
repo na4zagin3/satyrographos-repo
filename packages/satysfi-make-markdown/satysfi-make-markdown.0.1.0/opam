@@ -1,0 +1,27 @@
+opam-version: "2.0"
+name: "satysfi-make-markdown"
+version: "0.1.0"
+synopsis: "outputting Markdown file using SATySFi's text-mode."
+description: """outputting Markdown file using SATySFi's text-mode."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-make-markdown"
+bug-reports: "https://github.com/puripuri2100/SATySFi-make-markdown/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-make-markdown.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+]
+build: [ ]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "make-markdown"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-make-markdown/archive/0.1.0.tar.gz"
+}
