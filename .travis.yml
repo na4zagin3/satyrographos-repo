@@ -34,8 +34,11 @@ env:
       satysfi-fonts-theano-doc
       satysfi-grcnum
       satysfi-grcnum-doc
+      satysfi-make-html
+      satysfi-make-markdown
       satysfi-matrix
       satysfi-matrix-doc
+      satysfi-siunitx
       satysfi-zrbase
       "
     - PACKAGES_FOR_DEVELOP="$PACKAGES_FOR_DEVELOP"
