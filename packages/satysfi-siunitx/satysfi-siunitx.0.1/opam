@@ -1,6 +1,5 @@
 opam-version: "2.0"
 name: "satysfi-siunitx"
-version: "0.1"
 synopsis: "A comprehensive (SI) units package"
 description: """
 A comprehensive (SI) units package.

@@ -1,6 +1,5 @@
 opam-version: "2.0"
 name: "satysfi-make-html"
-version: "0.1.0"
 synopsis: "outputting HTML file using SATySFi's text-mode."
 description: """outputting HTML file using SATySFi's text-mode."""
 

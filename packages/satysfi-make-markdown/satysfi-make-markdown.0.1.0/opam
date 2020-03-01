@@ -1,6 +1,5 @@
 opam-version: "2.0"
 name: "satysfi-make-markdown"
-version: "0.1.0"
 synopsis: "outputting Markdown file using SATySFi's text-mode."
 description: """outputting Markdown file using SATySFi's text-mode."""
 
