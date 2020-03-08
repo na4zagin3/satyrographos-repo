@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Noto Emoji fonts"
+description: """
+Document package for satysfi-fonts-noto-emoji
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-noto-emoji.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.0"}
+  "satysfi-fonts-noto-emoji" {= "1.0.1"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-noto-emoji-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-noto-emoji-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
