@@ -27,3 +27,6 @@ install: [
    "-prefix" "%{prefix}%"
    "-script" "%{build}%/Satyristes"]
 ]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji/archive/1.05+uh.tar.gz"
+}
