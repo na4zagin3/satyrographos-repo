@@ -22,6 +22,8 @@ env:
       satysfi-fonts-computer-modern-unicode-doc
       satysfi-fonts-dejavu
       satysfi-fonts-dejavu-doc
+      satysfi-fonts-noto-emoji
+      satysfi-fonts-noto-emoji-doc
       satysfi-fonts-noto-sans
       satysfi-fonts-noto-sans-doc
       satysfi-fonts-noto-sans-cjk-jp
