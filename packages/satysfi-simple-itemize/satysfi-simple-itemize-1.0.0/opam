@@ -1,5 +1,5 @@
 opam-version: "2.0"
-synopsis: "simple bullet on SATySFi"
+synopsis: "Simple bullet on SATySFi"
 description: """Simple bullet on SATySFi"""
 
 maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
