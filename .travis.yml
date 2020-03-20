@@ -8,8 +8,8 @@ env:
     - PACKAGE="satyrographos-repo-test"
     - >-
       PACKAGES_FOR_STABLE="
-      satysfi-assert-eq
       satysfi-base
+      satysfi-assert-eq
       satysfi-cancel
       satysfi-class-exdesign
       satysfi-class-exdesign-doc
