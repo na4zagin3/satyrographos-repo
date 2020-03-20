@@ -15,6 +15,7 @@ env:
       satysfi-class-stjarticle
       satysfi-class-stjarticle-doc
       satysfi-class-slydifi
+      satysfi-debug-show-value
       satysfi-enumitem
       satysfi-fonts-asana-math
       satysfi-fonts-asana-math-doc
