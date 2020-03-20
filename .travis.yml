@@ -42,6 +42,7 @@ env:
       satysfi-make-markdown
       satysfi-matrix
       satysfi-matrix-doc
+      satysfi-simple-itemize
       satysfi-siunitx
       satysfi-zrbase
       "
