@@ -44,6 +44,7 @@ env:
       satysfi-make-markdown
       satysfi-matrix
       satysfi-matrix-doc
+      satysfi-num-conversion
       satysfi-simple-itemize
       satysfi-siunitx
       satysfi-zrbase
