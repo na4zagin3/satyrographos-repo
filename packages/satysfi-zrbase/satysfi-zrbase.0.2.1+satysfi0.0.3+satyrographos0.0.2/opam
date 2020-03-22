@@ -1,6 +1,4 @@
 opam-version: "2.0"
-name: "satysfi-zrbase"
-version: "0.2.1+satysfi0.0.3+satyrograhos0.0.2"
 synopsis: "SATySFi Packages for Ordinary Programming"
 description: """
 ZR's SATySFi Package Collection for Ordinary Programming.
@@ -28,4 +26,8 @@ extra-files: ["satyristes.patch" "sha512=8a78a0640e805428dab4f996162211ac9a883f1
 patches: ["satyristes.patch"]
 url {
   src: "https://github.com/zr-tex8r/satysfi-zrbase/archive/0.2.1.tar.gz"
+  checksum: [
+    "md5=b4d77f17880c2a18f5e614050dd80f05"
+    "sha512=c8254d79ca2b39327ac8fc3b7f72af199126e553ec9da34ee542da60d13c261c7b46f95d347f46d7f3afd645e0aeeb5c7e3f2d6c1d90f0c163ce805931a965f8"
+  ]
 }

@@ -39,4 +39,8 @@ Satyrographos is distributed under the LGPL-3.0 license.
   [Satyrographos]: https://github.com/na4zagin3/satyrographos"""
 url {
   src: "https://github.com/na4zagin3/satyrographos/archive/v0.0.1.1.tar.gz"
+  checksum: [
+    "md5=102c50e1a896b4a9cb98960ed7280b47"
+    "sha512=b26f9475e7662f06aebccda6bacb0b88b01af2d4963c2b6bc067d1acdac0707494be98976cc0baed85a29e37a9b0e132027f36f5f5175fb6148ef03681a174ee"
+  ]
 }

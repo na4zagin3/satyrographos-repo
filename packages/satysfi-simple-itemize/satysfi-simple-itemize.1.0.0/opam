@@ -24,4 +24,8 @@ install: [
 
 url {
   src: "https://github.com/puripuri2100/SATySFi-simple-itemize/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=5d6ea953b6d98a73e81d653b9c15d151"
+    "sha512=41a6b417333997bd9a699bd8ed02c90436f9aa41ce5e42ceec535f63c929f51ba3b00c8a2732c588a252a39a509e7a8429e1f0bc2f184b18e38f7cb79ad8ea13"
+  ]
 }

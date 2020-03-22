@@ -25,4 +25,8 @@ install: [
 ]
 url {
   src: "https://github.com/puripuri2100/SATySFi-siunitx/archive/0.1.tar.gz"
+  checksum: [
+    "md5=73afd03e0178f68ffcdc3b681f96c978"
+    "sha512=ae03786a54e188044abb49342911ba22f6389aa2e35aa779508a5da77b6dde083edda7fd17b1f49d3d80134f1db61d7255a9adda24d0f2711f8c57242af23d02"
+  ]
 }

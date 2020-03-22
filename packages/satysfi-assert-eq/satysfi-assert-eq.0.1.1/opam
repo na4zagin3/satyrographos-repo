@@ -23,4 +23,8 @@ install: [
 
 url {
   src: "https://github.com/puripuri2100/SATySFi-assert-eq/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=3d6a91212f6e66dd6d4be365ed50bb08"
+    "sha512=32873d99eba8cc635a8c44064e9996a2dacde72e37dfeeb0e7c467251135a3e7ebfc0517ffe7960afd5c4cf43fb7e6a27c3e59f524c49f3984449187adf899af"
+  ]
 }

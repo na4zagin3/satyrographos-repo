@@ -23,4 +23,8 @@ install: [
 
 url {
   src: "https://github.com/puripuri2100/SATySFi-debug-show-value/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=977eefd8cf5b3fe16766de5ff6e82e12"
+    "sha512=036a0bcb251fa2224fb2c0acb5a8921e8e0b9624d8d296469a247162061be3c43ff7e74a9e748c8d589c49467ffe83e1e9405f72f296aeaef3883f6533bfc856"
+  ]
 }
