@@ -1,6 +1,6 @@
 opam-version: "2.0"
-synopsis: "This package is for easy expression of arithmetical restorations with SATySFi"
-description: """This package is for easy expression of arithmetical restorations with SATySFi"""
+synopsis: "Easy expression of arithmetical restorations with SATySFi"
+description: """Easy expression of arithmetical restorations with SATySFi"""
 
 maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
 authors: "Naoki Kaneko <puripuri2100@gmail.com>"
