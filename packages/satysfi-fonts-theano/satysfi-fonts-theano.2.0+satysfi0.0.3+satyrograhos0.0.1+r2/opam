@@ -35,4 +35,8 @@ remove: [
 ]
 url {
   src: "https://github.com/na4zagin3/SATySFi-fonts-theano/archive/v2.0+satysfi0.0.3+satyrograhos0.0.1+r2.tar.gz"
+  checksum: [
+    "md5=a23b02617c4053b7d14f425b6d19922e"
+    "sha512=a0ebabeddba23ca964bbdb0fb5b40f1e80c0889e16d5be840664a9884ee8b5397ec85ab24e8c098702754d74e4018f1d30b207808a33ea384b17a4dff8fcd4e0"
+  ]
 }

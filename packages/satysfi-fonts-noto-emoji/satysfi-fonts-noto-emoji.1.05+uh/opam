@@ -43,4 +43,8 @@ install: [
 ]
 url {
   src: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji/archive/1.05+uh.tar.gz"
+  checksum: [
+    "md5=1b4281f7fec25e5bee6a2f121ca27b3d"
+    "sha512=df0343c0965d3a88fb7a4d93a60d7f935983f791d64b44d56cb64392697218e32c6514879e7975f5b2d3f4d7d6b5dedf2261f18dd79a08ec0d8ad658868cc899"
+  ]
 }
