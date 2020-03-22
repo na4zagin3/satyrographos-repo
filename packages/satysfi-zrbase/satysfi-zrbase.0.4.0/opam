@@ -21,12 +21,6 @@ install: [
    "-prefix" "%{prefix}%"
    "-script" "%{build}%/Satyristes"]
 ]
-remove: [
-  ["satyrographos" "opam" "uninstall"
-   "-name" "zrbase"
-   "-prefix" "%{prefix}%"
-   "-script" "%{build}%/Satyristes"]
-]
 url {
   src: "https://github.com/zr-tex8r/satysfi-zrbase/archive/0.4.0.tar.gz"
   checksum: [
