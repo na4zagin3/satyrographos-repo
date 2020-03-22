@@ -1,6 +1,6 @@
 opam-version: "2.0"
-synopsis: "Convert numbers to the following notation."
-description: """Convert numbers to the following notation."""
+synopsis: "Convert numbers to the following notation"
+description: """Convert numbers to the following notation"""
 
 maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
 authors: "Naoki Kaneko <puripuri2100@gmail.com>"
