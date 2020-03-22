@@ -1,0 +1,45 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Noto Emoji fonts"
+description: """
+SATySFi font package for Noto Emoji fonts.
+
+This package installs fonts from https://www.google.com/get/noto/.
+"""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "OFL1-1"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-noto-emoji.git"
+
+
+extra-source "noto-emoji-2019-11-19-unicode12.zip" {
+  archive: "https://github.com/googlefonts/noto-emoji/archive/v2019-11-19-unicode12.zip"
+  checksum: [
+    "sha256=9751a3889df1d52ede600f66661e0a3ef105cb520180ca846adcdf37db7a6d84"
+  ]
+}
+
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+]
+build: [
+  ["unzip" "-j" "-d" "noto-emoji" "-o" "noto-emoji-2019-11-19-unicode12.zip" "*.ttf"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-noto-emoji"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-noto-color-emoji/archive/1.05+uh+2.tar.gz"
+  checksum: [
+    "md5=06a068dc42d5f116420ef676ec22eac7"
+    "sha512=e77deb339bc72b7324e5e8bca9d2eb2393aace17f070239dd6d27a79506e82f5fe462f7a77ed00ee750ee082af8cb915c1fcae6191c5f57289f3d78613db55e4"
+  ]
+}
