@@ -1,6 +1,6 @@
 opam-version: "2.0"
 name: "satysfi-make-markdown"
-synopsis: "outputting Markdown file using SATySFi's text-mode."
+synopsis: "Outputting Markdown file using SATySFi's text-mode"
 description: """outputting Markdown file using SATySFi's text-mode."""
 
 maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
