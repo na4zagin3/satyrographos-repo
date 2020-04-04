@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Noto Serif fonts"
+description: """
+Document package for satysfi-fonts-noto-serif
+"""
+maintainer: "Yuito Murase <yuito.murase@gmail.com>"
+authors: "Yuito Murase <yuito.murase@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-noto-serif"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-noto-serif/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-noto-serif.git"
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.0.5"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.0"}
+  "satysfi-fonts-noto-serif" {= "2.001ver1+satysfi0.0.4"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "fonts-noto-serif-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-noto-serif-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-noto-serif/archive/2.001ver1+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=c979035a847fe59dccbb185633e1c2a4"
+    "sha512=f572ce622d148a3c2085f259d731fd4e1bc41391c0e6f70ff37a1432830174198d5db63aa27e31e1fab4100fd120e4770427ad0767de86e4d9ce78fe2af9d0d9"
+  ]
+}
