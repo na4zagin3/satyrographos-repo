@@ -19,7 +19,7 @@ extra-source "Asana-Math.otf" {
   ]
 }
 depends: [
-  "satysfi" {>= "0.0.3+dev2019.02.12" & < "0.0.5"}
+  "satysfi" {>= "0.0.4" & < "0.0.5"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 install: [
@@ -30,9 +30,9 @@ install: [
 ]
 url {
   src:
-    "https://github.com/zeptometer/SATySFi-fonts-asana/archive/2.37+satysfi0.0.4.tar.gz"
+    "https://github.com/zeptometer/SATySFi-fonts-asana/archive/000.958+1+satysfi0.0.4.tar.gz"
   checksum: [
-    "md5=176d16a041c0d177b114474ec4af644e"
-    "sha512=02e268432513761169857da30157545b2e6f4fb9798e473c8fdbd3baca87f31edd4fbf99b5f7e060a040200ad49f02e75e7d8731abd1a7ced9cd2557c47575e5"
+    "md5=6743352007628f5238245be24c5cccea"
+    "sha512=05b76fe4301e91d35299835c87d9f2ca6742803f9c40eac5bd408d2c026073ccb690aa3ef3be4052d2ba12badddc7ef312046ff56c9ad999f357e93381ec9ba4"
   ]
 }
