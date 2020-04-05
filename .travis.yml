@@ -56,7 +56,7 @@ env:
     satyrographos=0.0.2.4
     $PACKAGES_FOR_STABLE"
   # Develop version
-  - OCAML_VERSION=4.10 EXTRA_DEPS="satysfi.0.0.4+dev2020.04.05
+  - OCAML_VERSION=4.09 EXTRA_DEPS="satysfi.0.0.4+dev2020.04.05
     satysfi-dist
     satyrographos=0.0.2.4
     $PACKAGES_FOR_STABLE"
