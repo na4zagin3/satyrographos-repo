@@ -1,0 +1,14 @@
+diff --git a/temp/IPAexfont00301.sha1 b/temp/IPAexfont00301.sha1
+deleted file mode 100644
+index 9bc0eb1..0000000
+--- a/temp/IPAexfont00301.sha1
++++ /dev/null
+@@ -1 +0,0 @@
+-23f49d22e8928df5356f1248210bdf1b0b93af12  IPAexfont00301.zip
+diff --git a/temp/IPAexfont00401.sha1 b/temp/IPAexfont00401.sha1
+new file mode 100644
+index 0000000..2a73aae
+--- /dev/null
++++ b/temp/IPAexfont00401.sha1
+@@ -0,0 +1 @@
++57583c2be5dbfa06648ab0ae4937d7903b32595c  IPAexfont00401.zip

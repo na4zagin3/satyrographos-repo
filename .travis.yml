@@ -4,6 +4,7 @@ install: test -e .travis.opam.sh || wget https://raw.githubusercontent.com/ocaml
 script: bash -ex .travis-opam.sh
 env:
   global:
+    - EXTRA_ENV="OPAMERRLOGLEN=0\nOPAMVERBOSE=1\nOPAMSTATS=1"
     - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
     - PACKAGE="satyrographos-repo-test"
   matrix:
