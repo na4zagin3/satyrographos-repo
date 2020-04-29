@@ -6,62 +6,13 @@ env:
   global:
     - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
     - PACKAGE="satyrographos-repo-test"
-    - >-
-      PACKAGES_FOR_STABLE="
-      satysfi-assert-eq
-      satysfi-base
-      satysfi-cancel
-      satysfi-class-exdesign
-      satysfi-class-exdesign-doc
-      satysfi-class-stjarticle
-      satysfi-class-stjarticle-doc
-      satysfi-class-slydifi
-      satysfi-debug-show-value
-      satysfi-enumitem
-      satysfi-fonts-asana-math
-      satysfi-fonts-asana-math-doc
-      satysfi-fonts-computer-modern-unicode
-      satysfi-fonts-computer-modern-unicode-doc
-      satysfi-fonts-dejavu
-      satysfi-fonts-dejavu-doc
-      satysfi-fonts-noto-emoji
-      satysfi-fonts-noto-emoji-doc
-      satysfi-fonts-noto-sans
-      satysfi-fonts-noto-sans-doc
-      satysfi-fonts-noto-sans-cjk-jp
-      satysfi-fonts-noto-sans-cjk-jp-doc
-      satysfi-fonts-noto-serif
-      satysfi-fonts-noto-serif-doc
-      satysfi-fonts-noto-serif-cjk-jp
-      satysfi-fonts-noto-serif-cjk-jp-doc
-      satysfi-fonts-theano
-      satysfi-fonts-theano-doc
-      satysfi-grcnum
-      satysfi-grcnum-doc
-      satysfi-karnaugh
-      satysfi-karnaugh-doc
-      satysfi-make-html
-      satysfi-make-markdown
-      satysfi-matrix
-      satysfi-matrix-doc
-      satysfi-musikui
-      satysfi-num-conversion
-      satysfi-simple-itemize
-      satysfi-siunitx
-      satysfi-zrbase
-      "
-    - PACKAGES_FOR_DEVELOP="$PACKAGES_FOR_DEVELOP"
   matrix:
   # Stable version
-  - OCAML_VERSION=4.06 EXTRA_DEPS="satysfi.0.0.4
-    satysfi-dist
-    satyrographos=0.0.2.4
-    $PACKAGES_FOR_STABLE"
+  - OCAML_VERSION=4.06
+    PACKAGE="satyrographos-repo-test-stable"
   # Develop version
-  - OCAML_VERSION=4.09 EXTRA_DEPS="satysfi.0.0.4+dev2020.04.05
-    satysfi-dist
-    satyrographos=0.0.2.4
-    $PACKAGES_FOR_STABLE"
+  - OCAML_VERSION=4.09
+    PACKAGE="satyrographos-repo-test-develop"
 os:
   - linux
 cache:
