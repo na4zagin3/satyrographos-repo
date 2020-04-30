@@ -14,6 +14,9 @@ env:
   # Develop version
   - OCAML_VERSION=4.09
     PACKAGE="satyrographos-repo-test-develop"
+  # Develop version
+  - OCAML_VERSION=4.10
+    PACKAGE="satyrographos-repo-test-develop"
 os:
   - linux
 cache:
