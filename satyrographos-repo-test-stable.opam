@@ -62,5 +62,6 @@ depends: [
   "satysfi-num-conversion"
   "satysfi-simple-itemize"
   "satysfi-siunitx"
+  "satysfi-uline" {="0.2.0"}
   "satysfi-zrbase"
 ]
