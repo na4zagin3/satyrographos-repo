@@ -24,6 +24,7 @@ depends: [
 
   "satysfi-assert-eq"
   "satysfi-base"
+  "satysfi-bibyfi"
   "satysfi-cancel"
   "satysfi-class-exdesign"
   "satysfi-class-exdesign-doc"
