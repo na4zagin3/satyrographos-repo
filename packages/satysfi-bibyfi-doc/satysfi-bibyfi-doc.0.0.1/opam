@@ -1,26 +1,32 @@
 opam-version: "2.0"
-synopsis: "A bibliography framework for SATySFi"
-description: """
-This project has been under developing. The API may be broken dramatically and suddenly
-
-A bibliography framework for SATySFi
-
-This project is inspired by cs-thesis and borrowing many codes from it."""
+synopsis: "Document: A bibliography framework for SATySFi"
 maintainer: "Nakano Masaki<namachan10777@gmail.com>"
 authors: ["Nakano Masaki<namachan10777@gmail.com>" "T. Suwa"]
-license: "Unlicense"
 homepage: "https://github.com/namachan10777/BiByFi"
 bug-reports: "https://github.com/namachan10777/BiByFi/issues"
 depends: [
   "satysfi" {>= "0.0.3" & < "0.0.5"}
   "satyrographos" {>= "0.0.2.3" & < "0.0.3"}
+  "satysfi-dist"
+  "satysfi-bibyfi" {= "%{version}%"}
+]
+build: [
+  "satyrographos"
+  "opam"
+  "build"
+  "-name"
+  "bibyfi-doc"
+  "-prefix"
+  "%{prefix}%"
+  "-script"
+  "%{build}%/Satyristes"
 ]
 install: [
   "satyrographos"
   "opam"
   "install"
   "-name"
-  "bibyfi"
+  "bibyfi-doc"
   "-prefix"
   "%{prefix}%"
   "-script"
