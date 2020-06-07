@@ -18,7 +18,7 @@ build: [
 depends: [
   "dune" {build}
   "ocaml" {>= "4.08.0"}
-  "satysfi" {= "0.0.4+dev2020.04.25"}
+  "satysfi" {= "0.0.4+dev2020.06.07"}
   "satysfi-dist"
   "satyrographos" {= "0.0.2.4"}
 
