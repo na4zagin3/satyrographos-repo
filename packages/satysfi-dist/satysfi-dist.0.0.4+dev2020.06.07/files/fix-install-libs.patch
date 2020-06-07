@@ -1,0 +1,12 @@
+diff --git a/install-libs.sh b/install-libs.sh
+index 49fdd16..9c7dd11 100755
+--- a/install-libs.sh
++++ b/install-libs.sh
+@@ -1,6 +1,6 @@
+ #!/bin/sh
+ 
+-LIBDIR=/usr/local/share/satysfi
++LIBDIR=${1:-/usr/local/share/satysfi}
+ 
+ install -d ${LIBDIR}
+ install -d ${LIBDIR}/dist
