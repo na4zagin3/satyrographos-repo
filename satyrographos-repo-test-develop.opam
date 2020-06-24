@@ -32,6 +32,7 @@ depends: [
   "satysfi-class-stjarticle"
   "satysfi-class-stjarticle-doc"
   "satysfi-class-slydifi"
+  "satysfi-class-yabaitech"
   "satysfi-debug-show-value"
   "satysfi-enumitem"
   "satysfi-fonts-asana-math"
