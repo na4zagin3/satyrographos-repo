@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji"
 bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-noto-emoji/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-noto-emoji.git"
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satysfi" {>= "0.0.3" & < "0.0.6"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-base" {>= "1.2.0"}
   "satysfi-fonts-noto-emoji" {>= "1.05+uh+2"}
