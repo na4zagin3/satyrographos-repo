@@ -20,11 +20,11 @@ let satysfi_dist_template = resources_dir ^ "/satysfi-dist.template"
 let satysfi_dist_patch = resources_dir ^ "/fix-install-libs.patch"
 
 let get_satysfi branch =
-  run_exit_code "git" ["clone"; satysfi_repo_url; satysfi_dir]
+  file_exists (satysfi_dir ^ "/.git")
   >>= (function
-    | 0 | 128 -> return ()
-    | n -> failwith ("Git clone failed" ^ string_of_int n))
-  >> chdir satysfi_dir (run "git" ["checkout"; branch] >> run "git" ["pull"])
+    | false -> run "git" ["clone"; satysfi_repo_url; satysfi_dir]
+    | true -> return ())
+  >> chdir satysfi_dir (run "git" ["fetch"] >> run "git" ["checkout"; branch])
 
 let get_commit_hash branch =
   (* Run at satysfi_dir *)
@@ -43,10 +43,12 @@ let datetime_to_date datetime =
   | d :: _ -> d
   | _ -> failwith "Expect datetime in space separated format"
 
-let construct_version original_version tag date =
-  echo (original_version ^ "+" ^ tag ^ date)
-  |- (run "tr" ["\\055"; "."] |> capture_unit [Std_io.Stdout])
-  >>| String.trim
+let construct_version original_version tag date = match tag with
+  | None -> return original_version
+  | Some tag ->
+    echo (original_version ^ "+" ^ tag ^ date)
+    |- (run "tr" ["\\055"; "."] |> capture_unit [Std_io.Stdout])
+    >>| String.trim
 
 let gen_url_section hash =
   String.concat "\n"
@@ -102,7 +104,7 @@ let option_branch = ref "master"
 let option_version_tag = ref None
 let specs =
   [ ("-b", Arg.Set_string(option_branch), "Branch name");
-    ("-t", Arg.String(fun tag -> option_version_tag := Some tag), "Version tag (default: branch name)");
+    ("-t", Arg.String(fun tag -> option_version_tag := Some tag), "Version tag (default: none)");
   ]
 let usage =
   {|USAGE: add-satysfi -b <branch>
@@ -114,8 +116,6 @@ OPTIONS:
 
 let _ =
   Arg.parse specs (fun _ -> failwith usage) usage;
-  let c = create_satysfi (!option_branch) (match !option_version_tag with
-    | None -> !option_branch
-    | Some tag -> tag)
+  let c = create_satysfi (!option_branch) (!option_version_tag)
   in
   Traced.eval_exn c
