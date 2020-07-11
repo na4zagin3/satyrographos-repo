@@ -10,7 +10,7 @@ bug-reports: "https://github.com/puripuri2100/SATySFi-num-conversion/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-num-conversion.git"
 
 depends: [
-  "satysfi" {>= "0.0.4" & < "0.0.5"}
+  "satysfi" {>= "0.0.4+dev2020.02.22" & < "0.0.6"}
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
   "base" {>= "1.0.0"}
 ]

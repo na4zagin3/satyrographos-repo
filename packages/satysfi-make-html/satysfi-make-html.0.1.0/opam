@@ -11,7 +11,7 @@ bug-reports: "https://github.com/puripuri2100/SATySFi-make-html/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-make-html.git"
 
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.5"}
+  "satysfi" {>= "0.0.3" & < "0.0.6"}
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
 ]
 build: [ ]
