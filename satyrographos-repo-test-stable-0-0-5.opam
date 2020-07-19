@@ -36,6 +36,8 @@ depends: [
   "satysfi-class-yabaitech" {= "0.0.1"}
   "satysfi-class-yabaitech" {= "0.0.1"}
   "satysfi-debug-show-value" {= "0.1.1"}
+  "satysfi-easytable" {= "1.0.0"}
+  "satysfi-easytable-doc" {= "1.0.0"}
   "satysfi-enumitem" {= "2.0.0"}
   "satysfi-enumitem-doc" {= "2.0.0"}
   "satysfi-fonts-asana-math" {= "000.958+1+satysfi0.0.4"}
