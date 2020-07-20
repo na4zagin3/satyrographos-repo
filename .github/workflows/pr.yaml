@@ -1,0 +1,64 @@
+name: Pull Request Flow
+
+on:
+  pull_request:
+    types: opened
+
+jobs:
+  notify:
+    name: Notify snapshot update
+    runs-on: ubuntu-latest
+    steps:
+      - name: comment PR
+        uses: actions/github-script@v2
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+        with:
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+            🎉🎉🎉 Thank you for sending a PR!
+
+            If this PR is to add a new or updated library, I would like you to run the following
+            commands to update package snapshots for automation tests.
+
+            First, please clone your fork of this repository somewhere and checkout your PR.
+
+            \`\`\`
+            $ git clone https://github.com/${context.issue.owner}/${context.repo.repo}.git
+            $ cd ${context.repo.repo}
+            $ git checkout ${process.env.HEAD_BRANCH}
+            \`\`\`
+
+            - If your library supports the latest develop version of SATySFi, run
+
+              \`\`\`
+              $ scripts/update-snapshot --opam snapshot-develop.opam
+              \`\`\`
+
+            - If your library supports SATySFi 0.0.5, run
+
+              \`\`\`
+              $ scripts/update-snapshot --opam snapshot-stable-0-0-5.opam
+              \`\`\`
+
+            - If your library supports SATySFi 0.0.4, run
+
+              \`\`\`
+              $ scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
+              \`\`\`
+
+            Finally, commit the change and push it.
+
+            \`\`\`
+            $ git add snapshot-*.opam
+            $ git commit -m 'Update snapshots'
+            $ git push
+            \`\`\`
+
+            Thanks!
+            `
+            })
