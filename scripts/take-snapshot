@@ -1,0 +1,92 @@
+#!/bin/bash
+
+get_satysfi_version () {
+	grep -e '^\s*"satysfi" {= "[^"]*"}\s*$' "$1" | sed -e 's/^\s*"satysfi" {= "\([^"]*\)"}\s*$/\1/'
+}
+
+commit_date () {
+	git log -n 1 --pretty='format:%cs' -- | sed -e 's/-/./g'
+}
+
+take_snapshot () {
+	local OPAM_FILE="$1"
+	local PACKAGE_NAME="$2"
+	local TAG="$3"
+	local CALLBACK="$4"
+	local SATYSFI_VERSION="$(get_satysfi_version "$OPAM_FILE")"
+	local SNAPSHOT_DATE="$(commit_date "$OPAM_FILE")"
+	local PACKAGE_VERSION="$SATYSFI_VERSION${TAG}+$SNAPSHOT_DATE"
+	local PACKAGE_DIR="packages/$PACKAGE_NAME/${PACKAGE_NAME}.$PACKAGE_VERSION"
+
+	echo "opam file: $OPAM_FILE"
+	echo "snapshot date: $SNAPSHOT_DATE"
+	echo "package name: $PACKAGE_NAME"
+	echo "package version: $PACKAGE_VERSION"
+	echo
+
+	mkdir -p "$PACKAGE_DIR"
+	cp "$OPAM_FILE" "$PACKAGE_DIR/opam"
+	"$CALLBACK" "$PACKAGE_DIR"
+}
+
+callback_commit_snapshot () {
+	local PACKAGE_DIR="$1"
+	git add "$PACKAGE_DIR"
+}
+
+take_snapshots () {
+	local CALLBACK="$1"
+	shift
+	for OPAM_FILE in "$@" ; do
+		case "$OPAM_FILE" in
+			snapshot-develop*)
+				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-develop" "" "$CALLBACK"
+				;;
+			snapshot-stable-*)
+				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-stable" "" "$CALLBACK"
+				;;
+		esac
+	done
+}
+
+show_help () {
+	echo "Usage: $0 [--commit] <snapshot-opam-files>..."
+}
+
+
+DO_COMMIT=
+args=`getopt -o "" -l commit -- "$@"`
+if [ "$?" != 0 ]; then
+	show_help 1>&2
+	exit 1
+fi
+eval set -- "$args"
+for OPT in "$@"
+do
+	case "$OPT" in
+		--commit)
+			DO_COMMIT=1
+			shift
+			;;
+		--)
+			shift
+			break
+			;;
+	esac
+done
+
+TAKE_SNAPSHOT_CALLBACK=":"
+if [ -n "$DO_COMMIT" ] ; then
+	TAKE_SNAPSHOT_CALLBACK="callback_commit_snapshot"
+fi
+
+if [ "$#" -gt 0 ] ; then
+	take_snapshots "$TAKE_SNAPSHOT_CALLBACK" "$@"
+else
+	take_snapshots "$TAKE_SNAPSHOT_CALLBACK" snapshot-*.opam
+fi
+
+if [ -n "$DO_COMMIT" ] ; then
+	git status
+	git commit -m "Add snapshots $(commit_date)"
+fi
