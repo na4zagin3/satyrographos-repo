@@ -22,10 +22,10 @@ jobs:
               body: `
             🎉🎉🎉 Thank you for sending a PR!
 
-            If this PR is to add a new or updated library, I would like you to run the following
+            If this PR is to add new or updated SATySFi libraries, I would like you to run the following
             commands to update package snapshots for automation tests.
 
-            First, please clone your fork of this repository somewhere and checkout your PR.
+            First, please clone your fork of this repository and checkout your PR.
 
             \`\`\`
             $ git clone https://github.com/${context.issue.owner}/${context.repo.repo}.git
