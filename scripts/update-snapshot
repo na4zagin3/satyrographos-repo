@@ -1,0 +1,93 @@
+#!/bin/bash
+
+changed_packages () {
+	git diff master --name-only | sed -e '/packages\/.*\/opam/!d' -e 's!packages/[^/]*/!!' -e 's!/opam$!!'
+}
+
+filter_not_in () {
+	sed -e "$(echo "$1" | sed -e 's!^\([^.]*\)\..*$!/^\1\\./d!')"
+}
+
+replacement_script () {
+	read -r -d '' REPLACEMENT_GEN <<- 'EOS'
+		s/\\/\\\\/g
+		s+!+\\!+g
+		s+\([^.]*\)\.\(.*\)+/"\1"/s!{=\\s*"[^"]*"}\\s*$!{= "\2"}!+
+		1i/^depends:/,/\\]/ {
+		$a}
+		EOS
+		sed -e "$REPLACEMENT_GEN"
+	}
+
+package_list () {
+	if [ -n "$ALL_PACKAGES" -o "$#" -eq 0 ] ; then
+		changed_packages
+	fi
+	for p in "$@" ; do
+		echo "$p"
+	done
+}
+
+package_list_from_opam () {
+	sed -ne '/# Package List/,/# Package List End/ { /^\s*#/!p }' "$1" | sed -e 's/^\s*"\([^"]*\)"\s*{\s*=\s*"\([^"]*\)"\s*}\s*$/\1.\2/'
+}
+
+package_list_to_opam () {
+	sed -e 's/^\([^.]*\)\.\(.*\)$/  "\1" {= "\2"}/'
+}
+
+replace_package_list_in_opam () {
+	sed -ne '0,/# Package List/p' "$1"
+	cat
+	sed -ne '/# Package List End/,$p' "$1"
+}
+
+show_help () {
+	echo "Usage: $0 --opam <opam-file> [--all] -- <package.version>..."
+}
+
+
+OPAM_FILE=
+ALL_PACKAGES=
+args=`getopt -o "" -l opam:,all -- "$@"`
+if [ "$?" != 0 ]; then
+	show_help 1>&2
+	exit 1
+fi
+eval set -- "$args"
+for OPT in "$@"
+do
+	case "$OPT" in
+		--all)
+			ALL_PACKAGES=1
+			shift
+			;;
+		--opam)
+			OPAM_FILE=$2
+			shift 2
+			;;
+		--)
+			shift
+			break
+			;;
+	esac
+done
+
+if [ -z "$OPAM_FILE" ] ; then
+	show_help 1>&2
+	exit 1
+fi
+
+for p in "$@" ; do
+	echo "$p" | grep -q "\."
+	if [ $? -ne 0 ] ; then
+		echo "Package '$p' lacks a version suffix." 1>&2
+		exit 1
+	fi
+done
+
+PACKAGES="$(package_list "$@")"
+temp_file=$(mktemp)
+trap "rm -f $temp_file" 0 2 3 15
+( package_list_from_opam "$OPAM_FILE" | filter_not_in "$PACKAGES" ; echo "$PACKAGES" ) | sort | uniq | package_list_to_opam | replace_package_list_in_opam "$OPAM_FILE" > "$temp_file"
+mv "$temp_file" "$OPAM_FILE"

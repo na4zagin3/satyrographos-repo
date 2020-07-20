@@ -10,13 +10,13 @@ env:
   matrix:
   # Stable: Satysfi 0.0.4
   - OCAML_VERSION=4.06
-    PACKAGE="satyrographos-repo-test-stable-0-0-4"
+    PACKAGE="snapshot-stable-0-0-4"
   # Stable: Satysfi 0.0.5
   - OCAML_VERSION=4.10
-    PACKAGE="satyrographos-repo-test-stable-0-0-5"
+    PACKAGE="snapshot-stable-0-0-5"
   # Develop version
   - OCAML_VERSION=4.10
-    PACKAGE="satyrographos-repo-test-develop"
+    PACKAGE="snapshot-develop"
 os:
   - linux
 cache:
