@@ -6,7 +6,7 @@ authors: [
 homepage: "https://github.com/na4zagin3/satyrographos-repo"
 dev-repo: "git+https://github.com/na4zagin3/satyrographos-repo.git"
 bug-reports: "https://github.com/na4zagin3/satyrographos-repo/issues"
-license: "LGPL3+"
+license: "CC0"
 
 synopsis: "Snapshot of stable libraries in Satyrographos Repo"
 
