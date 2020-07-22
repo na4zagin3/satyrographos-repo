@@ -24,7 +24,7 @@ git push origin <version>
 opam publish --repo=na4zagin3/satyrographos-repo
 ```
 
-Maintainers may ask contributors to add packages to `satyrographos-repo-test-develop.opam` and `satyrographos-repo-test-stable.opam` for automation tests.
+Maintainers may ask contributors to update files for automation tests.
 
 ## Development version
 
