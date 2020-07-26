@@ -13,6 +13,8 @@ jobs:
         uses: actions/github-script@v2
         env:
           HEAD_BRANCH: ${{ github.head_ref }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          github-token: ${{secrets.GITHUB_TOKEN}}
         with:
           script: |
             github.issues.createComment({
@@ -28,7 +30,7 @@ jobs:
             First, please clone your fork of this repository and checkout your PR.
 
             \`\`\`
-            $ git clone https://github.com/${context.issue.owner}/${context.repo.repo}.git
+            $ git clone https://github.com/${process.env.GITHUB_ACTOR}/${context.repo.repo}.git
             $ cd ${context.repo.repo}
             $ git checkout ${process.env.HEAD_BRANCH}
             \`\`\`
