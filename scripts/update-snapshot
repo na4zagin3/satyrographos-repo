@@ -1,7 +1,12 @@
 #!/bin/bash
 
 changed_packages () {
-	git diff master --name-only | sed -e '/packages\/.*\/opam/!d' -e 's!packages/[^/]*/!!' -e 's!/opam$!!'
+	git diff origin/master... --name-only | sed \
+		-e '/packages\/.*\/opam/!d' \
+		-e 's!packages/[^/]*/!!' \
+		-e 's!/opam$!!' \
+		-e '/^satyrographos[-.]/d' \
+		-e '/^satysfi[.]/d'
 }
 
 filter_not_in () {
