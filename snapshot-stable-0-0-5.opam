@@ -25,6 +25,8 @@ depends: [
 
 # Package List
 
+  "satyrographos-snapshot-stable" {= "0.0.4+2020.07.20"}
+  "satyrographos-snapshot-stable" {= "0.0.5+2020.07.20"}
   "satysfi-assert-eq" {= "0.1.1"}
   "satysfi-base" {= "1.3.0"}
   "satysfi-bibyfi" {= "0.0.2"}
@@ -69,7 +71,9 @@ depends: [
   "satysfi-matrix-doc" {= "0.0.1+dev2019.10.15"}
   "satysfi-musikui" {= "0.1.0"}
   "satysfi-ncsq" {= "0.0.1"}
+  "satysfi-ncsq" {= "0.1.0"}
   "satysfi-ncsq-doc" {= "0.0.1"}
+  "satysfi-ncsq-doc" {= "0.1.0"}
   "satysfi-num-conversion" {= "0.1.1"}
   "satysfi-simple-itemize" {= "1.0.0"}
   "satysfi-siunitx" {= "0.1"}
