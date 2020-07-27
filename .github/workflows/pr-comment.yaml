@@ -1,0 +1,42 @@
+name: Pull Request Comment Flow
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  comment-bot:
+    name: Comment Bot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check comments
+        uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: '#snapshot/update'
+          prefix_only: true
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - run: 'echo "${TRIGGERED}:$COMMENT_BODY"'
+        # if: steps.check.outputs.triggered == 'true'
+        env:
+          COMMENT_BODY: '${{ steps.check.outputs.comment_body }}'
+          TRIGGERED: '${{ steps.check.outputs.triggered }}'
+      - uses: actions/checkout@v2
+        with:
+          ref: ${{ github.head_ref }}
+      - run: |
+          git config user.name github-actions
+          git config user.email github-actions@github.com
+          echo "$COMMENT_BODY" | grep -qe '^develop$' && scripts/update-snapshot --opam snapshot-develop.opam
+          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.4$' && scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
+          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.5$' && scripts/update-snapshot --opam snapshot-stable-0-0-5.opam
+          git add snapshot-*.opam
+          git commit -m "Update snapshots"
+          git push
+        if: steps.check.outputs.triggered == 'true'
+        env:
+          COMMENT_BODY: '${{ steps.check.outputs.comment_body }}'
