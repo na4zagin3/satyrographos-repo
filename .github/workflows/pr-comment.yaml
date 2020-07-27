@@ -1,0 +1,26 @@
+name: Pull Request Comment Flow
+
+on:
+  pull_request:
+    types: [opened]
+  issue_comment:
+    types: [created]
+
+jobs:
+  comment-bot:
+    name: Comment Bot
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check comments
+        uses: khan/pull-request-comment-trigger@master
+        id: check
+        with:
+          trigger: '#snapshot/update'
+          prefix_only: true
+          reaction: rocket
+        env:
+          GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
+      - run: 'echo Found it! "$COMMENT_BODY"'
+        if: steps.check.outputs.triggered == 'true'
+        env:
+          COMMENT_BODY: '${{ steps.check.outputs.comment_body }}'
