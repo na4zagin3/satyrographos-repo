@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check comments
-        uses: khan/pull-request-comment-trigger@master
+        uses: khan/pull-request-comment-trigger@bb03972cc9f423111f3b5a23fcc9fd32741acabb
         id: check
         with:
           trigger: '#snapshot/update'
@@ -21,21 +21,21 @@ jobs:
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
       - run: 'echo "${TRIGGERED}:$COMMENT_BODY"'
-        # if: steps.check.outputs.triggered == 'true'
         env:
           COMMENT_BODY: '${{ steps.check.outputs.comment_body }}'
           TRIGGERED: '${{ steps.check.outputs.triggered }}'
       - uses: actions/checkout@v2
+        if: steps.check.outputs.triggered == 'true'
         with:
           ref: ${{ github.head_ref }}
       - run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
-          echo "$COMMENT_BODY" | grep -qe '^develop$' && scripts/update-snapshot --opam snapshot-develop.opam
-          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.4$' && scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
-          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.5$' && scripts/update-snapshot --opam snapshot-stable-0-0-5.opam
+          echo "$COMMENT_BODY" | grep -qe '^develop$' && scripts/update-snapshot --opam snapshot-develop.opam || return 0
+          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.4$' && scripts/update-snapshot --opam snapshot-stable-0-0-4.opam || return 0
+          echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.5$' && scripts/update-snapshot --opam snapshot-stable-0-0-5.opam || return 0
           git add snapshot-*.opam
-          git commit -m "Update snapshots"
+          git commit -m "Update snapshots" || echo "No files to commit"
           git push
         if: steps.check.outputs.triggered == 'true'
         env:
