@@ -24,6 +24,10 @@ jobs:
         env:
           COMMENT_BODY: '${{ github.event.comment.body }}'
           TRIGGERED: '${{ steps.check.outputs.triggered }}'
+      - run: |
+          echo "ref: $GITHUB_REF"
+          echo "head ref: $GITHUB_HEAD_REF"
+          echo "base ref: $GITHUB_BASE_REF"
       - uses: actions/checkout@v2
         if: steps.check.outputs.triggered == 'true'
         with:
