@@ -20,7 +20,8 @@ jobs:
           reaction: rocket
         env:
           GITHUB_TOKEN: '${{ secrets.GITHUB_TOKEN }}'
-      - run: 'echo Found it! "$COMMENT_BODY"'
-        if: steps.check.outputs.triggered == 'true'
+      - run: 'echo "${TRIGGERED}:$COMMENT_BODY"'
+        # if: steps.check.outputs.triggered == 'true'
         env:
           COMMENT_BODY: '${{ steps.check.outputs.comment_body }}'
+          TRIGGERED: '${{ steps.check.outputs.triggered }}'
