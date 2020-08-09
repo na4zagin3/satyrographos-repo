@@ -1,22 +1,21 @@
 language: c
 sudo: required
 install: test -e .travis.opam.sh || wget https://raw.githubusercontent.com/ocaml/ocaml-ci-scripts/master/.travis-opam.sh
-script: bash -ex .travis-opam.sh
+script: bash -ex travis.sh
 env:
   global:
     - EXTRA_ENV="OPAMERRLOGLEN=0\nOPAMVERBOSE=1\nOPAMSTATS=1"
     - EXTRA_REMOTES=". git+https://github.com/gfngfn/satysfi-external-repo.git"
-    - PACKAGE="satyrographos-repo-test"
   matrix:
   # Stable: Satysfi 0.0.4
   - OCAML_VERSION=4.06
-    PACKAGE="snapshot-stable-0-0-4"
+    SNAPSHOT="snapshot-stable-0-0-4"
   # Stable: Satysfi 0.0.5
   - OCAML_VERSION=4.10
-    PACKAGE="snapshot-stable-0-0-5"
+    SNAPSHOT="snapshot-stable-0-0-5"
   # Develop version
   - OCAML_VERSION=4.10
-    PACKAGE="snapshot-develop"
+    SNAPSHOT="snapshot-develop"
 os:
   - linux
 cache:
