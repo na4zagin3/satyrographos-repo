@@ -1,0 +1,44 @@
+opam-version: "2.0"
+synopsis: "SATySFi package for drawing rectangular diagrams"
+description: """
+Non-Commutative Squares (NCSq) is a SATySFi package for drawing rectangular diagrams.
+This package provides documentation for the package.
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Taichi Uemura <t.uemura00@gmail.com>"
+authors: "Taichi Uemura <t.uemura00@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/uemurax/satysfi-ncsq"
+bug-reports: "https://github.com/uemurax/satysfi-ncsq/issues"
+dev-repo: "git+https://github.com/uemurax/satysfi-ncsq.git"
+depends: [
+  "satysfi" {>= "0.0.5" & "< 0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-dist" {>= "0.0.5" & "< 0.0.6"}
+  "satysfi-ncsq" {= "%{version}%"}
+  "satysfi-easytable" {>= "1.0.0"}
+  "satysfi-matrix" {>= "0.0.1" & "< 0.0.2"}
+  "satysfi-bibyfi" {>= "0.0.2" & "< 0.0.3"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "ncsq-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"
+  ]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "ncsq-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"
+  ]
+]
+url {
+  src: "https://github.com/uemurax/satysfi-ncsq/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=5e53703789398541d9a48c6ef20d5c44"
+    "sha512=701d2ed3bfdc240d1e552398d18958f5031d09f20ad00673a05bc6602278f4b3caff4191ff8c56d76c6949d8388d87e99951083f91d109b6c08433a0d9b558e0"
+  ]
+}
