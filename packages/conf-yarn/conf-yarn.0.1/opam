@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "Yarn Contributors"
+authors: "Yarn Contributors"
+homepage: "https://yarnpkg.com"
+bug-reports: "https://github.com/na4zagin3/satyrographos-repo/issues"
+license: "BSD-2-Clause"
+build: [
+  ["yarn" "--version"]
+]
+depexts: [
+  ["yarn"] {os-distribution = "alpine"}
+  ["yarn"] {os-distribution = "arch"}
+  ["yarn"] {os-distribution = "centos"}
+  ["yarn"] {os-family = "debian"}
+  ["yarn"] {os-distribution = "fedora"}
+  ["yarn"] {os = "freebsd"}
+  ["sys-apps/yarn"] {os-distribution = "gentoo"}
+  ["yarn"] {os-distribution = "homebrew" & os = "macos"}
+  ["yarn"] {os-distribution = "macports" & os = "macos"}
+  ["yarn"] {os = "netbsd"}
+  ["yarn"] {os = "openbsd"}
+  ["yarn"] {os-family = "suse"}
+]
+synopsis: "Virtual package relying on yarn installation"
+flags: conf
