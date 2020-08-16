@@ -1,7 +1,7 @@
 name: Pull Request Flow
 
 on:
-  pull_request:
+  pull_request_target:
     types: opened
 
 jobs:
@@ -15,7 +15,7 @@ jobs:
           HEAD_BRANCH: ${{ github.head_ref }}
           GITHUB_ACTOR: ${{ github.actor }}
         with:
-          github-token: ${{ secrets.REPO_PUBLIC }}
+          github-token: ${{ github.token }}
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
