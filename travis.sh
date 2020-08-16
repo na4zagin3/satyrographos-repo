@@ -12,8 +12,9 @@ fi
 export PACKAGE="$SNAPSHOT"
 bash -ex .travis-opam.sh
 
-FAILED_PACKAGES=failed.pkgs
+opam --version
 
+FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
 
 if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
@@ -27,7 +28,12 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     export OPAMYES=1
     git diff --name-status master | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
-            if ! opam install --json=opam-output.json --dry-run --strict --with-test "$SNAPSHOT" "$PACKAGE"
+            PACKAGE_NAME="${PACKAGE%%.*}"
+            SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
+
+            declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+
+            if ! opam install --json=opam-output.json --dry-run "${PACKAGES_AND_OPTIONS[@]}"
             then
                 if jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
                 then
@@ -39,7 +45,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
                 fi
             fi
 
-            if ! opam install --strict --with-test "$SNAPSHOT" "$PACKAGE"
+            if ! opam install "${PACKAGES_AND_OPTIONS[@]}"
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
