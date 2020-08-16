@@ -18,6 +18,7 @@ env:
     SNAPSHOT="snapshot-develop"
 os:
   - linux
+dist: bionic
 cache:
   - $HOME/.opam/archives
   - $HOME/.opam/download-cache
