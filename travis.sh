@@ -33,8 +33,11 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
 
             declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
 
-            if ! opam install --json=opam-output.json --dry-run "${PACKAGES_AND_OPTIONS[@]}"
+            if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
             then
+                echo "Assuming dependency does not meet. Skipping"
+                continue
+
                 if jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
                 then
                     echo "Dependency does not meet. Skipping"
