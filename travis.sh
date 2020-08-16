@@ -17,8 +17,9 @@ opam --version
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-    echo "Pull request"
+# Test install/uninstall regardress if it's a PR
+if true ; then
+    echo "Test updated packages"
 
     eval $(opam config env)
 
@@ -26,7 +27,7 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     opam update
 
     export OPAMYES=1
-    git diff --name-status master | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status master... | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
