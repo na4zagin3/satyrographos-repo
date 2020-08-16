@@ -15,7 +15,7 @@ jobs:
           HEAD_BRANCH: ${{ github.head_ref }}
           GITHUB_ACTOR: ${{ github.actor }}
         with:
-          github-token: ${{ github.token }}
+          github-token: ${{ secrets.REPO_PUBLIC }}
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
