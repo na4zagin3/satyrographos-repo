@@ -1,4 +1,5 @@
 #!/bin/bash
+# vim: set et fenc=utf-8 ff=unix sts=0 sw=4 ts=4 : 
 
 set -ex
 
@@ -26,17 +27,29 @@ if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
     export OPAMYES=1
     git diff --name-status master | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
-        if ! opam install "$SNAPSHOT" "$PACKAGE" --with-test
-        then
-            echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
-            continue
-        elif ! opam uninstall "$PACKAGE"
-        then
-            echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
-        fi
-    done
-else
-    echo "Non pull request"
+            if ! opam install --json=opam-output.json --dry-run --strict --with-test "$SNAPSHOT" "$PACKAGE"
+            then
+                if jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
+                then
+                    echo "Dependency does not meet. Skipping"
+                    continue
+                else
+                    echo "$PACKAGE: dependency" >> "$FAILED_PACKAGES"
+                    continue
+                fi
+            fi
+
+            if ! opam install --strict --with-test "$SNAPSHOT" "$PACKAGE"
+            then
+                echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
+                continue
+            elif ! opam uninstall "$PACKAGE"
+            then
+                echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
+            fi
+        done
+    else
+        echo "Non pull request"
 fi
 
 if [ -s "$FAILED_PACKAGES" ] ; then
