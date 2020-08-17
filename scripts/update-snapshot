@@ -94,5 +94,5 @@ done
 PACKAGES="$(package_list "$@")"
 temp_file=$(mktemp)
 trap "rm -f $temp_file" 0 2 3 15
-( package_list_from_opam "$OPAM_FILE" | filter_not_in "$PACKAGES" ; echo "$PACKAGES" ) | sort | uniq | package_list_to_opam | replace_package_list_in_opam "$OPAM_FILE" > "$temp_file"
+( package_list_from_opam "$OPAM_FILE" | filter_not_in "$PACKAGES" ; echo "$PACKAGES" ) | sort -V | uniq | package_list_to_opam | replace_package_list_in_opam "$OPAM_FILE" > "$temp_file"
 mv "$temp_file" "$OPAM_FILE"
