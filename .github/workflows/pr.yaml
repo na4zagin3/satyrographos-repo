@@ -43,13 +43,13 @@ jobs:
             $ git checkout -b ${process.env.HEAD_BRANCH}  ${process.env.GITHUB_ACTOR}/${process.env.HEAD_BRANCH} 
             \`\`\`
 
-            - If your library supports the latest develop version of SATySFi, run
+            - (Recommended) If your library supports SATySFi 0.0.5 develop version, run
 
               \`\`\`
               $ scripts/update-snapshot --opam snapshot-develop.opam
               \`\`\`
 
-            - If your library supports SATySFi 0.0.5, run
+            - (Recommended) If your library supports SATySFi 0.0.5, run
 
               \`\`\`
               $ scripts/update-snapshot --opam snapshot-stable-0-0-5.opam
