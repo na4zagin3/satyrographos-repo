@@ -64,6 +64,7 @@ depends: [
   "satysfi-grcnum" {= "0.2"}
   "satysfi-karnaugh-doc" {= "0.0.1"}
   "satysfi-karnaugh" {= "0.0.1"}
+  "satysfi-lipsum" {= "0.1.0"}
   "satysfi-make-html" {= "0.1.0"}
   "satysfi-make-markdown" {= "0.1.0"}
   "satysfi-matrix-doc" {= "0.0.1+dev2019.10.15"}
