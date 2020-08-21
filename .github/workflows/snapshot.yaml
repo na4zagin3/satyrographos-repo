@@ -1,0 +1,36 @@
+name: Snapshot Update Flow
+
+on:
+  schedule:
+    - cron: '2 4 * * *'
+
+jobs:
+  update-snapshot:
+    name: Update snapshots
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Take snapshots
+        run: |
+          ./script/take-snapshot --commit
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        with:
+          token: ${{ secrets.REPO_PUBLIC }}
+          commit-message: Update snapshots
+          branch: take-snapshots
+          title: '[Automated] Take snapshots'
+          body: |
+            Take snapshots
+          labels: |
+            snapshot
+            automated pr
+          assignees: na4zagin3
+          reviewers: na4zagin3
+          team-reviewers: |
+            owners
+            maintainers
