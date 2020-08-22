@@ -21,7 +21,7 @@ jobs:
         id: cpr
         with:
           token: ${{ secrets.REPO_PUBLIC }}
-          commit-message: Update snapshots
+          commit-message: Take snapshots
           branch: take-snapshots
           title: '[Automated] Take snapshots'
           body: |
