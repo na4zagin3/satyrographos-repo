@@ -15,7 +15,7 @@ jobs:
           fetch-depth: 0
       - name: Take snapshots
         run: |
-          ./scripts/take-snapshot --commit
+          ./scripts/take-snapshot
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         id: cpr
