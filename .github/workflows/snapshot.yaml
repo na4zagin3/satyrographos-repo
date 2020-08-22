@@ -2,7 +2,7 @@ name: Snapshot Update Flow
 
 on:
   schedule:
-    - cron: '52 * * * *'
+    - cron: '52 5 * * *'
 
 jobs:
   update-snapshot:
