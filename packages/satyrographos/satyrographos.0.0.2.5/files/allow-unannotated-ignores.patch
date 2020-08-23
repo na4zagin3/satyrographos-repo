@@ -1,0 +1,24 @@
+diff --git a/bin/dune b/bin/dune
+index d072c9b..2865a06 100644
+--- a/bin/dune
++++ b/bin/dune
+@@ -1,7 +1,7 @@
+ (executable
+  (name main)
+  (public_name satyrographos)
+- (preprocess (pps ppx_deriving.std ppx_jane))
++ (preprocess (pps ppx_deriving.std ppx_jane -allow-unannotated-ignores))
+  (libraries core satyrographos_command shexp.process uri)
+  (modules setup renameOption compatibility commandInstall commandLibrary commandOpam commandPin commandSatysfi commandStatus main)
+  )
+diff --git a/src/command/dune b/src/command/dune
+index ab63cc7..4d2f93b 100644
+--- a/src/command/dune
++++ b/src/command/dune
+@@ -1,5 +1,5 @@
+ (library
+  (name satyrographos_command)
+  (inline_tests)
+- (preprocess (staged_pps ppx_deriving.std ppx_jane))
++ (preprocess (staged_pps ppx_deriving.std ppx_jane -allow-unannotated-ignores))
+  (libraries core fileutils satyrographos satyrographos_autogen shexp.process))

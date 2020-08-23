@@ -49,3 +49,5 @@ url {
     "sha512=b928ba2f432c204c8808509a0ccc3b3858659d3a5e7fe4a40312b1c58cf3cd04eddc335b94e536c592074eca7a094b4897067069d3bf661ee888d3287a11e321"
   ]
 }
+extra-files: ["allow-unannotated-ignores.patch" "sha256=af6ee00873733a0f5dcda0e47702c8aa7c8b40f40c6194575a8a8796a3a54ab0"]
+patches: ["allow-unannotated-ignores.patch"]
