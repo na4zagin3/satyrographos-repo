@@ -14,7 +14,7 @@ bash -ex .travis-opam.sh
 
 opam --version
 
-opam pin remove $(opam pin list --short)
+opam uninstall "$SNAPSHOT"
 
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
@@ -28,7 +28,7 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
-	git branch -v
+    git branch -v
 
     export OPAMYES=1
     git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
