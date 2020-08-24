@@ -73,6 +73,6 @@ if true ; then
 fi
 
 if [ -s "$FAILED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "iFailed packages:" "$FAILED_PACKAGES" 1>&2
+    sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
     exit 1
 fi
