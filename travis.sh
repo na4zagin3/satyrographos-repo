@@ -14,6 +14,8 @@ bash -ex .travis-opam.sh
 
 opam --version
 
+opam uninstall "$SNAPSHOT"
+
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
 
@@ -26,13 +28,21 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
+    git branch -v
+
     export OPAMYES=1
-    git diff --name-status master... | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
 
-            declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+            case "$PACKAGE_NAME" in
+                satyrographos-*)
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
+                    ;;
+                *)
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+            esac
 
             if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
             then
@@ -63,6 +73,6 @@ if true ; then
 fi
 
 if [ -s "$FAILED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "iFailed packages:" "$FAILED_PACKAGES" 1>&2
+    sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
     exit 1
 fi
