@@ -36,7 +36,13 @@ if true ; then
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
 
-            declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+            case "$PACKAGE_NAME" in
+                satyrographos-*)
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
+                    ;;
+                *)
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+            esac
 
             if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
             then
