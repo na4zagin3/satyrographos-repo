@@ -14,6 +14,8 @@ bash -ex .travis-opam.sh
 
 opam --version
 
+opam pin remove $(opam pin list --short)
+
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
 
