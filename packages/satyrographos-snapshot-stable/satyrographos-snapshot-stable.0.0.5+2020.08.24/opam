@@ -10,11 +10,6 @@ license: "CC0"
 
 synopsis: "Snapshot of stable libraries in Satyrographos Repo"
 
-build: [
-  ["dune" "subst"] {pinned}
-  ["dune" "build" "-p" name "-j" jobs]
-]
-
 depends: [
   "dune" {build}
   "ocaml" {>= "4.10.0"}
