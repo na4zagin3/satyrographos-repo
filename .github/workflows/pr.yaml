@@ -65,7 +65,7 @@ jobs:
               $ scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
               \`\`\`
 
-            Notes: I recommend adding your libraries to the snapshot with the latest develop version as well
+            **Notes:** I recommend adding your libraries to the snapshot with the latest develop version as well
             if your library supports the latest stable version,
             because the snapshot with the latest develop version will be the snapshot with the the comming SATySFi stable version.
             
