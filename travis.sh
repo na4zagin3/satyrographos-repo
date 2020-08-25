@@ -1,5 +1,4 @@
 #!/bin/bash
-# vim: set et fenc=utf-8 ff=unix sts=0 sw=4 ts=4 : 
 
 set -ex
 
@@ -18,6 +17,8 @@ opam uninstall "$SNAPSHOT"
 
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
+SUCCEEDED_PACKAGES=succeeded.pkgs
+: > "$SUCCEEDED_PACKAGES"
 
 # Test install/uninstall regardress if it's a PR
 if true ; then
@@ -28,10 +29,13 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
+    git remote -v
     git branch -v
 
+    git fetch origin master
+
     export OPAMYES=1
-    git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
@@ -39,22 +43,41 @@ if true ; then
             case "$PACKAGE_NAME" in
                 satyrographos-*)
                     declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
+                    SKIP_OCAML_MISMATCH=1
+                    SKIP_SATYSFI_MISMATCH=1
                     ;;
                 *)
                     declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+                    SKIP_OCAML_MISMATCH=
+                    SKIP_SATYSFI_MISMATCH=1
             esac
 
             if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
             then
                 echo "Assuming dependency does not meet. Skipping"
+                echo "$PACKAGE: skipped: dependency" >> "$SUCCEEDED_PACKAGES"
                 continue
 
-                if jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
+                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
                 then
                     echo "Dependency does not meet. Skipping"
+                    echo "$PACKAGE: skipped: satysfi-dependency" >> "$SUCCEEDED_PACKAGES"
                     continue
                 else
                     echo "$PACKAGE: dependency" >> "$FAILED_PACKAGES"
+                    continue
+                fi
+            fi
+
+            if ! opam install --json=opam-output.json --dry-run "${PACKAGES_AND_OPTIONS[@]}"
+            then
+                if [ -n "$SKIP_OCAML_MISMATCH" ]
+                then
+                    echo "Dependency on OCaml does not meet. Skipping"
+                    echo "$PACKAGE: skipped: ocaml-dependency" >> "$SUCCEEDED_PACKAGES"
+                    continue
+                else
+                    echo "$PACKAGE: ocaml-dependency" >> "$FAILED_PACKAGES"
                     continue
                 fi
             fi
@@ -67,12 +90,18 @@ if true ; then
             then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
             fi
+
+            echo "$PACKAGE: success" >> "$SUCCEEDED_PACKAGES"
         done
     else
         echo "Non pull request"
 fi
 
+if [ -s "$SUCCEEDED_PACKAGES" ] ; then
+    sed -e 's/^/- /' -e "1iSucceeded packages:" "$SUCCEEDED_PACKAGES" 1>&2
+fi
 if [ -s "$FAILED_PACKAGES" ] ; then
     sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
     exit 1
 fi
+# vim: set et fenc=utf-8 ff=unix sts=0 sw=8 ts=4 :
