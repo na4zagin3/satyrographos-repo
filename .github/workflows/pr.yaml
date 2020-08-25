@@ -43,7 +43,7 @@ jobs:
             $ git checkout -b ${process.env.HEAD_BRANCH}  ${process.env.GITHUB_ACTOR}/${process.env.HEAD_BRANCH} 
             \`\`\`
 
-            - (Recommended) If your library supports SATySFi 0.0.5 develop version, run
+            - (Recommended) If your library supports the latest SATySFi 0.0.5 develop version (and the next stable version), run
 
               \`\`\`
               $ scripts/update-snapshot --opam snapshot-develop.opam
@@ -61,6 +61,10 @@ jobs:
               $ scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
               \`\`\`
 
+            Notes: I recommend adding your libraries to the snapshot with the latest develop version as well
+            if your library supports the latest stable version,
+            because the snapshot with the latest develop version will be the snapshot with the the comming SATySFi stable version.
+            
             Finally, commit the change and push it.
 
             \`\`\`
