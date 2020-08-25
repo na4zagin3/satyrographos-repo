@@ -32,10 +32,12 @@ if true ; then
     git remote -v
     git branch -v
 
-    git fetch origin master
+    git fetch origin master:master
+
+    git branch -v
 
     export OPAMYES=1
-    git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
