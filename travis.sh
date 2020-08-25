@@ -34,6 +34,8 @@ if true ; then
 
     git fetch origin master:master
 
+    git branch -v
+
     export OPAMYES=1
     git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
