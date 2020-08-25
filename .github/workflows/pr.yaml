@@ -3,6 +3,10 @@ name: Pull Request Flow
 on:
   pull_request_target:
     types: [opened, reopened]
+    tags-ignore:
+      - "automated pr"
+    paths:
+      - "packages/**"
 
 jobs:
   notify:
