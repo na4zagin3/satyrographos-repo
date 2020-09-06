@@ -29,12 +29,12 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
-    git remote -v
-    git branch -v
+    git remote -v | cat
+    git branch -v | cat
 
     git fetch origin master:master
 
-    git branch -v
+    git branch -v | cat
 
     export OPAMYES=1
     git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
