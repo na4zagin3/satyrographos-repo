@@ -5,8 +5,8 @@ on:
     types: [opened, reopened]
 #    tags-ignore:
 #      - "automated pr"
-    paths:
-      - "packages/**"
+#    paths:
+#      - "packages/**"
 
 jobs:
   notify:
