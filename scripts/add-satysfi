@@ -24,7 +24,7 @@ let get_satysfi branch =
   >>= (function
     | false -> run "git" ["clone"; satysfi_repo_url; satysfi_dir]
     | true -> return ())
-  >> chdir satysfi_dir (run "git" ["fetch"] >> run "git" ["checkout"; branch])
+  >> chdir satysfi_dir (run "git" ["checkout"; branch] >> run "git" ["pull"])
 
 let get_commit_hash branch =
   (* Run at satysfi_dir *)
