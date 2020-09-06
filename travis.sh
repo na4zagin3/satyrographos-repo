@@ -42,6 +42,9 @@ if true ; then
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
 
+            # Uninstall SATySFi libs
+            opam uninstall $(opam list --installed --short 'satysfi-*')
+
             case "$PACKAGE_NAME" in
                 satyrographos-*)
                     declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
