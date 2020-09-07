@@ -29,8 +29,11 @@ depends: [
   "satysfi-class-stjarticle-doc" {= "1.3.2"}
   "satysfi-class-stjarticle" {= "1.3.2"}
   "satysfi-class-yabaitech-doc" {= "0.0.2"}
+  "satysfi-class-yabaitech-doc" {= "0.0.3"}
   "satysfi-class-yabaitech" {= "0.0.2"}
+  "satysfi-class-yabaitech" {= "0.0.3"}
   "satysfi-debug-show-value" {= "0.1.1"}
+  "satysfi-dist" {= "0.0.5+dev2020.09.05"}
   "satysfi-fonts-asana-math-doc" {= "000.958+1+satysfi0.0.4"}
   "satysfi-fonts-asana-math" {= "000.958+1+satysfi0.0.4"}
   "satysfi-fonts-computer-modern-unicode-doc" {= "0.7.0+satysfi0.0.4"}
@@ -59,6 +62,8 @@ depends: [
   "satysfi-matrix-doc" {= "0.0.1+dev2019.10.15"}
   "satysfi-matrix" {= "0.0.1+dev2019.10.15"}
   "satysfi-musikui" {= "0.1.0"}
+  "satysfi-ncsq-doc" {= "2.0.0"}
+  "satysfi-ncsq" {= "2.0.0"}
   "satysfi-simple-itemize" {= "1.0.0"}
   "satysfi-siunitx" {= "0.1"}
   "satysfi-uline" {= "0.2.0"}
