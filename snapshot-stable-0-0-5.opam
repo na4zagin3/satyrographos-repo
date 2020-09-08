@@ -20,6 +20,8 @@ depends: [
 
 # Package List
 
+  "satysfi-arrows-doc" {= "0.1.0"}
+  "satysfi-arrows" {= "0.1.0"}
   "satysfi-assert-eq" {= "0.1.1"}
   "satysfi-base" {= "1.3.0"}
   "satysfi-bibyfi-doc" {= "0.0.2"}
