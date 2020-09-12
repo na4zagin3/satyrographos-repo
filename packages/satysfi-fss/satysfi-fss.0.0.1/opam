@@ -1,0 +1,30 @@
+opam-version: "2.0"
+synopsis: "Font selection scheme"
+description: """
+Document: Font selection scheme for SATySFi
+"""
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+license: "LGPL-3.0-or-later"
+homepage: "https://github.com/na4zagin3/satysfi-fss"
+dev-repo: "git+https://github.com/na4zagin3/satysfi-fss.git"
+bug-reports: "https://github.com/na4zagin3/satysfi-fss/issues"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+
+  "satysfi-fonts-junicode" {>= "1" & < "2"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fss"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/na4zagin3/satysfi-fss/archive/v0.0.1.tar.gz"
+  checksum: [
+    "md5=55916bc44251fe420a82d59cf9fdf01a"
+    "sha512=e30dd5da75f02b7227ae6791a4ce06317ab245a4e760f34bfa67acbd4db3b518a2c3108347152d266784f42500cd94d7ab1efabe7732e168015396df9ee43098"
+  ]
+}
