@@ -46,6 +46,8 @@ depends: [
   "satysfi-fonts-computer-modern-unicode" {= "0.7.0+satysfi0.0.4"}
   "satysfi-fonts-dejavu-doc" {= "2.37+satysfi0.0.4"}
   "satysfi-fonts-dejavu" {= "2.37+satysfi0.0.4"}
+  "satysfi-fonts-junicode-doc" {= "1.0002+satysfi0.0.5"}
+  "satysfi-fonts-junicode" {= "1.0002+satysfi0.0.5"}
   "satysfi-fonts-noto-emoji-doc" {= "1.05+uh+2"}
   "satysfi-fonts-noto-emoji" {= "1.05+uh+2"}
   "satysfi-fonts-noto-sans-cjk-jp-doc" {= "2.001+1+satysfi0.0.4"}
