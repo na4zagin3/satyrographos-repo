@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Junicode"
+description: """
+SATySFi Font Package for Junicode
+
+This package installs fonts from https://junicode.sourceforge.io/
+"""
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+license: "OFL"
+homepage: "https://github.com/na4zagin3/SATySFi-fonts-junicode"
+bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-junicode/issues"
+dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-junicode.git"
+extra-source "junicode-1.002.zip" {
+  archive: "http://downloads.sourceforge.net/project/junicode/junicode/junicode-1.002/junicode-1.002.zip"
+  checksum: [
+    "sha256=c199d96c8424be60fcab8d00d2eee39ea8ae632cfd5e710cbbd70626d6a729e7"
+    "sha512=1738802f70b0029567be608ed36481864f8f7f029fd1c45d73fa25d092d49c978c51df1c01147b7b176e9b0409d7f15d5713a6daf1b1b269636bc6324b2c6f37"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-o" "junicode-1.002.zip" "-d" "junicode"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-junicode"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/na4zagin3/SATySFi-fonts-junicode/archive/v1.0002+satysfi0.0.5.tar.gz"
+  checksum: [
+    "md5=ad786bf94037110d112c05f224080410"
+    "sha512=f9011e09b45edea623fe59db3df607530308c29e253e5b2ab34f3b76cc71759f1cca426a5e3de0b0a2a9060a773784d2c92b37e69233d2095e6c2a40440f8780"
+  ]
+}
