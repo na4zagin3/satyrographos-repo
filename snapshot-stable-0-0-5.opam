@@ -58,6 +58,8 @@ depends: [
   "satysfi-fonts-noto-serif" {= "2.001+1+satysfi0.0.4"}
   "satysfi-fonts-theano-doc" {= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
   "satysfi-fonts-theano" {= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
+  "satysfi-fss-doc" {= "0.0.1"}
+  "satysfi-fss" {= "0.0.1"}
   "satysfi-grcnum-doc" {= "0.2"}
   "satysfi-grcnum" {= "0.2"}
   "satysfi-karnaugh-doc" {= "0.0.1"}
