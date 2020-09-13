@@ -72,8 +72,8 @@ depends: [
   "satysfi-matrix-doc" {= "0.0.1+dev2019.10.15"}
   "satysfi-matrix" {= "0.0.1+dev2019.10.15"}
   "satysfi-musikui" {= "0.1.0"}
-  "satysfi-ncsq-doc" {= "2.0.0"}
-  "satysfi-ncsq" {= "2.0.0"}
+  "satysfi-ncsq-doc" {= "2.1.0"}
+  "satysfi-ncsq" {= "2.1.0"}
   "satysfi-num-conversion" {= "0.1.1"}
   "satysfi-simple-itemize" {= "1.0.0"}
   "satysfi-siunitx" {= "0.1"}
