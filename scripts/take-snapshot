@@ -5,7 +5,7 @@ get_satysfi_version () {
 }
 
 commit_date () {
-	git log -n 1 --pretty='format:%cs' -- | sed -e 's/-/./g'
+	git log -n 1 --pretty='format:%cs' -- "$1" | sed -e 's/-/./g'
 }
 
 take_snapshot () {
