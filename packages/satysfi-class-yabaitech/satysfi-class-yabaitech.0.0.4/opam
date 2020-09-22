@@ -34,9 +34,9 @@ install: [
 ]
 url {
   src:
-    "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/archive/0.0.4.tar.gz"
+    "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/archive/0.0.5.tar.gz"
   checksum: [
-    "md5=2bcb6096d20a0b0e40785d3b76c70e99"
-    "sha512=e52216d111c91585a40954303047da2314d664a0d797f22ef008c80533aabe1d394a42d006c881e02c09246115f2666237c60b2fa24ab69840957b0b54e3cca9"
+    "md5=44ec53ec990a18632b823961bc305d96"
+    "sha512=c95cef998d4990a733ff47659e65b3703de20fe30d7b1ef223db5c103f42aff73b75ed31e55204101e7b37340b665417926ec89a22361648ff1f335c41118877"
   ]
 }
