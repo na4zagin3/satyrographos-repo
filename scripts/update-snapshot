@@ -38,7 +38,7 @@ package_list_from_opam () {
 }
 
 package_list_to_opam () {
-	sed -e 's/^\([^.]*\)\.\(.*\)$/  "\1" {= "\2"}/'
+	sed -e 's/^\([^.]*\)\.\(.*\)$/  "\1" {= "\2"}\n/'
 }
 
 replace_package_list_in_opam () {
