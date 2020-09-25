@@ -42,6 +42,8 @@ depends: [
   "satysfi-fonts-asana-math" {= "000.958+1+satysfi0.0.4"}
   "satysfi-fonts-computer-modern-unicode-doc" {= "0.7.0+satysfi0.0.4"}
   "satysfi-fonts-computer-modern-unicode" {= "0.7.0+satysfi0.0.4"}
+  "satysfi-fonts-cormorant-doc" {= "3.601+satysfi0.0.5"}
+  "satysfi-fonts-cormorant" {= "3.601+satysfi0.0.5"}
   "satysfi-fonts-dejavu-doc" {= "2.37+satysfi0.0.4"}
   "satysfi-fonts-dejavu" {= "2.37+satysfi0.0.4"}
   "satysfi-fonts-junicode-doc" {= "1.0002+satysfi0.0.5"}

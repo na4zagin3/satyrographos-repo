@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Cormorant"
+description: """
+SATySFi Font Package for Cormorant
+
+This package installs fonts from https://github.com/CatharsisFonts/Cormorant
+"""
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+license: "OFL"
+homepage: "https://github.com/na4zagin3/SATySFi-fonts-cormorant"
+bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-cormorant/issues"
+dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-cormorant.git"
+extra-source "Cormorant_Install_v3.601.zip" {
+  archive: "https://github.com/CatharsisFonts/Cormorant/releases/download/v3.601/Cormorant_Install_v3.601.zip"
+  checksum: [
+    "sha256=59997266f48655f7365c0de16d2c4ea6e92a7d8f549fd97c95f1cbe307901e1e"
+    "sha512=43f246fe9d74261fc9a2bcef96eb389cc0e8a21eeaa946eb42f3e9f2958fb864bef5357522728a7ef222fc5db0ddaae61be7678263a0d116cd558fe4340dc170"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-o" "Cormorant_Install_v3.601.zip" "-d" "cormorant"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-cormorant"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/na4zagin3/SATySFi-fonts-cormorant/archive/v3.601+satysfi0.0.5.tar.gz"
+  checksum: [
+    "md5=342ddad1a03a450817fec942b9c9312c"
+    "sha512=d3707046a1bf457ba9205cef440ee240c79fccd90ce1c8bb9bee6d016f932026321a8d1d189973cd5ca769815c641003f700f3f390f7631c885b7b3d95103734"
+  ]
+}
