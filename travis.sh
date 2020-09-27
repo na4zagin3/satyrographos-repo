@@ -8,8 +8,13 @@ else
     echo "Non pull request"
 fi
 
+# Set up OPAM and install the snapshot
 export PACKAGE="$SNAPSHOT"
 bash -ex .travis-opam.sh
+
+# Check validity of the OPAM files
+opam lint --strict *.opam
+find packages -iname opam -exec opam lint --strict '{}' '+'
 
 opam --version
 
