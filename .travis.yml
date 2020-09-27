@@ -14,7 +14,7 @@ env:
   - OCAML_VERSION=4.10
     SNAPSHOT="snapshot-stable-0-0-5"
   # Develop version
-  - OCAML_VERSION=4.10
+  - OCAML_VERSION=4.11
     SNAPSHOT="snapshot-develop"
 os:
   - linux
