@@ -13,6 +13,8 @@ bash -ex .travis-opam.sh
 
 opam --version
 
+opam exec -- satyrographos install
+
 opam uninstall "$SNAPSHOT"
 
 FAILED_PACKAGES=failed.pkgs
@@ -87,6 +89,10 @@ if true ; then
             if ! opam install "${PACKAGES_AND_OPTIONS[@]}"
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
+                continue
+            elif ! opam exec -- satyrographos install
+            then
+                echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
             elif ! opam uninstall "$PACKAGE"
             then
