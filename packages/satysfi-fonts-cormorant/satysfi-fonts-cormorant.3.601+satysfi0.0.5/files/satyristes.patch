@@ -1,0 +1,19 @@
+diff --git a/Satyristes b/Satyristes
+index 64401e7..80135a6 100644
+--- a/Satyristes
++++ b/Satyristes
+@@ -49,9 +49,11 @@
+ (font "CormorantUpright-Medium.ttf" "cormorant/Cormorant_Install_v3.601/1. TrueType Font Files/CormorantUpright-Medium.ttf")
+ (font "CormorantUpright-Regular.ttf" "cormorant/Cormorant_Install_v3.601/1. TrueType Font Files/CormorantUpright-Regular.ttf")
+ (font "CormorantUpright-SemiBold.ttf" "cormorant/Cormorant_Install_v3.601/1. TrueType Font Files/CormorantUpright-SemiBold.ttf")
+-(file "OFL.txt" "cormorant/Cormorant_Install_v3.601/OFL.txt")
+-(file "FONTLOG.txt" "cormorant/Cormorant_Install_v3.601/FONTLOG.txt")
+-(file "README.md" "cormorant/Cormorant_Install_v3.601/README.md")
++
++;; Required to add any distributions
++(file "docs/fonts-cormorant/OFL.txt" "cormorant/Cormorant_Install_v3.601/OFL.txt")
++(file "docs/fonts-cormorant/FONTLOG.txt" "cormorant/Cormorant_Install_v3.601/FONTLOG.txt")
++(file "docs/fonts-cormorant/README.md" "cormorant/Cormorant_Install_v3.601/README.md")
+ 	 ))
+   (opam "satysfi-fonts-cormorant.opam"))
+ 

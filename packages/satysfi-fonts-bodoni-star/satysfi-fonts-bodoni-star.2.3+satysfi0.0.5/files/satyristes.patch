@@ -1,0 +1,27 @@
+diff --git a/Satyristes b/Satyristes
+index 56d5e11..cff1bef 100644
+--- a/Satyristes
++++ b/Satyristes
+@@ -5,13 +5,15 @@
+   (sources
+     ((hash "fonts.satysfi-hash" "fonts.satysfi-hash")
+ (fontDir "Bodoni-master/fonts/otf")
+-(file "AUTHORS.txt" "Bodoni-master/AUTHORS.txt")
+-(file "CONTRIBUTORS.txt" "Bodoni-master/CONTRIBUTORS.txt")
+-(file "DESCRIPTION.en_us.html" "Bodoni-master/DESCRIPTION.en_us.html")
+-(file "FONTLOG.txt" "Bodoni-master/FONTLOG.txt")
+-(file "LICENSE.md" "Bodoni-master/LICENSE.md")
+-(file "OFL.txt" "Bodoni-master/OFL.txt")
+-(file "README.md" "Bodoni-master/README.md")
++
++;; Required to add any distributions
++(file "docs/fonts-bodoni-star/AUTHORS.txt" "Bodoni-master/AUTHORS.txt")
++(file "docs/fonts-bodoni-star/CONTRIBUTORS.txt" "Bodoni-master/CONTRIBUTORS.txt")
++(file "docs/fonts-bodoni-star/DESCRIPTION.en_us.html" "Bodoni-master/DESCRIPTION.en_us.html")
++(file "docs/fonts-bodoni-star/FONTLOG.txt" "Bodoni-master/FONTLOG.txt")
++(file "docs/fonts-bodoni-star/LICENSE.md" "Bodoni-master/LICENSE.md")
++(file "docs/fonts-bodoni-star/OFL.txt" "Bodoni-master/OFL.txt")
++(file "docs/fonts-bodoni-star/README.md" "Bodoni-master/README.md")
+ 	 ))
+   (opam "satysfi-fonts-bodoni-star.opam"))
+ 
