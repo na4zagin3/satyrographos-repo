@@ -134,6 +134,8 @@ depends: [
 
   "satysfi-num-conversion" {= "0.1.1"}
 
+  "satysfi-ruby" {= "0.1.0"}
+
   "satysfi-simple-itemize" {= "1.0.0"}
 
   "satysfi-siunitx" {= "0.1"}
