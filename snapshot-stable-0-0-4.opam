@@ -98,6 +98,10 @@ depends: [
 
   "satysfi-musikui" {= "0.1.0"}
 
+  "satysfi-ruby-doc" {= "0.1.1"}
+
+  "satysfi-ruby" {= "0.1.1"}
+
   "satysfi-simple-itemize" {= "1.0.0"}
 
   "satysfi-siunitx" {= "0.1"}
