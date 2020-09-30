@@ -21,7 +21,7 @@ install: [
     "-script" "%{build}%/Satyristes"]
 ]
 url {
-  src: "https://github.com/puripuri2100/SATySFi-ruby/archive/0.1.1.tar.gz"
+  src: "https://github.com/puripuri2100/SATySFi-ruby/archive/0.1.2.tar.gz"
   checksum: [
     "md5=f7d79cc7bc45280d4869993f1ccebbb0"
     "sha512=ff308d47163f32d22df9143c9066b019b105f34b3a3f0ba061f70a8f9d731f782dcdbda32068cd2aa13715020d8997ae298dc45c29a004afc09a116b02f5a538"

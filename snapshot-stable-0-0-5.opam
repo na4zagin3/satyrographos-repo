@@ -134,11 +134,7 @@ depends: [
 
   "satysfi-num-conversion" {= "0.1.1"}
 
-  "satysfi-ruby-doc" {= "0.1.1"}
-
   "satysfi-ruby-doc" {= "0.1.2"}
-
-  "satysfi-ruby" {= "0.1.1"}
 
   "satysfi-ruby" {= "0.1.2"}
 
