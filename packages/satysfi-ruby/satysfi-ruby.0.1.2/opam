@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "Japanese-style ruby in SATySFi"
+description: """Japanese-style ruby in SATySFi."""
+
+maintainer: "puripuri2100 <puripuri2100@gmail.com>"
+authors: "puripuri2100 <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-ruby"
+bug-reports: "https://github.com/puripuri2100/SATySFi-ruby/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-ruby.git"
+
+depends: [
+  "satysfi" {>= "0.0.1" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "-name" "ruby"
+    "-prefix" "%{prefix}%"
+    "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-ruby/archive/0.1.2.tar.gz"
+  checksum: [
+    "md5=f7d79cc7bc45280d4869993f1ccebbb0"
+    "sha512=ff308d47163f32d22df9143c9066b019b105f34b3a3f0ba061f70a8f9d731f782dcdbda32068cd2aa13715020d8997ae298dc45c29a004afc09a116b02f5a538"
+  ]
+}
