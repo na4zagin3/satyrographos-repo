@@ -23,7 +23,7 @@ install: [
 url {
   src: "https://github.com/puripuri2100/SATySFi-ruby/archive/0.1.1.tar.gz"
   checksum: [
-    "md5=935b64abb374d5ec2148dc0086e8f2b4"
-    "sha512=ac9b85e74c56fd69b0d49f1d2b230e9ba7f810ec9134df15a9ea40bd46eb294b0903c33962444a0998c64877b6faf0d912c48deb42c4a183c01cb6c5d2f5e0f4"
+    "md5=f7d79cc7bc45280d4869993f1ccebbb0"
+    "sha512=ff308d47163f32d22df9143c9066b019b105f34b3a3f0ba061f70a8f9d731f782dcdbda32068cd2aa13715020d8997ae298dc45c29a004afc09a116b02f5a538"
   ]
 }
