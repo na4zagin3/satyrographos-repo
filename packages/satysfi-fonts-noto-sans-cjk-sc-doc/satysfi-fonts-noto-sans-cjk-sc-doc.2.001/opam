@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Noto Sans CJK SC fonts"
+description: """
+Document package for satysfi-fonts-noto-sans-cjk-sc
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc.git"
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-fonts-noto-sans-cjk-sc" {= "2.001"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+    "-name" "fonts-noto-sans-cjk-sc-doc"
+    "-prefix" "%{prefix}%"
+    "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "-name" "fonts-noto-sans-cjk-sc-doc"
+    "-prefix" "%{prefix}%"
+    "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc/archive/2.001.tar.gz"
+  checksum: [
+    "md5=87e1aa395c9d2865f95d81b693223c6f"
+    "sha512=d6b0856142d1edf1cb56a3bdbe188c6eb0222a544ddc714854ec0207cdba8b9f2e62fb4fa63063b84fb30a8f7475164630b9c31fb390332825f607fb3b6c83f4"
+  ]
+}
