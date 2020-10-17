@@ -20,6 +20,10 @@ depends: [
 
 # Package List
 
+  "satysfi-azmath-doc" {= "0.0.1"}
+
+  "satysfi-azmath" {= "0.0.1"}
+
   "satysfi-arrows-doc" {= "0.1.0"}
 
   "satysfi-arrows" {= "0.1.0"}
