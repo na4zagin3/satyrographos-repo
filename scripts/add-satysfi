@@ -63,11 +63,35 @@ let get_version_from_opam_file opam =
     |> capture_unit [Std_io.Stdout]
     >>| String.trim )
 
-let get_version branch tag =
-  get_commit_datetime branch >>= (fun datetime ->
+let get_version_from_git_repo =
+  run "git" ["describe";]
+  |> capture_unit [Std_io.Stdout]
+  >>| (fun s ->
+      let len = String.length s in
+      if len > 0 && (String.get s 0 = 'v')
+      then String.sub s 1 (len - 1)
+      else s
+    )
+  >>| String.trim
+
+type schema =
+  | Date
+  | GitDescribe
+
+let get_version schema branch tag =
+  get_commit_datetime branch >>= fun datetime ->
   let date = datetime_to_date datetime in
-  get_version_from_opam_file "satysfi.opam" >>= (fun version ->
-  construct_version version tag date))
+  match schema with
+  | Date ->
+    get_version_from_opam_file "satysfi.opam" >>= (fun version ->
+        construct_version version tag date)
+  | GitDescribe ->
+    get_version_from_git_repo >>= fun version ->
+    let tag =
+      Option.map (fun s -> "+" ^ s) tag
+      |> Option.value ~default:""
+    in
+    return (version ^ tag)
 
 let copy_satysfi version hash =
   let satysfi_package_dir version =
@@ -91,20 +115,22 @@ let copy_satysfi_dist version hash =
   >> stdout_to (satysfi_dist_package_dir version ^ "/files/fix-install-libs.patch") (
     stdin_from satysfi_dist_patch (iter_lines echo_line))
 
-let create_satysfi branch tag =
+let create_satysfi schema branch tag =
   let command =
-    get_version branch tag >>= (fun version ->
+    get_version schema branch tag >>= (fun version ->
     get_commit_hash branch >>= fun hash ->
     copy_satysfi version hash >>
     copy_satysfi_dist version hash) in
   get_satysfi branch
   >> chdir satysfi_dir command
 
+let option_date_schema = ref false
 let option_branch = ref "master"
 let option_version_tag = ref None
 let specs =
   [ ("-b", Arg.Set_string(option_branch), "Branch name");
     ("-t", Arg.String(fun tag -> option_version_tag := Some tag), "Version tag (default: none)");
+    ("-d", Arg.Set(option_date_schema), "Use date format schema");
   ]
 let usage =
   {|USAGE: add-satysfi -b <branch>
@@ -112,10 +138,16 @@ let usage =
 OPTIONS:
  -b <branch> Branch name. (default: master)
  -t <tag> Version tag name (e.g., dev in satysfi.0.0.4+dev2020.02.16). (default: <branch>)
+ -d Use date schema (e.g., satysfi.0.0.5+dev2020.09.05) instead of git describe (e.g., satysfi.0.0.5-27-gc841df+dev).
 |}
 
 let _ =
   Arg.parse specs (fun _ -> failwith usage) usage;
-  let c = create_satysfi (!option_branch) (!option_version_tag)
+  let schema =
+    if !option_date_schema
+    then Date
+    else GitDescribe
+  in
+  let c = create_satysfi schema (!option_branch) (!option_version_tag)
   in
   Traced.eval_exn c
