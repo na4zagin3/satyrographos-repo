@@ -6,6 +6,7 @@ changed_packages () {
 		-e 's!packages/[^/]*/!!' \
 		-e 's!/opam$!!' \
 		-e '/^satyrographos[-.]/d' \
+		-e '/^satysfi-dist[.]/d' \
 		-e '/^satysfi[.]/d'
 }
 
