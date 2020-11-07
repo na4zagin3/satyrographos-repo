@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "A SATySFi package containing A-to-Z mathematical commands"
+description: """A SATySFi package containing A-to-Z mathematical commands."""
+
+maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+license: "MIT"
+homepage: "https://github.com/monaqa/satysfi-azmath"
+bug-reports: "https://github.com/monaqa/satysfi-azmath/issues"
+dev-repo: "git+https://github.com/monaqa/satysfi-azmath.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-dist"
+  "satysfi-azmath" {= "%{version}%"}
+  "satysfi-enumitem" {>= "2.0.0"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "azmath-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "azmath-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/satysfi-azmath/archive/v0.0.1.tar.gz"
+  checksum: [
+    "md5=ca6d61f129fa81418299ddf0a3f4fc26"
+    "sha512=6135a55d1909b4d04e2042a43908edc46c9c548f5648ecbbdfa375b3b308b066d5599711e760816dbd4182cdd2ff3026ff0ea0c6d27cdcbe5949ea82da91b607"
+  ]
+}

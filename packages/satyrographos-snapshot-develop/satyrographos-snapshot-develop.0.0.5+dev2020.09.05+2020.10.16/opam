@@ -13,9 +13,9 @@ synopsis: "Snapshot of stable libraries in Satyrographos Repo"
 depends: [
   "dune" {build}
   "ocaml" {>= "4.10.0"}
-  "satysfi" {= "0.0.5"}
+  "satysfi" {= "0.0.5+dev2020.09.05"}
   "satysfi-dist"
-  "satyrographos" {= "0.0.2.7"}
+  "satyrographos" {= "0.0.2.6"}
 
 
 # Package List
@@ -23,6 +23,10 @@ depends: [
   "satysfi-azmath-doc" {= "0.0.1"}
 
   "satysfi-azmath" {= "0.0.1"}
+
+  "satysfi-arrows-doc" {= "0.1.0"}
+
+  "satysfi-arrows" {= "0.1.0"}
 
   "satysfi-assert-eq" {= "0.1.1"}
 
@@ -136,9 +140,9 @@ depends: [
 
   "satysfi-musikui" {= "0.1.0"}
 
-  "satysfi-ncsq-doc" {= "2.0.0"}
+  "satysfi-ncsq-doc" {= "2.1.0"}
 
-  "satysfi-ncsq" {= "2.0.0"}
+  "satysfi-ncsq" {= "2.1.0"}
 
   "satysfi-num-conversion" {= "0.1.1"}
 

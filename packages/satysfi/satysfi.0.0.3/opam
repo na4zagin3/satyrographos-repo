@@ -30,7 +30,7 @@ extra-source "junicode-1.002.zip" {
   ]
 }
 extra-source "IPAexfont00301.zip" {
-  archive: "https://ipafont.ipa.go.jp/IPAexfont/IPAexfont00301.zip"
+  archive: "https://moji.or.jp/wp-content/ipafont/IPAexfont/IPAexfont00301.zip"
   mirrors: [
     "https://github.com/na4zagin3/satysfi-dist-font-archives/raw/master/IPAJ/IPAexfont00301.zip"
   ]
