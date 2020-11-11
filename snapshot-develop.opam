@@ -156,9 +156,9 @@ depends: [
 
   "satysfi-siunitx" {= "0.1"}
 
-  "satysfi-tombo-doc" {= "0.1.0"}
+  "satysfi-tombo-doc" {= "0.2.0"}
 
-  "satysfi-tombo" {= "0.1.0"}
+  "satysfi-tombo" {= "0.2.0"}
 
   "satysfi-uline" {= "0.2.0"}
 
