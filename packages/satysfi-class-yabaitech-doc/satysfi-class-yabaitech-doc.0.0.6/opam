@@ -33,6 +33,6 @@ url {
     "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/archive/0.0.6.tar.gz"
   checksum: [
     "md5=f6fb81a1a8d8d72fffe856b85cf08a4a"
-    "sha512=c5191cf38d34a4fae3b786a26a934468c5176c8cceaefa8881cd83697151db13bedf885c664f517821177811b580171d05cbe645a75366b6f8e12d909bfc3afc"
+    "sha512=feebf3af189e0c72e374e4456a0129a2e658bdf698518ede074ea86f2ba292331ca66c098a5bc89229140501666865a3b556943a80250cec2aa75f7d9e8dbf58"
   ]
 }
