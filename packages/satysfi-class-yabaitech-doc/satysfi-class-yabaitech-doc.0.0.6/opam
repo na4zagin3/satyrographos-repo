@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "Document: The yabaitech.tokyo SATySFi class file"
+description: """
+Document: The yabaitech.tokyo SATySFi class file.
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Yuito Murase <yuito@acupof.coffee>"
+authors: "Yuito Murase <yuito@acupof.coffee>"
+license: "MIT"
+homepage: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech"
+bug-reports: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/issues"
+dev-repo: "git+https://github.com/yabaitechtokyo/satysfi-class-yabaitech.git"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-class-yabaitech" {= "0.0.6"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "class-yabaitech-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "class-yabaitech-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/archive/0.0.6.tar.gz"
+  checksum: [
+    "md5=ffc96b861bd719a133f3e714fd57ece7"
+    "sha512=feebf3af189e0c72e374e4456a0129a2e658bdf698518ede074ea86f2ba292331ca66c098a5bc89229140501666865a3b556943a80250cec2aa75f7d9e8dbf58"
+  ]
+}
