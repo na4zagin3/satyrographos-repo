@@ -1,0 +1,30 @@
+opam-version: "2.0"
+synopsis: "Outputting LaTeX file using SATySFi's text-mode"
+description: """Outputting LaTeX file using SATySFi's text-mode."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-make-latex"
+bug-reports: "https://github.com/puripuri2100/SATySFi-make-latex/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-make-latex.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.4"}
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "make-latex"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-textmode-latex-packages/archive/0.2.0.tar.gz"
+  checksum: [
+    "md5=9d27ec241cba55d4d726b20c09af8325"
+    "sha512=121763631562b340d3894585b86e2ffdcf1ecb299d6a86528c81d617e47c5f80e00ace40e10f32d429bcaad64342fcc44513721a61b6c98a10c67038b9866130"
+  ]
+}

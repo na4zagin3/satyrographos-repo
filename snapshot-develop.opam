@@ -132,6 +132,10 @@ depends: [
 
   "satysfi-make-html" {= "0.1.0"}
 
+  "satysfi-make-latex-doc" {= "0.2.0"}
+
+  "satysfi-make-latex" {= "0.2.0"}
+
   "satysfi-make-markdown" {= "0.1.0"}
 
   "satysfi-matrixcd" {= "0.0.1"}
