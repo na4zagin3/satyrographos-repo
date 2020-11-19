@@ -1,0 +1,31 @@
+opam-version: "2.0"
+synopsis: "TeX-family logos with SATySFi"
+description: """
+TeX-family logos with SATySFi.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-texlogo"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-texlogo.git"
+bug-reports: "https://github.com/puripuri2100/SATySFi-texlogo/issues"
+depends: [
+  "satysfi" { >= "0.0.3" & < "0.0.6" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # If your library depends on other libraries, please write down here
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "texlogo"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-texlogo/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=3905149d049520c940116980bdd6e7c9"
+    "sha512=cb93c3b5188098fff6eda598d6ab70a049f5b31fe4872364ab7a39a25accc55693387a58e579cc8cdb518b5b225168db823f136587cde4951c5755b8a53b00af"
+  ]
+}
