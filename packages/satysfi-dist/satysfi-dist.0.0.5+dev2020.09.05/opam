@@ -52,8 +52,16 @@ depends: [
 synopsis: "Standard library of SATySFi"
 description: """
 Provides the standard library of SATySFi"""
-extra-files: ["fix-install-libs.patch" "sha256=80e88dcb9d4fb6f5bb0d22d785906b91731cbaea9e7ff0b19c9084d8a50d35c8"]
-patches: ["fix-install-libs.patch"]
+extra-files: [
+  ["fix-install-libs.patch" "sha256=80e88dcb9d4fb6f5bb0d22d785906b91731cbaea9e7ff0b19c9084d8a50d35c8"]
+  ["fix-download-font-sh-shasum.patch"
+  "sha512=ad58d4921a4b5ff9ece268280e0fdac396a6761eb92c2735c0d9905715abcfc729ecaa1ed503b0de52c56cbbd6e82baaaa11e6381deec8698adf2a184c559d91"
+  ]
+]
+patches: [
+  "fix-install-libs.patch"
+  "fix-download-font-sh-shasum.patch"
+]
 url {
   git: "git+https://github.com/gfngfn/SATySFi.git#4e8ea2147f66b8c26a494067b3011e480be6526e"
 }
