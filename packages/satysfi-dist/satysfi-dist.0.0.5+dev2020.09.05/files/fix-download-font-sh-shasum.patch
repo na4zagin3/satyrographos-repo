@@ -1,0 +1,31 @@
+diff --git a/download-fonts.sh b/download-fonts.sh
+index e4a9aee..9435212 100755
+--- a/download-fonts.sh
++++ b/download-fonts.sh
+@@ -4,8 +4,6 @@ set -ue
+ 
+ CACHE=temp
+ MESSAGE_PREFIX="[download-fonts.sh]"
+-SHA1SUM=sha1sum
+-
+ cd "$(dirname "$0")"
+ mkdir -p "$CACHE"
+ 
+@@ -13,6 +11,17 @@ show_message () {
+   echo "$MESSAGE_PREFIX $1."
+ }
+ 
++if command shasum --version >/dev/null 2>&1 ; then
++  show_message "Using shasum"
++  SHA1SUM=shasum
++elif command sha1sum --version >/dev/null 2>&1 ; then
++  show_message "Using sha1sum"
++  SHA1SUM=sha1sum
++else
++  echo "No SHA checksum checkers found.  Please install shasum or sha1sum" >&2
++  exit 1
++fi
++
+ validate_file () {
+   (
+ 	NAME="$1"
