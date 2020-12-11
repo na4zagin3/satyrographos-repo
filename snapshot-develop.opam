@@ -116,9 +116,11 @@ depends: [
 
   "satysfi-fonts-theano" {= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
 
-  "satysfi-fss-doc" {= "0.0.1"}
+  "satysfi-fss-doc" {= "0.2.0"}
 
-  "satysfi-fss" {= "0.0.1"}
+  "satysfi-fss-fontset-bodoni-star" {= "2.3"}
+
+  "satysfi-fss" {= "0.2.0"}
 
   "satysfi-grcnum-doc" {= "0.2"}
 
@@ -159,6 +161,10 @@ depends: [
   "satysfi-simple-itemize" {= "1.0.0"}
 
   "satysfi-siunitx" {= "0.1"}
+
+  "satysfi-sss-doc" {= "0.2.0"}
+
+  "satysfi-sss" {= "0.2.0"}
 
   "satysfi-texlogo-doc" {= "0.1.1"}
 
