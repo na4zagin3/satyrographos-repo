@@ -162,10 +162,6 @@ depends: [
 
   "satysfi-siunitx" {= "0.1"}
 
-  "satysfi-sss-doc" {= "0.2.0"}
-
-  "satysfi-sss" {= "0.2.0"}
-
   "satysfi-texlogo-doc" {= "0.1.1"}
 
   "satysfi-texlogo" {= "0.1.1"}
