@@ -8,6 +8,7 @@ else
     echo "Non pull request"
 fi
 
+export OPAMSOLVERTIMEOUT=300
 # Set up OPAM and install the snapshot
 export PACKAGE="$SNAPSHOT"
 bash -ex .travis-opam.sh
