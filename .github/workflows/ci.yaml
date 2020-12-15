@@ -35,7 +35,7 @@ jobs:
           opam repository add satyrographos-local .
           opam update
       - name: Run script
-        with:
+        env:
           SNAPSHOT: ${{ matrix.snapshot }}
         run: |
           ./ci.sh
