@@ -36,6 +36,6 @@ jobs:
           opam update
       - name: Run script
         env:
-          SNAPSHOT: ${{ matrix.snapshot }}
+          SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
         run: |
           ./ci.sh
