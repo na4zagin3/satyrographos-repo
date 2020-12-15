@@ -24,6 +24,20 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Cache OPAM directory (Non Windows)
+        uses: actions/cache@v2
+        if: runner.os != 'Windows'
+        with:
+          path: "~/.opam"
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}
+
+      - name: Cache OPAM directory (Windows)
+        uses: actions/cache@v2
+        if: runner.os == 'Windows'
+        with:
+          path: "C:\\cygwin\\home\\runneradmin\\.opam"
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}
+
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: avsm/setup-ocaml@v1
         with:
@@ -34,6 +48,7 @@ jobs:
           opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
           opam repository add satyrographos-local .
           opam update
+          opam upgrade --yes
       - name: Run script
         env:
           SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
