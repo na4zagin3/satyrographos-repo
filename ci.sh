@@ -36,9 +36,6 @@ if true ; then
 
     git remote -v
     git branch -v
-
-    git fetch origin master:master
-
     git branch -v
 
     export OPAMYES=1
