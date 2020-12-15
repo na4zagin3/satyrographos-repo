@@ -16,9 +16,12 @@ jobs:
 #         - 4.10.1
           - 4.11.1
         snapshot:
-#         - stable-0-0-4
           - stable-0-0-5
           - develop
+        include:
+          - os: 'ubuntu-latest'
+            ocaml-version: '4.06.0'
+            snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
     steps:
       - name: Checkout code
