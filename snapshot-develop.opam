@@ -15,7 +15,7 @@ depends: [
   "ocaml" {>= "4.10.0"}
   "satysfi" {= "0.0.5+dev2020.09.05"}
   "satysfi-dist"
-  "satyrographos" {= "0.0.2.7"}
+  "satyrographos" {= "0.0.2.8"}
 
 
 # Package List
