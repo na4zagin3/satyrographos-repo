@@ -1,0 +1,41 @@
+name: CI
+
+on:
+  - pull_request
+  - push
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        os:
+          - 'ubuntu-latest'
+#         - 'macos-latest'
+        ocaml-version:
+#         - 4.10.1
+          - 4.11.1
+        snapshot:
+          - stable-0-0-4
+          - stable-0-0-5
+          - develop
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Setup OCaml ${{ matrix.ocaml-version }}
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Setup OPAM
+        run: |
+          opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
+          opam repository add satyrographos-local .
+          opam update
+      - name: Run script
+        with:
+          SNAPSHOT: ${{ matrix.snapshot }}
+        run: |
+          ./ci.sh

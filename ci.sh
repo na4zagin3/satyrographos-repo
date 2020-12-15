@@ -2,16 +2,12 @@
 
 set -ex
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-    echo "Pull request"
-else
-    echo "Non pull request"
-fi
-
 export OPAMSOLVERTIMEOUT=300
-# Set up OPAM and install the snapshot
+
+# Install the snapshot
 export PACKAGE="$SNAPSHOT"
-bash -ex .travis-opam.sh
+opam depext "$PACKAGE" --yes --with-doc --with-test
+opam install "$PACKAGE" --yes --with-doc --with-test
 
 # Check validity of the OPAM files
 opam lint --strict *.opam
