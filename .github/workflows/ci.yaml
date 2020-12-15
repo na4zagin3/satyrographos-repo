@@ -23,6 +23,9 @@ jobs:
             ocaml-version: '4.06.0'
             snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
+    env:
+      OPAMSOLVERTIMEOUT: 300
+      SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -46,14 +49,35 @@ jobs:
         with:
           ocaml-version: ${{ matrix.ocaml-version }}
 
-      - name: Setup OPAM
+      - name: Check validity of the snapshot OPAM files
+        run: |
+          opam lint --strict *.opam
+
+      - name: Check validity of the package OPAM files
+        run: |
+          find packages -iname opam -exec opam lint --strict '{}' '+'
+
+      - name: Setup OPAM repositories
         run: |
           opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
           opam repository add satyrographos-local .
           opam update
           opam upgrade --yes
+
+      - name: Install the snapshot
+        run: |
+          opam pin add "${SNAPSHOT}.dev" . --no-action
+          opam depext "$SNAPSHOT" --yes --with-doc --with-test
+          opam install "$SNAPSHOT" --yes --with-doc --with-test
+
+      - name: Detect file collisions in installed SATySFI libraries
+        run: |
+          opam exec -- satyrographos install test-satysfi-root
+
+      - name: Removing the snapshot
+        run: |
+          opam uninstall "$SNAPSHOT"
+          
       - name: Run script
-        env:
-          SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
         run: |
           ./ci.sh
