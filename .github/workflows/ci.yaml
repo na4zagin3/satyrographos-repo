@@ -32,14 +32,14 @@ jobs:
         if: runner.os != 'Windows'
         with:
           path: "~/.opam"
-          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
 
       - name: Cache OPAM directory (Windows)
         uses: actions/cache@v2
         if: runner.os == 'Windows'
         with:
           path: "C:\\cygwin\\home\\runneradmin\\.opam"
-          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: avsm/setup-ocaml@v1
