@@ -6,6 +6,7 @@ export OPAMSOLVERTIMEOUT=300
 
 # Install the snapshot
 export PACKAGE="$SNAPSHOT"
+opam pin add "${PACKAGE}.dev" . --no-action
 opam depext "$PACKAGE" --yes --with-doc --with-test
 opam install "$PACKAGE" --yes --with-doc --with-test
 
