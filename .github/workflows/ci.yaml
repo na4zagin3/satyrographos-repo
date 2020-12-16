@@ -77,7 +77,11 @@ jobs:
       - name: Removing the snapshot
         run: |
           opam uninstall "$SNAPSHOT"
-          
+
       - name: Run script
         run: |
           ./ci.sh
+
+      - name: Clean up logs and temporary files
+        run: |
+          opam clean --switch-cleanup --logs
