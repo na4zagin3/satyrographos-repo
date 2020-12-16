@@ -24,7 +24,7 @@ jobs:
             snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
     env:
-      OPAMSOLVERTIMEOUT: 600
+      OPAMSOLVERTIMEOUT: 3600
       SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
       - name: Checkout code
