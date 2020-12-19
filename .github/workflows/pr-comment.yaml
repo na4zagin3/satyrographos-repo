@@ -28,15 +28,20 @@ jobs:
           echo "ref: $GITHUB_REF"
           echo "head ref: $GITHUB_HEAD_REF"
           echo "base ref: $GITHUB_BASE_REF"
+        env:
+          GITHUB_HEAD_REF: '${{ github.head_ref }}'
+          GITHUB_BASE_REF: '${{ github.base_ref }}'
       - uses: actions/checkout@v2
         if: steps.check.outputs.triggered == 'true'
         with:
           fetch-depth: 0
           ref: ${{ github.head_ref }}
-      - run: |
+      - name: Update snapshots
+        run: |
           git config user.name github-actions
           git config user.email github-actions@github.com
           git branch -v
+          git remote -v
           echo "$COMMENT_BODY" | grep -qe '^develop$' && scripts/update-snapshot --opam snapshot-develop.opam || true
           echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.4$' && scripts/update-snapshot --opam snapshot-stable-0-0-4.opam || true
           echo "$COMMENT_BODY" | grep -qe '^stable 0\.0\.5$' && scripts/update-snapshot --opam snapshot-stable-0-0-5.opam || true
