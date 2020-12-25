@@ -88,6 +88,42 @@ jobs:
         run: |
           ./ci.sh
 
+      - name: Test if the packages can be added to the snapshot
+        if: github.event_name == 'push'
+        id: test-update-snapshot
+        run: |
+          scripts/update-snapshot --opam "$SNAPSHOT"
+          if opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
+            echo '::set-output name=result::true'
+          else
+            echo '::set-output name=result::false'
+          fi
+          opam uninstall "$SNAPSHOT" --yes
+
+      - name: comment PR
+        uses: actions/github-script@v2
+        if: github.event_name == 'push'
+        env:
+          SNAPSHOT_UPDATABLE: ${{ steps.test-update-snapshot.outputs.result }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            let message;
+            if (process.env.SNAPSHOT_UPDATABLE === "true") {
+              message = `Your libraries are consistent with snapshot ${process.env.SNAPSHOT}.  You can run the following command
+            \`\`\`
+            $ scripts/update-snapshot --opam ${process.env.SNAPSHOT}.opam
+            \`\`\``;
+            } else {
+              message = `Your libraries are NOT consistent with snapshot ${process.env.SNAPSHOT}.`;
+            }
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: message
+            })
+            
       - name: Clean up logs and temporary files
         run: |
           opam clean --switch-cleanup --logs
