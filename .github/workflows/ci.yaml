@@ -27,8 +27,15 @@ jobs:
       OPAMSOLVERTIMEOUT: 3600
       SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
-      - name: Checkout code
+      - name: Checkout code (10 commits)
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - name: Checkout master branch (50 commits)
+        run: |
+          git remote set-branches --add origin master
+          git fetch --depth 50 origin master
 
       - name: Cache OPAM directory (Non Windows)
         uses: actions/cache@v2
