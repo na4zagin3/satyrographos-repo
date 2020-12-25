@@ -62,7 +62,13 @@ jobs:
           opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
           opam repository add satyrographos-local .
           opam update
+
+      - name: Update packages
+        run: |
+          opam pin add --no-action satysfi "$(opam show satysfi -f version)"
+          opam pin add --no-action satyrographos "$(opam show satyrographos -f version)"
           opam upgrade --yes
+          opam pin remove satysfi satyrographos
 
       - name: Install the snapshot
         run: |
