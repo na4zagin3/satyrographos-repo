@@ -1,5 +1,8 @@
 #!/bin/bash
 
+set -ue
+set -o pipefail
+
 changed_packages () {
 	git diff origin/master... --name-only | sed \
 		-e '/packages\/.*\/opam/!d' \
