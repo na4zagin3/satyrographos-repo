@@ -99,7 +99,7 @@ jobs:
         if: github.event_name == 'pull_request'
         id: test-update-snapshot
         run: |
-          scripts/update-snapshot --opam "$SNAPSHOT"
+          scripts/update-snapshot --opam "$SNAPSHOT.opam"
           if opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
             echo '::set-output name=result::true'
           else
