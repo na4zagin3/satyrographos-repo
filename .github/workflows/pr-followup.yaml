@@ -1,0 +1,65 @@
+name: Pull Request Follow-Up Flow
+
+on:
+ pull_request:
+   types: [closed]
+
+jobs:
+  comment-bot:
+    name: Comment Bot
+    runs-on: ubuntu-latest
+    steps:
+
+      - uses: actions/github-script@v2
+        id: head-branch
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const pull_request = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            return {
+              ref: pull_request.data.head.ref,
+              repo: pull_request.data.head.repo.full_name,
+              body: pull_request.data.body.replace(/\r?\n/g, '\n')
+            };
+
+      - run: |
+          echo "ref: $GITHUB_REF"
+          echo "upstream ref: $HEAD_REF"
+          echo "head repo: $HEAD_REPO"
+        env:
+          HEAD_REF: ${{ steps.head-branch.outputs.result.ref }}
+          HEAD_REPO: ${{ steps.head-branch.outputs.result.repo }}
+      - uses: actions/checkout@v2
+        if: steps.check.outputs.triggered == 'true'
+        with:
+          fetch-depth: 0
+          ref: ${{ steps.upstreambranch.outputs.branchname }}
+      - name: Update snapshots
+        run: |
+          git branch -v
+          git remote -v
+          echo "$COMMENT_BODY" | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -n1 -d"\n" scripts/update-snapshot --opam
+        env:
+          COMMENT_BODY: '${{ steps.head-branch.outputs.result.body }}'
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        with:
+          token: ${{ secrets.REPO_PUBLIC }}
+          commit-message: Take snapshots
+          branch: take-snapshots
+          title: '[Automated] Follow up #${{ github.event.pull_request.number }}'
+          body: |
+            Follow up #${{ github.event.pull_request.number }}
+          labels: |
+            automated pr
+          assignees: na4zagin3
+          reviewers: na4zagin3
+          team-reviewers: |
+            owners
+            maintainers
