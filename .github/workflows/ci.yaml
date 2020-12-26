@@ -131,8 +131,6 @@ jobs:
             const actionText = `Add to ${process.env.SNAPSHOT}`;
 
             const body = pull_request.data.body;
-            console.log('regex', regex.toString());
-            console.log('replacement', replacement);
             console.log('body', body);
             if (body) {
               const [preActionHeader, postActionHeader] = body.split(actionHeader);
