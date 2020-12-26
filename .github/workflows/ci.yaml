@@ -106,6 +106,7 @@ jobs:
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
+            echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"!! ; s!".*!! ; p}' | tr '\n' ' ')"
           elif opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
             echo '::set-output name=result::updated'
           else
@@ -118,6 +119,7 @@ jobs:
         if: github.event_name == 'pull_request'
         env:
           SNAPSHOT_UPDATABLE: ${{ steps.test-update-snapshot.outputs.result }}
+          PACKAGES_TO_UPDATE: ${{ steps.test-update-snapshot.outputs.packages }}
         with:
           github-token: ${{ github.token }}
           script: |
@@ -128,7 +130,7 @@ jobs:
             };
             const pull_request = await github.pulls.get(pullRequestId);
             const actionHeader = '\n# Automatic follow-ups\n';
-            const actionText = `Add to ${process.env.SNAPSHOT}`;
+            const actionText = `Add to \`${process.env.SNAPSHOT}\``;
 
             const body = pull_request.data.body.replace(/\r?\n/g, '\n');
             console.log('body', body);
@@ -143,7 +145,7 @@ jobs:
                     if (action === actionText) {
                       switch (process.env.SNAPSHOT_UPDATABLE) {
                         case 'updated':
-                         return `[ ] ${action}`;
+                         return `[ ] ${action}: ${process.env.PACKAGES_TO_UPDATE}`;
                         case 'no-updates':
                           return `~~${action}~~`;
                         case 'failed':
