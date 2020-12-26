@@ -152,7 +152,7 @@ jobs:
                     return action;
                   }
                 });
-              const replacedBody = `${preActionHeader}${actionHeader}${actions.join('\n- ')};
+              const replacedBody = `${preActionHeader}${actionHeader}${actions.join('\n- ')}`;
               console.log('replacedBody', replacedBody);
               await github.pulls.update({
                 ...pullRequestId,
