@@ -28,11 +28,10 @@ jobs:
 
       - run: |
           echo "ref: $GITHUB_REF"
-          echo "upstream ref: $HEAD_REF"
+          echo "upstream ref: $RESULT"
           echo "head repo: $HEAD_REPO"
         env:
-          HEAD_REF: ${{ steps.head-branch.outputs.result.ref }}
-          HEAD_REPO: ${{ steps.head-branch.outputs.result.repo }}
+          PR: ${{ steps.head-branch.outputs.result }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -40,9 +39,9 @@ jobs:
         run: |
           git branch -v
           git remote -v
-          echo "$COMMENT_BODY" | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -n1 -d"\n" scripts/update-snapshot --opam
+          echo "$PR" | jq '.body' | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -n1 -d"\n" scripts/update-snapshot --opam
         env:
-          COMMENT_BODY: '${{ steps.head-branch.outputs.result.body }}'
+          PR: ${{ steps.head-branch.outputs.result }}
 
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
