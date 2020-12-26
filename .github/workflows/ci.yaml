@@ -102,6 +102,7 @@ jobs:
         continue-on-error: true
         id: test-update-snapshot
         run: |
+          git log -n 3
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
@@ -141,10 +142,9 @@ jobs:
             const actionText = `Add to snapshot \`${process.env.SNAPSHOT}\``;
 
             const body = pull_request.data.body.replace(/\r?\n/g, '\n');
-            console.log('body', body);
+
             if (body) {
               const splitted = body.split(actionHeader);
-              console.log('splitted', splitted);
 
               const actions = splitted[1]
                 ? splitted[1]
@@ -164,9 +164,9 @@ jobs:
                     }
                   })
                 : [];
-              console.log('actions', actions);
+
               const replacedBody = `${splitted[0]}${actionHeader}${actions.join('\n- ')}`;
-              console.log('replacedBody', replacedBody);
+
               await github.pulls.update({
                 ...pullRequestId,
                 body: replacedBody
