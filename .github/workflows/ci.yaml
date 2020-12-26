@@ -130,7 +130,7 @@ jobs:
             const actionHeader = '\n# Automatic follow-ups\n';
             const actionText = `Add to ${process.env.SNAPSHOT}`;
 
-            const body = pull_request.data.body;
+            const body = pull_request.data.body.replace(/\r?\n/g, '\n');
             console.log('body', body);
             if (body) {
               const splitted = body.split(actionHeader);
