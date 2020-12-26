@@ -141,13 +141,12 @@ jobs:
                 replacement = `$1- ~~${actionText}~~`;
                 break;
             }
-            
-            if (message) {
-              await github.pulls.update({
-                ...pullRequestId,
-                body: pull_request.body.replace(regex, replacement)
-              });
-            }
+
+            await github.pulls.update({
+              ...pullRequestId,
+              body: pull_request.body.replace(regex, replacement)
+            });
+
             
       - name: Clean up logs and temporary files
         run: |
