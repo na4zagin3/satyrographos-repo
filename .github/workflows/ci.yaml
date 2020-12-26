@@ -105,6 +105,8 @@ jobs:
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
