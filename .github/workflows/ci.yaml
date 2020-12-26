@@ -19,11 +19,11 @@ jobs:
           - 4.11.1
         snapshot:
           - stable-0-0-5
-#          - develop
-#        include:
-#          - os: 'ubuntu-latest'
-#            ocaml-version: '4.06.1'
-#            snapshot: stable-0-0-4
+          - develop
+        include:
+          - os: 'ubuntu-latest'
+            ocaml-version: '4.06.1'
+            snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
     env:
       OPAMSOLVERTIMEOUT: 3600
@@ -106,7 +106,7 @@ jobs:
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
-            echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"!! ; s!".*!! ; p}' | tr '\n' ' ')"
+            echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
           elif opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
             echo '::set-output name=result::updated'
           else
