@@ -24,17 +24,17 @@ jobs:
         uses: actions/github-script@v3.1.0
         with:
           script: |
-            var artifacts = await github.actions.listWorkflowRunArtifacts({
+            const artifacts = await github.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
             });
-            var fs = require('fs');
-            var matchedArtifacts = artifacts.data.artifacts.filter((artifact) => {
+            const fs = require('fs');
+            const matchedArtifacts = artifacts.data.artifacts.filter((artifact) => {
               return artifact.name.startsWith('pr');
             });
             for await (const artifact of matchedArtifacts) {
-              var download = await github.actions.downloadArtifact({
+              const download = await github.actions.downloadArtifact({
                  owner: context.repo.owner,
                  repo: context.repo.repo,
                  artifact_id: artifact.id,
@@ -57,16 +57,16 @@ jobs:
         with:
           github-token: ${{ github.token }}
           script: |
-            var fs = require('fs');
+            const fs = require('fs');
             const dir = await fs.promises.opendir('.');
             const snapshots = [];
             for await (const dirent of dir) {
               if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
                   const dirname = dirent.name;
-                  var pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`));
-                  var snapshot = fs.readFileSync(`${dirname}/id.txt`);
-                  var result = fs.readFileSync(`${dirname}/result.txt`);
-                  var packages = fs.readFileSync(`${dirname}/packages.txt`);
+                  const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`));
+                  const snapshot = fs.readFileSync(`${dirname}/id.txt`);
+                  const result = fs.readFileSync(`${dirname}/result.txt`);
+                  const packages = fs.readFileSync(`${dirname}/packages.txt`);
                   snapshots.push({pull_number, snapshot, result, packages});
                }
             }
