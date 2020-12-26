@@ -19,11 +19,11 @@ jobs:
           - 4.11.1
         snapshot:
           - stable-0-0-5
-          - develop
-        include:
-          - os: 'ubuntu-latest'
-            ocaml-version: '4.06.1'
-            snapshot: stable-0-0-4
+#          - develop
+#        include:
+#          - os: 'ubuntu-latest'
+#            ocaml-version: '4.06.1'
+#            snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
     env:
       OPAMSOLVERTIMEOUT: 3600
@@ -133,24 +133,29 @@ jobs:
             const body = pull_request.data.body;
             console.log('body', body);
             if (body) {
-              const [preActionHeader, postActionHeader] = body.split(actionHeader);
-              const actions = postActionHeader
-                .split('\n- ')
-                .map((action) => {
-                  if (action === actionTextJ) {
-                    switch (process.env.SNAPSHOT_UPDATABLE) {
-                      case 'updated':
-                       return `[ ] ${action}`;
-                      case 'no-updates':
-                        return `~~${action}~~`;
-                      case 'failed':
-                        return `~~${action}~~`;
+              const splitted = body.split(actionHeader);
+              console.log('splitted', splitted);
+
+              const actions = splitted[1]
+                ? postActionHeader
+                  .split('\n- ')
+                  .map((action) => {
+                    if (action === actionText) {
+                      switch (process.env.SNAPSHOT_UPDATABLE) {
+                        case 'updated':
+                         return `[ ] ${action}`;
+                        case 'no-updates':
+                          return `~~${action}~~`;
+                        case 'failed':
+                          return `~~${action}~~`;
+                      }
+                    } else {
+                      return action;
                     }
-                  } else {
-                    return action;
-                  }
-                });
-              const replacedBody = `${preActionHeader}${actionHeader}${actions.join('\n- ')}`;
+                  });
+                : [];
+              console.log('actions', actions);
+              const replacedBody = `${splitted[0]}${actionHeader}${actions.join('\n- ')}`;
               console.log('replacedBody', replacedBody);
               await github.pulls.update({
                 ...pullRequestId,
