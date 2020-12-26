@@ -119,28 +119,33 @@ jobs:
         with:
           github-token: ${{ github.token }}
           script: |
-            let message;
+            const pullRequestId = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            };
+            const pull_request = await github.pulls.get(pullRequestId);
+            const actionHeader = '# Automatic follow-ups';
+            const actionTest = `Add to ${process.env.SNAPSHOT}`;
+            const regex = new RegExp(`(\n${actionHeader}\n.*\n)- ${actionText}$`, 'm');
+ 
+            let replacement;
             switch (process.env.SNAPSHOT_UPDATABLE) {
               case 'updated':
-                message = `Your libraries are consistent with snapshot ${process.env.SNAPSHOT}.  You can run the following command
-            \`\`\`
-            $ scripts/update-snapshot --opam ${process.env.SNAPSHOT}.opam
-            \`\`\``;
+                replacement = `$1- [ ] ${actionText}`;
                 break;
               case 'no-updates':
-                message = null;
+                replacement = `$1- ~~${actionText}~~`;
                 break;
               case 'failed':
-                message = `Your libraries are NOT consistent with snapshot ${process.env.SNAPSHOT}.`;
+                replacement = `$1- ~~${actionText}~~`;
                 break;
             }
             
             if (message) {
-              github.issues.createComment({
-                issue_number: context.issue.number,
-                owner: context.repo.owner,
-                repo: context.repo.repo,
-                body: message
+              await github.pulls.update({
+                ...pullRequestId,
+                body: pull_request.body.replace(regex, replacement)
               });
             }
             
