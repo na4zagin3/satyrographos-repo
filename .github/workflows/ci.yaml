@@ -127,29 +127,32 @@ jobs:
               pull_number: context.issue.number
             };
             const pull_request = await github.pulls.get(pullRequestId);
-            const actionHeader = '# Automatic follow-ups';
+            const actionHeader = '\n# Automatic follow-ups\n';
             const actionText = `Add to ${process.env.SNAPSHOT}`;
-            const regex = new RegExp(`(\n${actionHeader}\n(?:.*\n)*)- ${actionText}(:.*)?$`, 'm');
- 
-            let replacement;
-            switch (process.env.SNAPSHOT_UPDATABLE) {
-              case 'updated':
-                replacement = `$1- [ ] ${actionText}$2`;
-                break;
-              case 'no-updates':
-                replacement = `$1- ~~${actionText}~~`;
-                break;
-              case 'failed':
-                replacement = `$1- ~~${actionText}~~`;
-                break;
-            }
 
             const body = pull_request.data.body;
             console.log('regex', regex.toString());
             console.log('replacement', replacement);
             console.log('body', body);
             if (body) {
-              const replacedBody = body.replace(regex, replacement);
+              const [preActionHeader, postActionHeader] = body.split(actionHeader);
+              const actions = postActionHeader
+                .split('\n- ')
+                .map((action) => {
+                  if (action === actionTextJ) {
+                    switch (process.env.SNAPSHOT_UPDATABLE) {
+                      case 'updated':
+                       return `[ ] ${action}`;
+                      case 'no-updates':
+                        return `~~${action}~~`;
+                      case 'failed':
+                        return `~~${action}~~`;
+                    }
+                  } else {
+                    return action;
+                  }
+                });
+              const replacedBody = `${preActionHeader}${actionHeader}${actions.join('\n- ')};
               console.log('replacedBody', replacedBody);
               await github.pulls.update({
                 ...pullRequestId,
