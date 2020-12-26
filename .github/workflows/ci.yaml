@@ -99,11 +99,15 @@ jobs:
         if: github.event_name == 'pull_request'
         id: test-update-snapshot
         run: |
+          git checkout "$SNAPSHOT.opam"
+          opam update
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
-          if opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
-            echo '::set-output name=result::true'
+          if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
+            echo '::set-output name=result::no-updates'
+          elif opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
+            echo '::set-output name=result::updated'
           else
-            echo '::set-output name=result::false'
+            echo '::set-output name=result::failed'
           fi
           opam uninstall "$SNAPSHOT" --yes
 
@@ -116,20 +120,29 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             let message;
-            if (process.env.SNAPSHOT_UPDATABLE === "true") {
-              message = `Your libraries are consistent with snapshot ${process.env.SNAPSHOT}.  You can run the following command
+            switch (process.env.SNAPSHOT_UPDATABLE) {
+              case 'updated':
+                message = `Your libraries are consistent with snapshot ${process.env.SNAPSHOT}.  You can run the following command
             \`\`\`
             $ scripts/update-snapshot --opam ${process.env.SNAPSHOT}.opam
             \`\`\``;
-            } else {
-              message = `Your libraries are NOT consistent with snapshot ${process.env.SNAPSHOT}.`;
+                break;
+              case 'no-updates':
+                message = null;
+                break;
+              case 'failed':
+                message = `Your libraries are NOT consistent with snapshot ${process.env.SNAPSHOT}.`;
+                break;
             }
-            github.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: message
-            })
+            
+            if (message) {
+              github.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: message
+              });
+            }
             
       - name: Clean up logs and temporary files
         run: |
