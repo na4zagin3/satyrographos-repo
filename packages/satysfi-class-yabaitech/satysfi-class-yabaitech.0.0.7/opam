@@ -1,0 +1,42 @@
+opam-version: "2.0"
+synopsis: "The yabaitech.tokyo SATySFi class file"
+description: """
+The yabaitech.tokyo SATySFi class file.
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Yuito Murase <yuito@acupof.coffee>"
+authors: [
+    "gfngfn"
+    "Masaki Waga"
+    "Yuichi Nishiwaki <yuichi.nishiwaki@icloud.com>"
+    "Yuito Murase <yuito@acupof.coffee>"
+]
+license: "MIT"
+homepage: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech"
+bug-reports: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/issues"
+dev-repo: "git+https://github.com/yabaitechtokyo/satysfi-class-yabaitech.git"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.1" & < "2.0.0"}
+  "satysfi-fonts-noto-sans" {>= "2.001+1+satysfi0.0.4"}
+  "satysfi-fonts-noto-serif" {>= "2.001+1+satysfi0.0.4"}
+  "satysfi-fonts-noto-sans-cjk-jp" {>= "2.001+1+satysfi0.0.4"}
+  "satysfi-fonts-noto-serif-cjk-jp" {>= "2.001+1+satysfi0.0.4"}
+  "satysfi-fonts-asana-math" {>= "000.958+1+satysfi0.0.4"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "class-yabaitech"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/archive/0.0.7.tar.gz"
+  checksum: [
+    "md5=1d9adbc054be2b72891ee1afa016d9cb"
+    "sha512=6ba6e3ba5ce016d700fcdb34ab75217df52db993e5f09f13b1b4826a46f63f793eb311dabd5da62599d908ea9f632cf460eed6a47e05e3efd70437635fc80154"
+  ]
+}
