@@ -26,12 +26,6 @@ jobs:
               body: pull_request.data.body.replace(/\r?\n/g, '\n')
             };
 
-      - run: |
-          echo "ref: $GITHUB_REF"
-          echo "upstream ref: $RESULT"
-          echo "head repo: $HEAD_REPO"
-        env:
-          PR: ${{ steps.head-branch.outputs.result }}
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
@@ -48,8 +42,9 @@ jobs:
         id: cpr
         with:
 #          token: ${{ secrets.REPO_PUBLIC }}
+          delete-branch: true
           commit-message: Take snapshots
-          branch: 'update-snapshots-${{ github.event.pull_request.number }}'
+          branch: 'follow-up/${{ github.event.pull_request.number }}'
           title: '[Automated] Follow up #${{ github.event.pull_request.number }}'
           body: |
             Follow up #${{ github.event.pull_request.number }}
