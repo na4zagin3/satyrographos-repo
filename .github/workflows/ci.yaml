@@ -111,7 +111,7 @@ jobs:
           fi
           opam uninstall "$SNAPSHOT" --yes
 
-      - name: comment PR
+      - name: Update the PR body
         uses: actions/github-script@v2
         if: github.event_name == 'pull_request'
         env:
@@ -142,8 +142,7 @@ jobs:
                 break;
             }
 
-            console.log('pull_request', JSON.stringify(pull_request));
-            const body = pull_request.body;
+            const body = pull_request.data.body;
             if (body) {
               await github.pulls.update({
                 ...pullRequestId,
