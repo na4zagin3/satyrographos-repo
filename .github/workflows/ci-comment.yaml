@@ -40,7 +40,7 @@ jobs:
                  artifact_id: artifact.id,
                  archive_format: 'zip',
               });
-              fs.writeFileSync(`${{github.workspace}}/${artifact.id}.zip`, Buffer.from(download.data));
+              fs.writeFileSync(`${{github.workspace}}/pr-${artifact.id}.zip`, Buffer.from(download.data));
             }
 
       - name: Extract
