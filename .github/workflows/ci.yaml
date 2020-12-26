@@ -128,7 +128,7 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: pr
+          name: "pr-snapshot-${{ matrix.snapshot }}"
           path: pr/
             
       - name: Clean up logs and temporary files
