@@ -14,6 +14,43 @@ jobs:
     name: Notify snapshot update
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List up snapshots
+        id: snapshots
+        run: |
+            echo "::set-output name=snapshots::$(ls snapshot-*.opam | sed -e 's/\.opam$//' | tr '\n' ' ')"
+
+      - name: Update the PR body
+        uses: actions/github-script@v2
+        env:
+          SNAPSHOTS: ${{ steps.snapshots.outputs.snapshots }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pullRequestId = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            };
+            const pull_request = await github.pulls.get(pullRequestId);
+            const actionHeader = '\n# Automatic follow-ups\n';
+            const body = pull_request.data.body.replace(/\r?\n/g, '\n');
+            console.log('body', body);
+            const splitted = body.split(actionHeader);
+            const actionSectionMessage = 'Choose follow-up actions.  Do not write anything after this section.';
+            const actions =
+              process.env.SNAPSHOTS
+                .split(' ')
+                .map((snapshot) => `- Add to snapshot \`${snapshot}\``);
+            const replacedBody = `${splitted[0]}${actionHeader}\n${actions.join('\n')}`;
+            console.log('replacedBody', replacedBody);
+            await github.pulls.update({
+              ...pullRequestId,
+              body: replacedBody
+            });
+
       - name: comment PR
         uses: actions/github-script@v2
         env:
