@@ -1,8 +1,10 @@
 name: CI
 
 on:
-  - pull_request
-  - push
+  pull_request: {}
+  push:
+    branches:
+      - main
 
 jobs:
   build:
@@ -146,7 +148,7 @@ jobs:
             if (body) {
               await github.pulls.update({
                 ...pullRequestId,
-                body: pull_request.body.replace(regex, replacement)
+                body: body.replace(regex, replacement)
               });
             }
 
