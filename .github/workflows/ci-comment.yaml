@@ -17,6 +17,9 @@ jobs:
       OPAMSOLVERTIMEOUT: 3600
       SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
+      - name: Checkout code (10 commits)
+        uses: actions/checkout@v2
+
       - name: 'Download artifact'
         uses: actions/github-script@v3.1.0
         with:
@@ -26,18 +29,24 @@ jobs:
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
             });
-            var matchArtifact = artifacts.data.artifacts.filter((artifact) => {
-              return artifact.name == "pr"
-            })[0];
-            var download = await github.actions.downloadArtifact({
-               owner: context.repo.owner,
-               repo: context.repo.repo,
-               artifact_id: matchArtifact.id,
-               archive_format: 'zip',
-            });
             var fs = require('fs');
-            fs.writeFileSync('${{github.workspace}}/pr.zip', Buffer.from(download.data));
-      - run: unzip pr.zip
+            var matchedArtifacts = artifacts.data.artifacts.filter((artifact) => {
+              return artifact.name.startsWith('pr');
+            });
+            for await (const artifact of matchedArtifacts) {
+              var download = await github.actions.downloadArtifact({
+                 owner: context.repo.owner,
+                 repo: context.repo.repo,
+                 artifact_id: artifact.id,
+                 archive_format: 'zip',
+              });
+              fs.writeFileSync('${{github.workspace}}/${artifact.id}.zip', Buffer.from(download.data));
+            }
+
+      - name: Extract
+        run: |
+          for file in *.zip ; do
+            unzip "$file" -d "${file%.zip}"
 
       - name: Update the PR body
         uses: actions/github-script@v2
@@ -48,11 +57,20 @@ jobs:
           github-token: ${{ github.token }}
           script: |
             var fs = require('fs');
-            var pull_number = Number(fs.readFileSync('./pull-number.txt'));
-            var snapshot = fs.readFileSync('./id.txt');
-            var result = fs.readFileSync('./result.txt');
-            var packages = fs.readFileSync('./packages.txt');
+            const dir = await fs.promises.opendir('.');
+            const snapshots = [];
+            for await (const dirent of dir) {
+              if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
+                  const dirname = dirent.name;
+                  var pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`));
+                  var snapshot = fs.readFileSync(`${dirname}/id.txt`);
+                  var result = fs.readFileSync(`${dirname}/result.txt`);
+                  var packages = fs.readFileSync(`${dirname}/packages.txt`);
+                  snapshots.push({pull_number, snapshot, result, packages});
+               }
+            }
 
+            const pull_number = snapshots[0].pull_number;
             const pullRequestId = {
               owner: context.repo.owner,
               repo: context.repo.repo,
@@ -60,7 +78,7 @@ jobs:
             };
             const pull_request = await github.pulls.get(pullRequestId);
             const actionHeader = '\n# Automatic follow-ups\n';
-            const actionText = `Add to snapshot \`${snapshot}\``;
+            const actionText = (snapshot) => `Add to snapshot \`${snapshot}\``;
 
             const body = pull_request.data.body.replace(/\r?\n/g, '\n');
 
@@ -71,18 +89,19 @@ jobs:
                 ? splitted[1]
                   .split('\n- ')
                   .map((action) => {
-                    if (action === actionText) {
-                      switch (result) {
-                        case 'updated':
-                         return `[ ] ${action}: ${packages}`;
-                        case 'no-updates':
-                          return `~~${action}~~`;
-                        case 'failed':
-                          return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${{ github.event.workflow_run.id }}?check_suite_focus=true))`;
+                    for (snapshot of snapshots) {
+                      if (action === actionText(snapshot.snapshot)) {
+                        switch (snapshot.result) {
+                          case 'updated':
+                            return `[ ] ${action}: ${snapshot.packages}`;
+                          case 'no-updates':
+                            return `~~${action}~~`;
+                          case 'failed':
+                            return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${{ github.event.workflow_run.id }}?check_suite_focus=true))`;
+                        }
                       }
-                    } else {
-                      return action;
                     }
+                    return action;
                   })
                 : [];
 
