@@ -33,7 +33,7 @@ jobs:
         run: |
           git branch -v
           git remote -v
-          echo "$PR" | jq -r '.body' | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!.opam!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -L1 scripts/update-snapshot --opam
+          echo "$PR" | jq -r '.body' | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!.opam!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -r -L1 scripts/update-snapshot --opam
         env:
           PR: ${{ steps.head-branch.outputs.result }}
 
