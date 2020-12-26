@@ -1,7 +1,7 @@
 name: CI
 
 on:
-  pull_request_target: {}
+  pull_request: {}
   push:
     branches:
       - main
@@ -102,80 +102,34 @@ jobs:
         continue-on-error: true
         id: test-update-snapshot
         run: |
-          git log -n 3
-          git branch -v
-          
+          mkdir pr
+          echo "$SNAPSHOT" > pr/id.txt
+          echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
-          echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
-          git diff
+          git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ' > pr/packages.txt
+
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
-            echo '::set-output name=result::no-updates'
+            echo 'no-updates' > pr/result.txt
             exit 0
           fi
 
           git add "$SNAPSHOT.opam"
-          git config --local user.email "action@github.com"
-          git config --local user.name "GitHub Action"
+          # git config --local user.email "action@github.com"
+          # git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
           if opam install "$SNAPSHOT" --yes --with-doc --with-test ; then
-            echo '::set-output name=result::updated'
+            echo 'updated' > pr/result.txt
           else
-            echo '::set-output name=result::failed'
+            echo 'failed' > pr/result.txt
           fi
           opam uninstall "$SNAPSHOT" --yes
 
-      - name: Update the PR body
-        uses: actions/github-script@v2
-        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
-        env:
-          SNAPSHOT_UPDATABLE: ${{ steps.test-update-snapshot.outputs.result }}
-          PACKAGES_TO_UPDATE: ${{ steps.test-update-snapshot.outputs.packages }}
+      - uses: actions/upload-artifact@v2
         with:
-          github-token: ${{ github.token }}
-          script: |
-            const pullRequestId = {
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              pull_number: context.issue.number
-            };
-            const pull_request = await github.pulls.get(pullRequestId);
-            const actionHeader = '\n# Automatic follow-ups\n';
-            const actionText = `Add to snapshot \`${process.env.SNAPSHOT}\``;
-
-            const body = pull_request.data.body.replace(/\r?\n/g, '\n');
-
-            if (body) {
-              const splitted = body.split(actionHeader);
-
-              const actions = splitted[1]
-                ? splitted[1]
-                  .split('\n- ')
-                  .map((action) => {
-                    if (action === actionText) {
-                      switch (process.env.SNAPSHOT_UPDATABLE) {
-                        case 'updated':
-                         return `[ ] ${action}: ${process.env.PACKAGES_TO_UPDATE}`;
-                        case 'no-updates':
-                          return `~~${action}~~`;
-                        case 'failed':
-                          return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${context.github.run_id}?check_suite_focus=true))`;
-                      }
-                    } else {
-                      return action;
-                    }
-                  })
-                : [];
-
-              const replacedBody = `${splitted[0]}${actionHeader}${actions.join('\n- ')}`;
-
-              await github.pulls.update({
-                ...pullRequestId,
-                body: replacedBody
-              });
-            }
-
+          name: pr
+          path: pr/
             
       - name: Clean up logs and temporary files
         run: |
