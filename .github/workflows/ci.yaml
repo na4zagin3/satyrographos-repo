@@ -103,12 +103,15 @@ jobs:
         id: test-update-snapshot
         run: |
           git log -n 3
+          git branch -v
+          
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
+          git diff
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
-            return 0
+            exit 0
           fi
 
           git add "$SNAPSHOT.opam"
