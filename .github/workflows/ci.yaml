@@ -107,6 +107,7 @@ jobs:
           echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
+            return 0
           fi
 
           git add "$SNAPSHOT.opam"
