@@ -129,12 +129,12 @@ jobs:
             const pull_request = await github.pulls.get(pullRequestId);
             const actionHeader = '# Automatic follow-ups';
             const actionText = `Add to ${process.env.SNAPSHOT}`;
-            const regex = new RegExp(`(\n${actionHeader}\n(?:.*\n)*)- ${actionText}$`, 'm');
+            const regex = new RegExp(`(\n${actionHeader}\n(?:.*\n)*)- ${actionText}(:.*)?$`, 'm');
  
             let replacement;
             switch (process.env.SNAPSHOT_UPDATABLE) {
               case 'updated':
-                replacement = `$1- [ ] ${actionText}`;
+                replacement = `$1- [ ] ${actionText}$2`;
                 break;
               case 'no-updates':
                 replacement = `$1- ~~${actionText}~~`;
@@ -145,6 +145,9 @@ jobs:
             }
 
             const body = pull_request.data.body;
+            console.log('regex', regex.toString());
+            console.log('replacement', replacement);
+            console.log('body', body);
             if (body) {
               await github.pulls.update({
                 ...pullRequestId,
