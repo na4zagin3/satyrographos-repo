@@ -5,8 +5,8 @@ on:
    types: [closed]
 
 jobs:
-  comment-bot:
-    name: Comment Bot
+  follow-up:
+    name: Pull Request Follow-Up
     runs-on: ubuntu-latest
     steps:
 
@@ -34,10 +34,8 @@ jobs:
           HEAD_REF: ${{ steps.head-branch.outputs.result.ref }}
           HEAD_REPO: ${{ steps.head-branch.outputs.result.repo }}
       - uses: actions/checkout@v2
-        if: steps.check.outputs.triggered == 'true'
         with:
           fetch-depth: 0
-          ref: ${{ steps.upstreambranch.outputs.branchname }}
       - name: Update snapshots
         run: |
           git branch -v
@@ -50,16 +48,16 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: cpr
         with:
-          token: ${{ secrets.REPO_PUBLIC }}
+#          token: ${{ secrets.REPO_PUBLIC }}
           commit-message: Take snapshots
-          branch: take-snapshots
+          branch: 'update-snapshots-${{ github.event.pull_request.number }}'
           title: '[Automated] Follow up #${{ github.event.pull_request.number }}'
           body: |
             Follow up #${{ github.event.pull_request.number }}
           labels: |
             automated pr
-          assignees: na4zagin3
-          reviewers: na4zagin3
+#          assignees: na4zagin3
+#          reviewers: na4zagin3
           team-reviewers: |
             owners
             maintainers
