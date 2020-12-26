@@ -98,7 +98,7 @@ jobs:
           ./ci.sh
 
       - name: Test if the packages can be added to the snapshot
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
         continue-on-error: true
         id: test-update-snapshot
         run: |
@@ -117,7 +117,7 @@ jobs:
 
       - name: Update the PR body
         uses: actions/github-script@v2
-        if: github.event_name == 'pull_request'
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
         env:
           SNAPSHOT_UPDATABLE: ${{ steps.test-update-snapshot.outputs.result }}
           PACKAGES_TO_UPDATE: ${{ steps.test-update-snapshot.outputs.packages }}
