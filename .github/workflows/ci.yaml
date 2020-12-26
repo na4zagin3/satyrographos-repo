@@ -137,7 +137,7 @@ jobs:
               console.log('splitted', splitted);
 
               const actions = splitted[1]
-                ? postActionHeader
+                ? splitted[1]
                   .split('\n- ')
                   .map((action) => {
                     if (action === actionText) {
@@ -152,7 +152,7 @@ jobs:
                     } else {
                       return action;
                     }
-                  });
+                  })
                 : [];
               console.log('actions', actions);
               const replacedBody = `${splitted[0]}${actionHeader}${actions.join('\n- ')}`;
