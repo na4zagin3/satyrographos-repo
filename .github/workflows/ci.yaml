@@ -103,11 +103,12 @@ jobs:
         id: test-update-snapshot
         run: |
           git checkout "$SNAPSHOT.opam"
-          opam update
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
+          echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
+          git commit -m 'Update snapshot'
+          opam update
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
-            echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
           elif opam install "$SNAPSHOT" --yes --with-doc --with-test ; then
             echo '::set-output name=result::updated'
           else
