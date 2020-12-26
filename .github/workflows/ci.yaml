@@ -142,10 +142,14 @@ jobs:
                 break;
             }
 
-            await github.pulls.update({
-              ...pullRequestId,
-              body: pull_request.body.replace(regex, replacement)
-            });
+            console.log('pull_request', JSON.stringify(pull_request));
+            const body = pull_request.body;
+            if (body) {
+              await github.pulls.update({
+                ...pullRequestId,
+                body: pull_request.body.replace(regex, replacement)
+              });
+            }
 
             
       - name: Clean up logs and temporary files
