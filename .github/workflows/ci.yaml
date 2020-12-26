@@ -149,7 +149,7 @@ jobs:
             console.log('replacement', replacement);
             console.log('body', body);
             if (body) {
-              console replacedBody = body.replace(regex, replacement);
+              const replacedBody = body.replace(regex, replacement);
               console.log('replacedBody', replacedBody);
               await github.pulls.update({
                 ...pullRequestId,
