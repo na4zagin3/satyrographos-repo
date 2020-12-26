@@ -99,6 +99,7 @@ jobs:
 
       - name: Test if the packages can be added to the snapshot
         if: github.event_name == 'pull_request'
+        continue-on-error: true
         id: test-update-snapshot
         run: |
           git checkout "$SNAPSHOT.opam"
@@ -107,7 +108,7 @@ jobs:
           if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
             echo '::set-output name=result::no-updates'
             echo "::set-output name=packages::$(git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ')"
-          elif opam install "$SNAPSHOT" --yes --with-doc --with-test >install.log ; then
+          elif opam install "$SNAPSHOT" --yes --with-doc --with-test ; then
             echo '::set-output name=result::updated'
           else
             echo '::set-output name=result::failed'
@@ -149,7 +150,7 @@ jobs:
                         case 'no-updates':
                           return `~~${action}~~`;
                         case 'failed':
-                          return `~~${action}~~`;
+                          return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${context.github.run_id}?check_suite_focus=true))`;
                       }
                     } else {
                       return action;
