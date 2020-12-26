@@ -1,6 +1,6 @@
 # Satyrographos Repo
 
-[![Build Status](https://travis-ci.com/na4zagin3/satyrographos-repo.svg?branch=master)](https://travis-ci.com/na4zagin3/satyrographos-repo)
+[![Build Status](https://github.com/na4zagin3/satyrographos-repo/workflows/CI/badge.svg?branch=master)](https://github.com/na4zagin3/satyrographos-repo/actions?query=workflow%3ACI)
 
 This is a custom OPAM repository for [Satyrographos], a package manager for [SATySFi].
 
