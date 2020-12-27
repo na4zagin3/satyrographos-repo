@@ -72,6 +72,8 @@ jobs:
                }
             }
 
+            console.log('snapshots', snapshots);
+
             const pull_number = snapshots[0].pull_number;
             const pullRequestId = {
               owner: context.repo.owner,
@@ -92,6 +94,7 @@ jobs:
                   .split('\n- ')
                   .map((action) => {
                     for (snapshot of snapshots) {
+                      console.log('action', action, actionText(snapshot.snapshot), snapshot);
                       if (action === actionText(snapshot.snapshot)) {
                         switch (snapshot.result) {
                           case 'updated':
