@@ -65,9 +65,9 @@ jobs:
                   const dirname = dirent.name;
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`, 'utf8'));
                   const run_id = Number(fs.readFileSync(`${dirname}/run-id.txt`, 'utf8'));
-                  const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8');
-                  const result = fs.readFileSync(`${dirname}/result.txt`, 'utf8');
-                  const packages = fs.readFileSync(`${dirname}/packages.txt`, 'utf8');
+                  const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8').trim();
+                  const result = fs.readFileSync(`${dirname}/result.txt`, 'utf8').trim();
+                  const packages = fs.readFileSync(`${dirname}/packages.txt`, 'utf8').trim();
                   snapshots.push({pull_number, run_id, snapshot, result, packages});
                }
             }
