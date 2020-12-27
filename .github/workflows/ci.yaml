@@ -105,6 +105,7 @@ jobs:
           mkdir pr
           echo "$SNAPSHOT" > pr/id.txt
           echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
+          echo "${{ github.run_id }}" > pr/run-id.tt
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ' > pr/packages.txt
