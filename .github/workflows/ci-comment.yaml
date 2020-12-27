@@ -99,7 +99,7 @@ jobs:
                           case 'no-updates':
                             return `~~${action}~~`;
                           case 'failed':
-                            return `~~${action}~~ ([Inconsistent](https://github.com/${context.repo.owner}/${context.repo.repo}/runs/${snapshot.run_id}?check_suite_focus=true))`;
+                            return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${snapshot.run_id}?check_suite_focus=true))`;
                         }
                       }
                     }
