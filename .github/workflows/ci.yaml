@@ -105,7 +105,7 @@ jobs:
           mkdir pr
           echo "$SNAPSHOT" > pr/id.txt
           echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
-          echo "${{ github.run_id }}" > pr/run-id.tt
+          echo "${{ github.run_id }}" > pr/run-id.txt
           git checkout "$SNAPSHOT.opam"
           scripts/update-snapshot --opam "$SNAPSHOT.opam"
           git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ' > pr/packages.txt
@@ -115,6 +115,7 @@ jobs:
             exit 0
           fi
 
+          FAILED=
           git add "$SNAPSHOT.opam"
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
@@ -124,8 +125,13 @@ jobs:
             echo 'updated' > pr/result.txt
           else
             echo 'failed' > pr/result.txt
+            FAILED=1
           fi
           opam uninstall "$SNAPSHOT" --yes
+          
+          if [ -n "$FAILED" ] ; then
+            exit 1
+          fi
 
       - uses: actions/upload-artifact@v2
         with:
