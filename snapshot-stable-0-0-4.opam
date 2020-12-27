@@ -96,6 +96,8 @@ depends: [
 
   "satysfi-make-markdown" {= "0.1.0"}
 
+  "satysfi-matrixcd" {= "0.0.2"}
+
   "satysfi-matrix-doc" {= "0.0.1+dev2019.10.15"}
 
   "satysfi-matrix" {= "0.0.1+dev2019.10.15"}
