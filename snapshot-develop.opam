@@ -30,7 +30,7 @@ depends: [
 
   "satysfi-azmath" {= "0.0.3"}
 
-  "satysfi-base" {= "1.3.0"}
+  "satysfi-base" {= "1.4.0"}
 
   "satysfi-bibyfi-doc" {= "0.0.2"}
 
