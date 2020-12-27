@@ -29,6 +29,13 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.SG_REPO_GH_APP_ID }}
+          private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
+
       - name: Update snapshots
         run: |
           git branch -v
@@ -41,7 +48,7 @@ jobs:
         uses: peter-evans/create-pull-request@v3
         id: cpr
         with:
-#          token: ${{ secrets.REPO_PUBLIC }}
+          token: ${{ steps.generate-token.outputs.token }}
           delete-branch: true
           commit-message: Take snapshots
           branch: 'follow-up/${{ github.event.pull_request.number }}'
