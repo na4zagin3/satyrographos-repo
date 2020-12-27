@@ -43,6 +43,7 @@ jobs:
             const actions =
               process.env.SNAPSHOTS
                 .split(' ')
+                .filter((snapshot) => snapshot)
                 .map((snapshot) => `- Add to snapshot \`${snapshot}\``);
             const replacedBody = `${splitted[0]}${actionHeader}\n${actions.join('\n')}`;
             console.log('replacedBody', replacedBody);
