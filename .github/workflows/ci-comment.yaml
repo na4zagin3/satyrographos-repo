@@ -46,6 +46,7 @@ jobs:
 
       - name: Extract
         run: |
+          shopt -s nullglob
           for file in *.zip ; do
             unzip "$file" -d "${file%.zip}"
           done
