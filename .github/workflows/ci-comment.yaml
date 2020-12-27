@@ -34,6 +34,7 @@ jobs:
               return artifact.name.startsWith('pr');
             });
             for await (const artifact of matchedArtifacts) {
+              console.log('download artifact', artifact);
               const download = await github.actions.downloadArtifact({
                  owner: context.repo.owner,
                  repo: context.repo.repo,
