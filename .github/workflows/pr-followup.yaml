@@ -8,6 +8,7 @@ jobs:
   follow-up:
     name: Pull Request Follow-Up
     runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
     steps:
 
       - uses: actions/github-script@v2
