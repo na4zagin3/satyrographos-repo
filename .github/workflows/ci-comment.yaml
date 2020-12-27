@@ -64,10 +64,11 @@ jobs:
               if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
                   const dirname = dirent.name;
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`));
+                  const run_id = Number(fs.readFileSync(`${dirname}/run-id.txt`));
                   const snapshot = fs.readFileSync(`${dirname}/id.txt`);
                   const result = fs.readFileSync(`${dirname}/result.txt`);
                   const packages = fs.readFileSync(`${dirname}/packages.txt`);
-                  snapshots.push({pull_number, snapshot, result, packages});
+                  snapshots.push({pull_number, run_id, snapshot, result, packages});
                }
             }
 
@@ -98,7 +99,7 @@ jobs:
                           case 'no-updates':
                             return `~~${action}~~`;
                           case 'failed':
-                            return `~~${action}~~ ([Inconsistent](https://github.com/${context.github.repository}/runs/${{ github.event.workflow_run.id }}?check_suite_focus=true))`;
+                            return `~~${action}~~ ([Inconsistent](https://github.com/${context.repo.owner}/${context.repo.repo}/runs/${snapshot.run_id}?check_suite_focus=true))`;
                         }
                       }
                     }
