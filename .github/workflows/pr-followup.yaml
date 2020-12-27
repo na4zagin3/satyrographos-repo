@@ -41,7 +41,7 @@ jobs:
         run: |
           git branch -v
           git remote -v
-          echo "$PR" | jq -r '.body' | sed -e '/^- \[[xX]\] Add to snapshot /!d' -e 's!^[^`]*`!!' -e 's!`:!.opam!' -e '/^[-+. [:alnum:]]*$/!d' | xargs -r -L1 scripts/update-snapshot --opam
+          echo "$PR" | jq -r '.body' | sed -e '/^- /!d' -e 's/^- \[[xX]\] Add to snapshot `\([^`]*\)` :: /\1.opam /' -e '/^[-+. [:alnum:]]*$/!d' | xargs -r -L1 scripts/update-snapshot --opam
           git status
         env:
           PR: ${{ steps.head-branch.outputs.result }}
