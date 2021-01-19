@@ -69,7 +69,7 @@ jobs:
 
             If this PR is to add new or updated SATySFi libraries, I would like you to include your new library in the package snapshots, by following the instructions below.
 
-            Choose “automatic follow-up” options to add your libraries to add snapshots.
+            After the CI passes, choose “automatic follow-up” options to add your libraries to add snapshots.
             Please leave a comment in case you don't want.
 
             **Notes:** I recommend adding your libraries to the snapshot with the latest develop version as well
