@@ -52,6 +52,8 @@ depends: [
 
   "satysfi-debug-show-value" {= "0.1.1"}
 
+  "satysfi-derive" {= "1.0.0"}
+
   "satysfi-easytable-doc" {= "1.0.0"}
 
   "satysfi-easytable" {= "1.0.0"}
