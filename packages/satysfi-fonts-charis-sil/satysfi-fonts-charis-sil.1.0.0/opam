@@ -1,0 +1,33 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Charis SIL"
+description: """
+SATySFi Font Package for Charis SIL
+
+This package installs fonts from https://software.sil.org/charis/.
+"""
+maintainer: "Yu Shimura <mail@yuhr.org>"
+authors: "Yu Shimura <mail@yuhr.org>"
+license: "MIT"
+homepage: "https://github.com/yuhr/satysfi-fonts-charis-sil"
+bug-reports: "https://github.com/yuhr/satysfi-fonts-charis-sil/issues"
+dev-repo: "git+https://github.com/yuhr/satysfi-fonts-charis-sil.git"
+extra-source "CharisSIL-5.000.zip" {
+  archive: "https://software.sil.org/downloads/r/charis/CharisSIL-5.000.zip"
+  checksum: [
+    "sha256=5e3e5473b30363008c289cc87e2aa584a0916087a63a3f689defa8e0cee09bfd"
+    "sha512=f85da6c9b93c0ef81617241219b208ca262c12fcecae1d447163b7aff31ea8bfc3f09636dcfc0a322c86201a0d551288884e4017fded5bb71bbb54c8093faaed"
+  ]
+}
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.6" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+]
+build: [
+  ["unzip" "-j" "-o" "CharisSIL-5.000.zip" "*.ttf" "-d" "charis-sil"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-charis-sil"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
