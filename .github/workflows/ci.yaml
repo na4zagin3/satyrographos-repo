@@ -84,8 +84,6 @@ jobs:
           opam pin add "${SNAPSHOT}.dev" . --no-action
           opam depext "$SNAPSHOT" --yes
           opam install "$SNAPSHOT" --yes
-          opam depext "$SNAPSHOT" --yes --with-doc --with-test
-          opam install "$SNAPSHOT" --yes --with-doc --with-test
 
       - name: Detect file collisions in installed SATySFI libraries
         run: |
