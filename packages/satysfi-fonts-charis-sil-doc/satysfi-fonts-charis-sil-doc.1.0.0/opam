@@ -29,3 +29,11 @@ install: [
    "-prefix" "%{prefix}%"
    "-script" "%{build}%/Satyristes"]
 ]
+url {
+  src:
+    "https://github.com/yuhr/satysfi-fonts-charis-sil/archive/v1.0.0.tar.gz"
+  checksum: [
+    "md5=738e8783abe0522fc4f67dbd1b7045dc"
+    "sha512=bc56c9a07d86d9586da1026434866665e8c9957d4619937011123b362fdce643665ca21bed3cc6fbed14a131023977b140de12af5beb2bbf53d29a15ff37329d"
+  ]
+}
