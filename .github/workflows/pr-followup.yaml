@@ -1,7 +1,8 @@
 name: Pull Request Follow-Up Flow
 
 on:
- pull_request:
+ # Checking out with pull_request_target should be safe because the jobs are run only when the PR is merged.
+ pull_request_target:
    types: [closed]
 
 jobs:
