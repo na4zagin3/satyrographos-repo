@@ -1,0 +1,32 @@
+opam-version: "2.0"
+synopsis: "A SATySFi package of quoting"
+description: """
+A SATySFi package of quoting.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-quotation"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-quotation.git"
+bug-reports: "https://github.com/puripuri2100/SATySFi-quotation/issues"
+depends: [
+  "satysfi" { >= "0.0.4" & < "0.0.6" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # If your library depends on other libraries, please write down here
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "quotation"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-quotation/archive/0.1.0.tar.gz"
+  checksum: [
+    "md5=161cec211e95b00b90d61bdbbc39a5d2"
+    "sha512=03021a4244df8cfba5719643c8711841ccb7dd5c488a3d92aa5e4dcb30268c3da46767ce3a0f71af9d67367daa472fb4d8b1497ae862fe17288f9db06f0dc4c9"
+  ]
+}
