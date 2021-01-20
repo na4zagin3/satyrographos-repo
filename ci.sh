@@ -16,7 +16,7 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
-    git remote -va
+    git remote -v
     git branch -va
 
     export OPAMYES=1
