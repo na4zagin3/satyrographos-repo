@@ -1,6 +1,6 @@
 #!/bin/bash
 
-set -ex
+set -exo pipefail
 
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
