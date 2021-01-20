@@ -16,12 +16,11 @@ if true ; then
     sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
     opam update
 
-    git remote -v
-    git branch -v
-    git branch -v
+    git remote -va
+    git branch -va
 
     export OPAMYES=1
-    git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
