@@ -152,6 +152,10 @@ depends: [
 
   "satysfi-num-conversion" {= "0.1.1"}
 
+  "satysfi-quotation-doc" {= "0.2.0"}
+
+  "satysfi-quotation" {= "0.2.0"}
+
   "satysfi-ruby-doc" {= "0.1.2"}
 
   "satysfi-ruby" {= "0.1.2"}
