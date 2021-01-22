@@ -70,6 +70,10 @@ depends: [
 
   "satysfi-fonts-bodoni-star" {= "2.3+satysfi0.0.5"}
 
+  "satysfi-fonts-charis-sil-doc" {= "1.0.0"}
+
+  "satysfi-fonts-charis-sil" {= "1.0.0"}
+
   "satysfi-fonts-computer-modern-unicode-doc" {= "0.7.0+satysfi0.0.4"}
 
   "satysfi-fonts-computer-modern-unicode" {= "0.7.0+satysfi0.0.4"}
