@@ -2,6 +2,8 @@
 
 set -exo pipefail
 
+export OPAMVERBOSE=1
+
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
 SUCCEEDED_PACKAGES=succeeded.pkgs
