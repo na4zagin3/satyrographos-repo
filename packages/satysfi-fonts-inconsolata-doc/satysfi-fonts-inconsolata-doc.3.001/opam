@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for inconsolata fonts"
+description: """
+Document package for satysfi-fonts-inconsolata
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-inconsolata"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-inconsolata/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-inconsolata.git"
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-fonts-inconsolata" { = "%{version}%" }
+]
+build: [
+  ["satyrographos" "opam" "build"
+    "--name" "fonts-inconsolata-doc"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "--name" "fonts-inconsolata-doc"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-inconsolata/archive/3.001.tar.gz"
+  checksum: [
+    "md5=dbdce672297d5a2d152cb20ba3236867"
+    "sha512=833da5b706231db2e487346195189408b3a6fe0edb13da94317dc32d7955c385a3dc21b1a803f6cc05a531dd6d3471567a6132602725108f1b99c2bbf13ab48c"
+  ]
+}
