@@ -12,6 +12,7 @@ dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-inconsolata.git"
 depends: [
   "satysfi" {>= "0.0.4" & < "0.0.6"}
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-dist"
   "satysfi-fonts-inconsolata" { = "%{version}%" }
 ]
 build: [
