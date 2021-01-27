@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for inconsolata fonts"
+description: """
+SATySFi font package for inconsolata fonts.
+
+This package installs fonts from https://www.google.com/get/noto/.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "OFL-1.1"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-inconsolata"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-inconsolata/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-inconsolata.git"
+extra-source "inconsolata.zip" {
+  archive: "https://github.com/puripuri2100/inconsolata/archive/v3.001.zip"
+  checksum: [
+    "sha256=00d03451f5cb54b6a8276e788fdf2db227c432f78b3c4ecf6a3020c63ea451ab"
+    "sha512=f1c6708d22da2c8b8c935b8be2433c6bd1809330e35f185ec27a03bbdb5d7fcca4055747d1ff9cc9d0a85a442bfda7dafc94b6ead79f713aa7d95a0b1f229f9a"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-j" "-d" "inconsolata" "-o" "inconsolata.zip" "*.ttf"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "--name" "fonts-inconsolata"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-inconsolata/archive/3.001.tar.gz"
+  checksum: [
+    "md5=dbdce672297d5a2d152cb20ba3236867"
+    "sha512=833da5b706231db2e487346195189408b3a6fe0edb13da94317dc32d7955c385a3dc21b1a803f6cc05a531dd6d3471567a6132602725108f1b99c2bbf13ab48c"
+  ]
+}
