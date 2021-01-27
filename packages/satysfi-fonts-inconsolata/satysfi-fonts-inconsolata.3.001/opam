@@ -3,7 +3,7 @@ synopsis: "SATySFi Font Package for inconsolata fonts"
 description: """
 SATySFi font package for inconsolata fonts.
 
-This package installs fonts from https://www.google.com/get/noto/.
+This package installs fonts from https://fonts.google.com/specimen/Inconsolata.
 """
 maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
 authors: "Naoki Kaneko <puripuri2100@gmail.com>"
