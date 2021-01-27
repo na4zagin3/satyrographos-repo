@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for Charis SIL"
+description: """
+Document of SATySFi Font Package for Charis SIL
+
+This package demonstrates a usage of `satysfi-fonts-charis-sil`.
+"""
+maintainer: "Yu Shimura <mail@yuhr.org>"
+authors: "Yu Shimura <mail@yuhr.org>"
+license: "MIT"
+homepage: "https://github.com/yuhr/satysfi-fonts-charis-sil"
+bug-reports: "https://github.com/yuhr/satysfi-fonts-charis-sil/issues"
+dev-repo: "git+https://github.com/yuhr/satysfi-fonts-charis-sil.git"
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.6" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-fonts-charis-sil" {= "%{version}%"}
+  "satysfi-dist"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "fonts-charis-sil-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-charis-sil-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/yuhr/satysfi-fonts-charis-sil/archive/v1.0.0.tar.gz"
+  checksum: [
+    "md5=738e8783abe0522fc4f67dbd1b7045dc"
+    "sha512=bc56c9a07d86d9586da1026434866665e8c9957d4619937011123b362fdce643665ca21bed3cc6fbed14a131023977b140de12af5beb2bbf53d29a15ff37329d"
+  ]
+}

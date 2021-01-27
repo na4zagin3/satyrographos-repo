@@ -1,26 +1,8 @@
 #!/bin/bash
 
-set -ex
+set -exo pipefail
 
-if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then
-    echo "Pull request"
-else
-    echo "Non pull request"
-fi
-
-# Set up OPAM and install the snapshot
-export PACKAGE="$SNAPSHOT"
-bash -ex .travis-opam.sh
-
-# Check validity of the OPAM files
-opam lint --strict *.opam
-find packages -iname opam -exec opam lint --strict '{}' '+'
-
-opam --version
-
-opam exec -- satyrographos install
-
-opam uninstall "$SNAPSHOT"
+export OPAMVERBOSE=1
 
 FAILED_PACKAGES=failed.pkgs
 : > "$FAILED_PACKAGES"
@@ -37,14 +19,10 @@ if true ; then
     opam update
 
     git remote -v
-    git branch -v
-
-    git fetch origin master:master
-
-    git branch -v
+    git branch -va
 
     export OPAMYES=1
-    git diff --name-status master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
+    git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"

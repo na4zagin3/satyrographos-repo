@@ -14,6 +14,44 @@ jobs:
     name: Notify snapshot update
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: List up snapshots
+        id: snapshots
+        run: |
+            echo "::set-output name=snapshots::$(ls snapshot-*.opam | sed -e 's/\.opam$//' | tr '\n' ' ')"
+
+      - name: Update the PR body
+        uses: actions/github-script@v2
+        env:
+          SNAPSHOTS: ${{ steps.snapshots.outputs.snapshots }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            const pullRequestId = {
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            };
+            const pull_request = await github.pulls.get(pullRequestId);
+            const actionHeader = '\n# Automatic follow-ups\n';
+            const body = pull_request.data.body.replace(/\r?\n/g, '\n');
+            console.log('body', body);
+            const splitted = body.split(actionHeader);
+            const actionSectionMessage = 'Choose follow-up actions.  Do not write anything after this section.';
+            const actions =
+              process.env.SNAPSHOTS
+                .split(' ')
+                .filter((snapshot) => snapshot)
+                .map((snapshot) => `- Add to snapshot \`${snapshot}\``);
+            const replacedBody = `${splitted[0]}${actionHeader}${actionSectionMessage}\n${actions.join('\n')}`;
+            console.log('replacedBody', replacedBody);
+            await github.pulls.update({
+              ...pullRequestId,
+              body: replacedBody
+            });
+
       - name: comment PR
         uses: actions/github-script@v2
         env:
@@ -29,54 +67,14 @@ jobs:
               body: `
             🎉🎉🎉 Thank you for sending a PR!
 
-            If this PR is to add new or updated SATySFi libraries,
-            I would like you to include your new library in the package snapshots,
-            by following the instructions below.
+            If this PR is to add new or updated SATySFi libraries, I would like you to include your new library in the package snapshots, by following the instructions below.
 
-            First, clone your fork of this repository.
-
-            \`\`\`
-            $ git clone https://github.com/na4zagin3/${context.repo.repo}.git
-            $ cd ${context.repo.repo}
-            $ git remote add ${process.env.GITHUB_ACTOR} https://github.com/${process.env.GITHUB_ACTOR}/${context.repo.repo}.git
-            \`\`\`
-            
-            Checkout your branch.
-            
-            \`\`\`
-            $ git fetch ${process.env.GITHUB_ACTOR}
-            $ git checkout -b ${process.env.HEAD_BRANCH}  ${process.env.GITHUB_ACTOR}/${process.env.HEAD_BRANCH} 
-            \`\`\`
-
-            - (Recommended) If your library supports the latest SATySFi 0.0.5 develop version (and the next stable version), run
-
-              \`\`\`
-              $ scripts/update-snapshot --opam snapshot-develop.opam
-              \`\`\`
-
-            - (Recommended) If your library supports SATySFi 0.0.5, run
-
-              \`\`\`
-              $ scripts/update-snapshot --opam snapshot-stable-0-0-5.opam
-              \`\`\`
-
-            - If your library supports SATySFi 0.0.4, run
-
-              \`\`\`
-              $ scripts/update-snapshot --opam snapshot-stable-0-0-4.opam
-              \`\`\`
+            After the CI passes, choose “automatic follow-up” options to add your libraries to add snapshots.
+            Please leave a comment in case you don't want.
 
             **Notes:** I recommend adding your libraries to the snapshot with the latest develop version as well
             if your library supports the latest stable version,
             because the snapshot with the latest develop version will be the snapshot with the the comming SATySFi stable version.
-            
-            Finally, commit the change and push it.
-
-            \`\`\`
-            $ git add snapshot-*.opam
-            $ git commit -m 'Update snapshots'
-            $ git push
-            \`\`\`
 
             Thanks!
             `

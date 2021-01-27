@@ -1,0 +1,143 @@
+name: CI
+
+on:
+  pull_request: {}
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    name: Build
+    strategy:
+      matrix:
+        os:
+          - 'ubuntu-latest'
+#         - 'macos-latest'
+        ocaml-version:
+#         - 4.10.1
+          - 4.11.1
+        snapshot:
+          - stable-0-0-5
+          - develop
+        include:
+          - os: 'ubuntu-latest'
+            ocaml-version: '4.06.1'
+            snapshot: stable-0-0-4
+    runs-on: ${{ matrix.os }}
+    env:
+      OPAMSOLVERTIMEOUT: 3600
+      SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
+    steps:
+      - name: Checkout code (10 commits)
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+
+      - name: Checkout master branch (50 commits)
+        run: |
+          git remote set-branches --add origin master
+          git fetch --depth 50 origin master
+
+      - name: Cache OPAM directory (Non Windows)
+        uses: actions/cache@v2
+        if: runner.os != 'Windows'
+        with:
+          path: "~/.opam"
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
+
+      - name: Cache OPAM directory (Windows)
+        uses: actions/cache@v2
+        if: runner.os == 'Windows'
+        with:
+          path: "C:\\cygwin\\home\\runneradmin\\.opam"
+          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
+
+      - name: Setup OCaml ${{ matrix.ocaml-version }}
+        uses: avsm/setup-ocaml@v1
+        with:
+          ocaml-version: ${{ matrix.ocaml-version }}
+
+      - name: Check validity of the snapshot OPAM files
+        run: |
+          opam lint --strict *.opam
+
+      - name: Check validity of the package OPAM files
+        run: |
+          find packages -iname opam -exec opam lint --strict '{}' '+'
+
+      - name: Setup OPAM repositories
+        run: |
+          opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
+          opam repository add satyrographos-local .
+          opam update
+
+      - name: Update packages
+        run: |
+          opam pin add --no-action satysfi "$(opam show satysfi -f version)"
+          opam pin add --no-action satyrographos "$(opam show satyrographos -f version)"
+          opam upgrade --yes
+          opam pin remove satysfi satyrographos
+
+      - name: Install the snapshot
+        run: |
+          opam pin add "${SNAPSHOT}.dev" . --no-action
+          opam depext "$SNAPSHOT" --yes
+          opam install "$SNAPSHOT" --yes
+
+      - name: Detect file collisions in installed SATySFI libraries
+        run: |
+          opam exec -- satyrographos install test-satysfi-root
+
+      - name: Removing the snapshot
+        run: |
+          opam uninstall "$SNAPSHOT"
+
+      - name: Run script
+        run: |
+          ./ci.sh
+
+      - name: Test if the packages can be added to the snapshot
+        if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
+        continue-on-error: true
+        id: test-update-snapshot
+        run: |
+          mkdir pr
+          echo "$SNAPSHOT" > pr/id.txt
+          echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
+          echo "${{ github.run_id }}" > pr/run-id.txt
+          git checkout "$SNAPSHOT.opam"
+          scripts/update-snapshot --opam "$SNAPSHOT.opam"
+          git diff HEAD -- "$SNAPSHOT.opam" | sed -ne '/^+ /{ s!^+ *"\([^"]*\)".*"\([^"]*\)".*$!\1.\2! ; p}' | tr '\n' ' ' > pr/packages.txt
+
+          if git diff --quiet HEAD -- "$SNAPSHOT.opam" ; then
+            echo 'no-updates' > pr/result.txt
+            exit 0
+          fi
+
+          FAILED=
+          git add "$SNAPSHOT.opam"
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git commit -m 'Update snapshot'
+          opam update
+          if opam install "$SNAPSHOT" --yes --with-doc --with-test ; then
+            echo 'updated' > pr/result.txt
+          else
+            echo 'failed' > pr/result.txt
+            FAILED=1
+          fi
+          opam uninstall "$SNAPSHOT" --yes
+          
+          if [ -n "$FAILED" ] ; then
+            exit 1
+          fi
+
+      - uses: actions/upload-artifact@v2
+        with:
+          name: "pr-snapshot-${{ matrix.snapshot }}"
+          path: pr/
+            
+      - name: Clean up logs and temporary files
+        run: |
+          opam clean --switch-cleanup --logs

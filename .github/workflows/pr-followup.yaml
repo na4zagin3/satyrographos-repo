@@ -1,0 +1,67 @@
+name: Pull Request Follow-Up Flow
+
+on:
+ # Checking out with pull_request_target should be safe because the jobs are run only when the PR is merged.
+ pull_request_target:
+   types: [closed]
+
+jobs:
+  follow-up:
+    name: Pull Request Follow-Up
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged == true
+    steps:
+
+      - uses: actions/github-script@v2
+        id: head-branch
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            const pull_request = await github.pulls.get({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number
+            });
+            return {
+              ref: pull_request.data.head.ref,
+              repo: pull_request.data.head.repo.full_name,
+              body: pull_request.data.body.replace(/\r?\n/g, '\n')
+            };
+
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.SG_REPO_GH_APP_ID }}
+          private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
+
+      - name: Update snapshots
+        run: |
+          git branch -v
+          git remote -v
+          echo "$PR" | jq -r '.body' | sed -e '/^- /!d' -e 's/^- \[[xX]\] Add to snapshot `\([^`]*\)` :: /\1.opam /' -e '/^[-+. [:alnum:]]*$/!d' | xargs -r -L1 scripts/update-snapshot --opam
+          git status
+        env:
+          PR: ${{ steps.head-branch.outputs.result }}
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        with:
+          token: ${{ steps.generate-token.outputs.token }}
+          delete-branch: true
+          commit-message: Take snapshots
+          branch: 'follow-up/${{ github.event.pull_request.number }}'
+          title: '[Automated] Follow up #${{ github.event.pull_request.number }}'
+          body: |
+            Follow up #${{ github.event.pull_request.number }}
+          labels: |
+            automated pr
+#          assignees: na4zagin3
+#          reviewers: na4zagin3
+          team-reviewers: |
+            owners
+            maintainers

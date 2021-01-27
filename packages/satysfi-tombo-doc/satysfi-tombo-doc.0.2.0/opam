@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "Document of Tombo Package"
+description: """
+Document of Tombo Package.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT" # Choose what you want
+homepage: "https://github.com/puripuri2100/satysfi-tombo"
+dev-repo: "git+https://github.com/puripuri2100/satysfi-tombo.git"
+bug-reports: "https://github.com/puripuri2100/satysfi-tombo/issues"
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.6" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-dist"
+
+  # You may want to include the corresponding library
+  "satysfi-tombo" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "tombo-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "tombo-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/satysfi-tombo/archive/0.2.0.tar.gz"
+  checksum: [
+    "md5=723d3f427ab0ce0f61d4c690c00024c4"
+    "sha512=02073dcf740c009923363be165b7c40ae78e932b851c80d7a32e9bb735910c87a7dd9d89c0e879fa62f56e0e1ec59aad1e47dc77aae0ce3a91e6a49776730e76"
+  ]
+}

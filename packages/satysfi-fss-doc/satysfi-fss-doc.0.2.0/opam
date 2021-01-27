@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "Document: Font selection scheme"
+description: """
+Document: Font selection scheme for SATySFi
+"""
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+license: "LGPL-3.0-or-later" # Choose what you want
+homepage: "https://github.com/na4zagin3/satysfi-fss"
+dev-repo: "git+https://github.com/na4zagin3/satysfi-fss.git"
+bug-reports: "https://github.com/na4zagin3/satysfi-fss/issues"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-dist"
+
+  # You may want to include the corresponding library
+  "satysfi-fss" {= "%{version}%"}
+  "satysfi-fss-fontset-bodoni-star" {= "2.3"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "fss-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fss-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/na4zagin3/satysfi-fss/archive/v0.2.0.tar.gz"
+  checksum: [
+    "md5=cef9a14088bfed88ef6564aac5fcae48"
+    "sha512=02540d7704cbd0dd42d012637640280bf47c0494cd8e928f347cdb4fdf1db1b8069775041eadbe2db72aaa7008c28dab588d7adc614e1b9af28d78f855c2f43a"
+  ]
+}

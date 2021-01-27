@@ -1,0 +1,35 @@
+opam-version: "2.0"
+synopsis: "SATySFi commands and DSL for displaying derivation trees with maintainable code"
+description: """
+SATySFi commands and DSL for displaying derivation trees with maintainable code
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "Yuito Murase <yuito@acupof.coffee>"
+authors: [
+  "Yuito Murase <yuito@acupof.coffee>"
+]
+license: "MIT"
+homepage: "https://github.com/yabaitechtokyo/satysfi-derive"
+bug-reports: "https://github.com/yabaitechtokyo/satysfi-derive/issues"
+dev-repo: "git+https://github.com/yabaitechtokyo/satysfi-derive.git"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satysfi-dist"
+  "satysfi-base" {>= "1.3.0" & < "2.0.0"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "derive"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/yabaitechtokyo/satysfi-derive/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=24a48d1ee9a8f4c0140b7ff8ec84aff9"
+    "sha512=2bd8c9da2f9b7da697facfe7c126f54497abbe37918410a512edc5a045db76f1728a89154cda777bd8ef92159c4fb8aaeb10cf7adb1520e62f3317f572b345e5"
+  ]
+}
