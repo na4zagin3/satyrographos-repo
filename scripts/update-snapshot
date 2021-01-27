@@ -60,7 +60,7 @@ show_help () {
 
 OPAM_FILE=
 ALL_PACKAGES=
-args=`getopt -o "" -l opam:,all -- "$@"`
+args=`getopt -o "" -l opam:,base:,all -- "$@"`
 if [ "$?" != 0 ]; then
 	show_help 1>&2
 	exit 1
