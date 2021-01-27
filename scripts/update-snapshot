@@ -3,8 +3,10 @@
 set -ue
 set -o pipefail
 
+BASE_BRANCH=origin/master
+
 changed_packages () {
-	git diff origin/master... --name-only | sed \
+	git diff "$BASE_BRANCH"... --name-only | sed \
 		-e '/packages\/.*\/opam/!d' \
 		-e 's!packages/[^/]*/!!' \
 		-e 's!/opam$!!' \
@@ -52,7 +54,7 @@ replace_package_list_in_opam () {
 }
 
 show_help () {
-	echo "Usage: $0 --opam <opam-file> [--all] -- <package.version>..."
+	echo "Usage: $0 --opam <opam-file> [--base <branch>] [--all] -- <package.version>..."
 }
 
 
@@ -73,6 +75,10 @@ do
 			;;
 		--opam)
 			OPAM_FILE=$2
+			shift 2
+			;;
+		--base)
+			BASE_BRANCH=$2
 			shift 2
 			;;
 		--)
