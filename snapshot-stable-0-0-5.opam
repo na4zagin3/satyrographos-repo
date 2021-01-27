@@ -86,6 +86,10 @@ depends: [
 
   "satysfi-fonts-dejavu" {= "2.37+satysfi0.0.4"}
 
+  "satysfi-fonts-inconsolata-doc" {= "3.001"}
+
+  "satysfi-fonts-inconsolata" {= "3.001"}
+
   "satysfi-fonts-junicode-doc" {= "1.0002+satysfi0.0.5"}
 
   "satysfi-fonts-junicode" {= "1.0002+satysfi0.0.5"}
