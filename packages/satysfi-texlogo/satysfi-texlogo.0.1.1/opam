@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-texlogo"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-texlogo.git"
 bug-reports: "https://github.com/puripuri2100/SATySFi-texlogo/issues"
 depends: [
-  "satysfi" { >= "0.0.3" & < "0.0.6" }
+  "satysfi" { >= "0.0.3" & < "0.0.7" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
 
   # If your library depends on other libraries, please write down here

@@ -5,7 +5,7 @@ authors: ["Nakano Masaki<namachan10777@gmail.com>" "T. Suwa"]
 homepage: "https://github.com/namachan10777/BiByFi"
 bug-reports: "https://github.com/namachan10777/BiByFi/issues"
 depends: [
-  "satysfi" {>= "0.0.4+dev2020.04.25" & < "0.0.6"}
+  "satysfi" {>= "0.0.4+dev2020.04.25" & < "0.0.7"}
   "satyrographos" {>= "0.0.2.3" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-bibyfi" {= "%{version}%"}
