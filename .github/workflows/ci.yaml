@@ -18,6 +18,7 @@ jobs:
 #         - 4.10.1
           - 4.11.1
         snapshot:
+          - stable-0-0-6
           - stable-0-0-5
           - develop
         include:

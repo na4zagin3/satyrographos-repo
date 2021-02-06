@@ -1,0 +1,25 @@
+opam-version: "2.0"
+maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+authors: [
+  "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
+]
+homepage: "https://github.com/na4zagin3/satyrographos-repo"
+dev-repo: "git+https://github.com/na4zagin3/satyrographos-repo.git"
+bug-reports: "https://github.com/na4zagin3/satyrographos-repo/issues"
+license: "CC0"
+
+synopsis: "Snapshot of stable libraries in Satyrographos Repo"
+
+depends: [
+  "dune" {build}
+  "ocaml" {>= "4.10.0"}
+  "satysfi" {= "0.0.6"}
+  "satysfi-dist"
+  "satyrographos" {= "0.0.2.8"}
+
+
+# Package List
+
+
+# Package List End
+]
