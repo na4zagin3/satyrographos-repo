@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "Provides function as the Rust's assert_eq! macro"
+description: """Provides function as the Rust's assert_eq! macro"""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-assert-eq"
+bug-reports: "https://github.com/puripuri2100/SATySFi-assert-eq/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-assert-eq.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "assert-eq"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-assert-eq/archive/0.1.2.tar.gz"
+  checksum: [
+    "md5=39c39ca388cebb1d0990c96fd5fd2f08"
+    "sha512=0711d1c258a0e548725a1c6aa66fbf4fbd4c793103e9a9dfb7b22328ec7aab5fd272ea16dfe4e518a6b4afa68db872bf4b7255ca194eee41987d7c0330f6800f"
+  ]
+}
