@@ -12,7 +12,7 @@ homepage: "https://github.com/na4zagin3/SATySFi-fonts-junicode"
 bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-junicode/issues"
 dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-junicode.git"
 depends: [
-  "satysfi" {>= "0.0.5" & < "0.0.6"}
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-fonts-junicode" {= "%{version}%"}
