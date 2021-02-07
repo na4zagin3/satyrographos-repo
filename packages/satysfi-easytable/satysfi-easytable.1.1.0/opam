@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "A SATySFi package to build simple tables"
+description: """A SATySFi package to build simple tables."""
+
+maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+license: "MIT"
+homepage: "https://github.com/monaqa/satysfi-easytable"
+bug-reports: "https://github.com/monaqa/satysfi-easytable/issues"
+dev-repo: "git+https://github.com/monaqa/satysfi-easytable.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "easytable"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/satysfi-easytable/archive/v1.1.0.tar.gz"
+  checksum: [
+    "md5=cdfeacf74de336c15bd826c46f1e77bf"
+    "sha512=7e146a6bf123fac9e98220e5f1487abc5077fb7d8c4f5bf1c0ee520e136d428a45eb1d8755ca137aecfdac156eb21967d8e56da19edca94d64d1eb9267ae3638"
+  ]
+}
