@@ -28,6 +28,7 @@ jobs:
     runs-on: ${{ matrix.os }}
     env:
       OPAMSOLVERTIMEOUT: 3600
+      OPAMVERBOSE: 1
       SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
       - name: Checkout code (10 commits)
