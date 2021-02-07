@@ -1,0 +1,29 @@
+opam-version: "2.0"
+synopsis: "Underline for SAtySFi"
+description: """Underline for SAtySFi"""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-uline"
+bug-reports: "https://github.com/puripuri2100/SATySFi-uline/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-uline.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "uline"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-uline/archive/0.2.2.tar.gz"
+  checksum: [
+    "md5=29dd58d19c4364d4d8d3656e9f0b754d"
+    "sha512=b9dedc63a191036a7d73e34117fc6c41ce643bd684c877cd83ec91e6688eb7c04e095d4802ae6d764ca287830b8884ce2b2a0fa46ec1e61609ae3cfb8a67b29f"
+  ]
+}
