@@ -110,7 +110,9 @@ depends: [
 
   "satysfi-ruby" {= "0.1.2"}
 
-  "satysfi-simple-itemize" {= "1.0.0"}
+  "satysfi-simple-itemize-doc" {= "1.0.2"}
+
+  "satysfi-simple-itemize" {= "1.0.2"}
 
   "satysfi-siunitx" {= "0.1"}
 
