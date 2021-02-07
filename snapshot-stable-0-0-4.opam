@@ -20,7 +20,9 @@ depends: [
 
 # Package List
 
-  "satysfi-assert-eq" {= "0.1.1"}
+  "satysfi-assert-eq-doc" {= "0.1.2"}
+
+  "satysfi-assert-eq" {= "0.1.2"}
 
   "satysfi-base" {= "1.3.0"}
 
