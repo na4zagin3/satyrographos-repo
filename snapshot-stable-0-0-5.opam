@@ -56,7 +56,9 @@ depends: [
 
   "satysfi-class-yabaitech" {= "0.0.7"}
 
-  "satysfi-debug-show-value" {= "0.1.1"}
+  "satysfi-debug-show-value-doc" {= "0.1.2"}
+
+  "satysfi-debug-show-value" {= "0.1.2"}
 
   "satysfi-derive" {= "1.0.0"}
 
