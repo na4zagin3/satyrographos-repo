@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "Document: Convert numbers to the following notation"
+description: """Document: Convert numbers to the following notation."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-num-conversion"
+bug-reports: "https://github.com/puripuri2100/SATySFi-num-conversion/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-num-conversion.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-dist"
+  "satysfi-num-conversion" {= "%{version}%"}
+  "satysfi-assert-eq"
+  "satysfi-debug-show-value"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "num-conversion-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "num-conversion-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-num-conversion/archive/0.1.4.tar.gz"
+  checksum: [
+    "md5=27268c44b26417064fbd7815b3e04ed9"
+    "sha512=bf69ed3984a0e9007aeff57eb5736e44d48fcdcee48755cfe2c88fe7329857bca4cf4343f4df0ce4d0e7905ce2e117cfa8a83f07320f287271f80fcd5fb0abc9"
+  ]
+}
