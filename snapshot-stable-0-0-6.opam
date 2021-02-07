@@ -192,7 +192,9 @@ depends: [
 
   "satysfi-tombo" {= "0.2.0"}
 
-  "satysfi-uline" {= "0.2.0"}
+  "satysfi-uline-doc" {= "0.2.2"}
+
+  "satysfi-uline" {= "0.2.2"}
 
   "satysfi-zrbase" {= "0.4.0"}
 
