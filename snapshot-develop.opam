@@ -162,7 +162,9 @@ depends: [
 
   "satysfi-matrix" {= "0.0.1+dev2019.10.15"}
 
-  "satysfi-musikui" {= "0.1.0"}
+  "satysfi-musikui-doc" {= "0.1.1"}
+
+  "satysfi-musikui" {= "0.1.1"}
 
   "satysfi-ncsq-doc" {= "2.1.0"}
 
