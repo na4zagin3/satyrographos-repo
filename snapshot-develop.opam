@@ -24,7 +24,9 @@ depends: [
 
   "satysfi-arrows" {= "0.1.0"}
 
-  "satysfi-assert-eq" {= "0.1.1"}
+  "satysfi-assert-eq-doc" {= "0.1.2"}
+
+  "satysfi-assert-eq" {= "0.1.2"}
 
   "satysfi-azmath-doc" {= "0.0.3"}
 
