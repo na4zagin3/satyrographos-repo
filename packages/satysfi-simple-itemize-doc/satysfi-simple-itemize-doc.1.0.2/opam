@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Document: Simple bullet on SATySFi"
+description: """Document: Simple bullet on SATySFi."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-simple-itemize"
+bug-reports: "https://github.com/puripuri2100/SATySFi-simple-itemize/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-simple-itemize.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+  "satysfi-dist"
+  "satysfi-simple-itemize" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "simple-itemize-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "simple-itemize-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-simple-itemize/archive/0.1.2.tar.gz"
+  checksum: [
+    "md5=ae683700a0b0d21eb0a1483452136c0c"
+    "sha512=f53cf8b25f54f5cb8a73752a51629b65e595013231f55543c04f813903c7d989d244cae29300095a3531d6e8b488ccc8e1ef049b101663f2c1f6a2f70556eb9d"
+  ]
+}
