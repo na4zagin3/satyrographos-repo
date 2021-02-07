@@ -166,7 +166,9 @@ depends: [
 
   "satysfi-ncsq" {= "2.0.0"}
 
-  "satysfi-num-conversion" {= "0.1.1"}
+  "satysfi-num-conversion-doc" {= "0.1.4"}
+
+  "satysfi-num-conversion" {= "0.1.4"}
 
   "satysfi-quotation-doc" {= "0.2.0"}
 
