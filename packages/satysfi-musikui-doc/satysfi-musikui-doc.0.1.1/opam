@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "Document: Easy expression of arithmetical restorations with SATySFi"
+description: """Document: Easy expression of arithmetical restorations with SATySFi."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/musikui.satyh"
+bug-reports: "https://github.com/puripuri2100/musikui.satyh/issues"
+dev-repo: "git+https://github.com/puripuri2100/musikui.satyh.git"
+
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+  "satysfi-dist"
+  "satysfi-musikui" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "musikui-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "musikui-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/musikui.satyh/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=3e14e24634c2f23d1c223917dff1901f"
+    "sha512=d6dfe43a52083bf3d86cdc817ebf62160ec1619e3616602073bca52f83ecde4e03c71c8d8a737abf86e12f533976e1baa6ad5e70cc42779c99ada1a6826e0da3"
+  ]
+}
