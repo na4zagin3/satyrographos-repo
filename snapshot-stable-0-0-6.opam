@@ -192,6 +192,8 @@ depends: [
 
   "satysfi-siunitx" {= "0.1"}
 
+  "satysfi-test" {= "0.0.1"}
+
   "satysfi-texlogo-doc" {= "0.1.1"}
 
   "satysfi-texlogo" {= "0.1.1"}
