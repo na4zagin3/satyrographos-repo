@@ -2,6 +2,8 @@
 
 [![Build Status](https://github.com/na4zagin3/satyrographos-repo/workflows/CI/badge.svg?branch=master)](https://github.com/na4zagin3/satyrographos-repo/actions?query=workflow%3ACI)
 
+*We also have a web interface, [Satyrographos Package Index](https://satyrographos-packages.netlify.app/) (thanks to @matsud224).*
+
 This is a custom OPAM repository for [Satyrographos], a package manager for [SATySFi].
 
 You can add this repository into your OPAM by running the following command.
