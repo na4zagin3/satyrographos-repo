@@ -13,6 +13,7 @@ bug-reports: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/issues"
 dev-repo: "git+https://github.com/yabaitechtokyo/satysfi-class-yabaitech.git"
 depends: [
   "satysfi" {>= "0.0.4" & < "0.0.6"}
+  "satysfi-dist"
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-class-yabaitech" {= "0.0.2"}
 ]

@@ -15,6 +15,7 @@ homepage: "https://github.com/nyuichi/satysfi-base"
 bug-reports: "https://github.com/nyuichi/satysfi-base/issues"
 depends: [
   "satysfi" {>= "0.0.3" & < "0.0.4"}
+  "satysfi-dist"
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 install: [
