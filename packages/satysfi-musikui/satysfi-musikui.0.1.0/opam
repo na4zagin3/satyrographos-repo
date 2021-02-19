@@ -11,6 +11,7 @@ dev-repo: "git+https://github.com/puripuri2100/musikui.satyh.git"
 
 depends: [
   "satysfi" {>= "0.0.4" & < "0.0.7"}
+  "satysfi-dist"
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
 ]
 install: [
