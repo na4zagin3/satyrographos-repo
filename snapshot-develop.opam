@@ -190,7 +190,9 @@ depends: [
 
   "satysfi-simple-itemize" {= "1.0.2"}
 
-  "satysfi-siunitx" {= "0.1"}
+  "satysfi-siunitx-doc" {= "0.1.1"}
+
+  "satysfi-siunitx" {= "0.1.1"}
 
   "satysfi-test" {= "0.0.1"}
 
