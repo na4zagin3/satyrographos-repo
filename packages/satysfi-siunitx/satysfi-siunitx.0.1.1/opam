@@ -1,0 +1,31 @@
+opam-version: "2.0"
+synopsis: "A comprehensive (SI) units package"
+description: """
+A comprehensive (SI) units package.
+
+This requires Satyrographos to install. See https://github.com/na4zagin3/satyrographos.
+"""
+maintainer: "puripuri2100 <puripuri2100@gmail.com>"
+authors: "puripuri2100 <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-siunitx"
+bug-reports: "https://github.com/puripuri2100/SATySFi-siunitx/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-siunitx.git"
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+  "satysfi-dist"
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "siunitx"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-siunitx/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=adb4a82f830c4c6b6ebd6d776776d121"
+    "sha512=90bbc9a24d2d4612e95e3cf7e8a1b90361b6398d5cb2e21b01719b66933722d5c91dd7a5935930b50b2035833eee08bc70b5d2c527a2707b853338cef2b2daa0"
+  ]
+}
