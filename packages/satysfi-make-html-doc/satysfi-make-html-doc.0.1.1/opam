@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "Document: Outputting HTML file using SATySFi's text-mode"
+description: """Document: Outputting HTML file using SATySFi's text-mode."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/SATySFi-make-html"
+bug-reports: "https://github.com/puripuri2100/SATySFi-make-html/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-make-html.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.4"}
+  "satysfi-dist"
+  "satysfi-make-html" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "-name" "make-html-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "make-html-doc"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFiHTML/archive/0.1.1.tar.gz"
+  checksum: [
+    "md5=fac691eca131500d506a24644d65de1a"
+    "sha512=f9565115eac090f2036a4cf06b1629f9d102a278536bcaf5ae0ac901a235593deb270582aedc60ab281835c3ee8779306d4f417015ea8f75cb8db58b1f865cc7"
+  ]
+}
