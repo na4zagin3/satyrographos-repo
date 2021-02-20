@@ -68,6 +68,10 @@ jobs:
         run: |
           find packages -iname opam -exec opam lint --strict '{}' '+'
 
+      - name: Remove SATySFi libraries
+        run: |
+          opam remove --debug --yes $(opam list --installed --short 'satysfi-*')
+        
       - name: Setup OPAM repositories
         run: |
           opam repository remove --all satysfi-external satyrographos-local
