@@ -55,6 +55,11 @@ jobs:
           path: "C:\\cygwin\\home\\runneradmin\\.opam"
           key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
 
+      - name: Remove Cache (workaround)
+        if: true
+        run: |
+          rm -rf "$HOME/.opam"
+
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: avsm/setup-ocaml@v1
         with:
