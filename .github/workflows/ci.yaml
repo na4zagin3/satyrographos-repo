@@ -69,6 +69,7 @@ jobs:
           find packages -iname opam -exec opam lint --strict '{}' '+'
 
       - name: Remove SATySFi libraries
+        if: false
         run: |
           opam remove --debug --yes $(opam list --installed --short 'satysfi-*')
         
