@@ -75,6 +75,7 @@ jobs:
           opam repository add satyrographos-local "file://$PWD"
           # opam repository add satyrographos-local .
           opam update --debug
+          opam show satysfi-ncsq-doc
 
       - name: Update packages
         run: |
