@@ -55,8 +55,13 @@ jobs:
           path: "C:\\cygwin\\home\\runneradmin\\.opam"
           key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
 
+      - name: Output Run ID
+        run: echo ${{ github.run_id }}
+      - name: Output Run Number
+        run: echo ${{ github.run_number }}
+
       - name: Remove Cache (workaround)
-        if: true
+        if: endsWith(github.run_number, '2')
         run: |
           rm -rf "$HOME/.opam"
 
