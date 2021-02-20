@@ -85,7 +85,9 @@ jobs:
         run: |
           opam pin add --no-action satysfi "$(opam show satysfi -f version)"
           opam pin add --no-action satyrographos "$(opam show satyrographos -f version)"
-          opam upgrade --yes --debug --cudf=update-packages || ( for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done ; false )
+          opam upgrade --yes --debug --cudf=update-packages
+          RET_CODE=$?
+          for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done ; ( exit $RET_CODE )
           opam pin remove satysfi satyrographos
 
       - name: Install the snapshot
