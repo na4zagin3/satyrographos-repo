@@ -105,15 +105,16 @@ jobs:
                   .map((action) => {
                     for (snapshot of snapshots) {
                       console.log('action', action, actionText(snapshot.snapshot), snapshot);
-                      if (extractAction(action) === actionText(snapshot.snapshot)) {
+                      const extractedAcction = extractAction(action);
+                      if (extractedAction === actionText(snapshot.snapshot)) {
                         switch (snapshot.result) {
                           case 'updated':
                             return `[ ] ${action} :: ${snapshot.packages}`;
                           case 'no-updates':
-                            return `~~${action}~~ (No updates)`;
+                            return `~~${extractedAction}~~ (No updates)`;
                           case 'failed':
-                            // return `~~${action}~~ ([Inconsistent](https://github.com/${context.repo.owner}/${context.repo.repo}/runs/${snapshot.run_id}?check_suite_focus=true))`;
-                            return `~~${action}~~ (Inconsistent)`;
+                            // return `~~${extractedAction}~~ ([Inconsistent](https://github.com/${context.repo.owner}/${context.repo.repo}/runs/${snapshot.run_id}?check_suite_focus=true))`;
+                            return `~~${extractedAction}~~ (Inconsistent)`;
                         }
                       }
                     }
