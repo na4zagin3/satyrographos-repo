@@ -70,8 +70,10 @@ jobs:
 
       - name: Setup OPAM repositories
         run: |
+          opam repository remove satysfi-external satyrographos-local
           opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
-          opam repository add satyrographos-local "file://$PWD"
+          # opam repository add satyrographos-local "file://$PWD"
+          opam repository add satyrographos-local .
           opam update --debug
 
       - name: Update packages
