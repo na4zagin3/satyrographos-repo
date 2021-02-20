@@ -72,7 +72,7 @@ jobs:
         run: |
           opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
           opam repository add satyrographos-local .
-          opam update
+          opam update --debug
 
       - name: Update packages
         run: |
