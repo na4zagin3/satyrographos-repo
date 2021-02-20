@@ -148,7 +148,9 @@ depends: [
 
   "satysfi-lipsum" {= "0.2.1"}
 
-  "satysfi-make-html" {= "0.1.0"}
+  "satysfi-make-html-doc" {= "0.1.1"}
+
+  "satysfi-make-html" {= "0.1.1"}
 
   "satysfi-make-latex-doc" {= "0.2.0"}
 
