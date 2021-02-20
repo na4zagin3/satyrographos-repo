@@ -72,6 +72,10 @@ jobs:
         if: false
         run: |
           opam remove --debug --yes $(opam list --installed --short 'satysfi-*')
+
+      - name: Clean up OPAM caches
+        run: |
+          opam clean --logs --repo-cache --switch-cleanup
         
       - name: Setup OPAM repositories
         run: |
@@ -84,11 +88,13 @@ jobs:
 
       - name: Update packages
         run: |
+          show_cudf_files() {
+            for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done
+          }
           opam pin add --no-action satysfi "$(opam show satysfi -f version)"
           opam pin add --no-action satyrographos "$(opam show satyrographos -f version)"
-          opam upgrade --yes --debug --cudf=update-packages
-          RET_CODE=$?
-          for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done ; ( exit $RET_CODE )
+          opam upgrade --yes --debug --cudf=update-packages || show_cudf_files
+          show_cudf_files
           opam pin remove satysfi satyrographos
 
       - name: Install the snapshot
