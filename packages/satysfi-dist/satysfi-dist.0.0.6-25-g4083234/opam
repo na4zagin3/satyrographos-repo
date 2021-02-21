@@ -52,3 +52,6 @@ depends: [
 synopsis: "Standard library of SATySFi"
 description: """
 Provides the standard library of SATySFi"""
+url {
+  git: "git+https://github.com/gfngfn/SATySFi.git#4083234d82b8b72c0c5872d11e97f16e63c5955b"
+}

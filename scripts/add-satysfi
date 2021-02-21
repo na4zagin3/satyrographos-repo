@@ -17,7 +17,6 @@ let satysfi_dir = Sys.getcwd () ^ "/tmp/satysfi"
 
 let satysfi_repo_url = "https://github.com/gfngfn/SATySFi.git"
 let satysfi_dist_template = resources_dir ^ "/satysfi-dist.template"
-let satysfi_dist_patch = resources_dir ^ "/fix-install-libs.patch"
 
 let get_satysfi branch =
   file_exists (satysfi_dir ^ "/.git")
@@ -111,9 +110,6 @@ let copy_satysfi_dist version hash =
   >> stdout_to (satysfi_dist_package_dir version ^ "/opam") (
     stdin_from satysfi_dist_template (iter_lines echo_line)
     >> echo (gen_url_section hash))
-  >> mkdir ~p:() (satysfi_dist_package_dir version ^ "/files")
-  >> stdout_to (satysfi_dist_package_dir version ^ "/files/fix-install-libs.patch") (
-    stdin_from satysfi_dist_patch (iter_lines echo_line))
 
 let create_satysfi schema branch tag =
   let command =
