@@ -105,7 +105,7 @@ jobs:
                   .map((action) => {
                     for (snapshot of snapshots) {
                       console.log('action', action, actionText(snapshot.snapshot), snapshot);
-                      const extractedAcction = extractAction(action);
+                      const extractedAction = extractAction(action);
                       if (extractedAction === actionText(snapshot.snapshot)) {
                         switch (snapshot.result) {
                           case 'updated':
