@@ -62,14 +62,22 @@ jobs:
             const fs = require('fs');
             const dir = await fs.promises.opendir('.');
             const snapshots = [];
+            const readFile = (fileName, d) => {
+              try {
+                return fs.readFileSync(fileName, 'utf8').trim();
+              } catch (e) {
+                console.log(e);
+                return d;
+              }
+            };
             for await (const dirent of dir) {
               if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
                   const dirname = dirent.name;
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`, 'utf8'));
                   const run_id = Number(fs.readFileSync(`${dirname}/run-id.txt`, 'utf8'));
                   const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8').trim();
-                  const result = fs.readFileSync(`${dirname}/result.txt`, 'utf8').trim();
-                  const packages = fs.readFileSync(`${dirname}/packages.txt`, 'utf8').trim();
+                  const result = readFile(`${dirname}/result.txt`, undefined);
+                  const packages = readFile(`${dirname}/packages.txt`, 'unknown');
                   snapshots.push({pull_number, run_id, snapshot, result, packages});
                }
             }
@@ -115,6 +123,8 @@ jobs:
                           case 'failed':
                             // return `~~${extractedAction}~~ ([Inconsistent](https://github.com/${context.repo.owner}/${context.repo.repo}/runs/${snapshot.run_id}?check_suite_focus=true))`;
                             return `~~${extractedAction}~~ (Inconsistent)`;
+                          case 'unknown':
+                            return `~~${extractedAction}~~ (Result unknown)`;
                         }
                       }
                     }
