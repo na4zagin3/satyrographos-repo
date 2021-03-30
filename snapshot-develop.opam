@@ -44,9 +44,9 @@ depends: [
 
   "satysfi-class-exdesign" {= "0.2"}
 
-  "satysfi-class-mdbook-satysfi-doc" {= "0.2.0"}
+  "satysfi-class-mdbook-satysfi-doc" {= "0.3.0"}
 
-  "satysfi-class-mdbook-satysfi" {= "0.2.0"}
+  "satysfi-class-mdbook-satysfi" {= "0.3.0"}
 
   "satysfi-class-slydifi-doc" {= "0.2.0"}
 
