@@ -152,6 +152,10 @@ depends: [
 
   "satysfi-image" {= "0.1.0"}
 
+  "satysfi-json-doc" {= "1.0.1"}
+
+  "satysfi-json" {= "1.0.1"}
+
   "satysfi-karnaugh-doc" {= "0.0.1"}
 
   "satysfi-karnaugh" {= "0.0.1"}
