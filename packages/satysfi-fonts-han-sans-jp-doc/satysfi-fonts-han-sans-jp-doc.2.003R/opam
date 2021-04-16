@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for han sans JP fonts"
+description: """
+Document package for satysfi-fonts-han-sans-jp
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "CC0-1.0"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp.git"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satysfi-dist"
+  "satysfi-fonts-han-sans-jp" { = "%{version}%" }
+  "satysfi-lipsum"
+]
+build: [
+  ["satyrographos" "opam" "build"
+    "--name" "fonts-han-sans-jp-doc"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "--name" "fonts-han-sans-jp-doc"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp/archive/2.003R.tar.gz"
+  checksum: [
+    "md5=6c02f94b1dc152d438b33c9ab4909005"
+    "sha512=f1c2e0c64b0b6cd39f92ed9dbf7182684ea42cc4704672fe081e923019e99ecd8154862621729b5352bdc786bd4618b6aa3218988d8627041f5e93e312253d47"
+  ]
+}

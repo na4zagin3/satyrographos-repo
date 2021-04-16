@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for han sans JP fonts（源ノ角ゴシック）"
+description: """
+SATySFi font package for han sans JP fonts（源ノ角ゴシック）.
+
+This package installs fonts from https://github.com/adobe-fonts/source-han-sans.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "OFL-1.1"
+homepage: "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp"
+bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp/issues"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp.git"
+extra-source "SourceHanSansJP.zip" {
+  archive: "https://github.com/puripuri2100/source-han-sans/releases/download/2.003R/SourceHanSansJP.zip"
+  checksum: [
+    "sha256=d38a4df5050f725680aa3b3e27b9b6129c7deb395b6d6a9098e8b49f71a8d982"
+    "sha512=eb09ee9dfda89b1531546196933d14ed5e6f8c3b5ee8c60b1d12618cf3fdeffed1c29784c9a56a12fb725cbc5b5a24e99102571db4d09162f61fbf1ec7f62e4b"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-j" "-d" "SourceHanSansJP" "-o" "SourceHanSansJP.zip" "*.otf"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+    "--name" "fonts-han-sans-jp"
+    "--prefix" "%{prefix}%"
+    "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/puripuri2100/SATySFi-fonts-han-sans-jp/archive/2.003R.tar.gz"
+  checksum: [
+    "md5=6c02f94b1dc152d438b33c9ab4909005"
+    "sha512=f1c2e0c64b0b6cd39f92ed9dbf7182684ea42cc4704672fe081e923019e99ecd8154862621729b5352bdc786bd4618b6aa3218988d8627041f5e93e312253d47"
+  ]
+}
