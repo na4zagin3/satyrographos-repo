@@ -102,6 +102,10 @@ depends: [
 
   "satysfi-fonts-dejavu" {= "2.37+satysfi0.0.4"}
 
+  "satysfi-fonts-han-sans-jp-doc" {= "2.003R"}
+
+  "satysfi-fonts-han-sans-jp" {= "2.003R"}
+
   "satysfi-fonts-han-serif-jp-doc" {= "1.001R"}
 
   "satysfi-fonts-han-serif-jp" {= "1.001R"}
