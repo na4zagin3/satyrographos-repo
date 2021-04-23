@@ -17,6 +17,7 @@ jobs:
         ocaml-version:
 #         - 4.10.1
           - 4.11.1
+          - 4.12.0
         snapshot:
           - stable-0-0-6
           - stable-0-0-5
