@@ -74,9 +74,9 @@ depends: [
 
   "satysfi-enumitem" {= "2.0.0"}
 
-  "satysfi-figbox-doc" {= "0.1.1"}
+  "satysfi-figbox-doc" {= "0.1.2"}
 
-  "satysfi-figbox" {= "0.1.1"}
+  "satysfi-figbox" {= "0.1.2"}
 
   "satysfi-fonts-asana-math-doc" {= "000.958+1+satysfi0.0.4"}
 
