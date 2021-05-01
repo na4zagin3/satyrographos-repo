@@ -1,0 +1,28 @@
+opam-version: "2.0"
+synopsis: "A document class for SATySFi"
+authors: "Noriyuki Abe"
+maintainer: "Noriyuki Abe"
+homepage: "https://github.com/abenori/satysfi-class-jlreq/"
+bug-reports: "https://github.com/abenori/satysfi-class-jlreq/issues"
+dev-repo: "git+https://github.com/abenori/satysfi-class-jlreq.git"
+license: "BSD-2-Clause-FreeBSD"
+depends: [
+  "satysfi" {>= "0.0.6"}
+  "satysfi-base" {>= "0.0.2"}
+  "satysfi-fss" {>= "0.0.2"}
+  "satyrographos" {>= "0.0.2"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "class-jlreq"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/abenori/satysfi-class-jlreq/archive/0.0.2.tar.gz"
+  checksum: [
+    "md5=5b9b9504df1e73a3924f5192e4b0fe96"
+    "sha512=700aaae58aa0820a5e21637b570356cfafd78222d009e9ba2630b4db76c4b9fab40af99a97b5c6977a350d59e8ac8505f131bd5628b8f8010adad5f081708aeb"
+  ]
+}
