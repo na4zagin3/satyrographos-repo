@@ -44,6 +44,10 @@ To submit a PR to `devel` branch, specify `-b` option.
 opam publish --repo=na4zagin3/satyrographos-repo -b develop
 ```
 
+## License
+
+All the metadata contained in this repository are licensed under the [CC0 1.0 Universal license](https://creativecommons.org/publicdomain/zero/1.0/) or any later version (i.e., `CC0-1.0+` license in [SPDX License Identifier](https://spdx.org/licenses/)).
+
 ### Reference
 
 * ["Repository format"](https://opam.ocaml.org/doc/Manual.html#Repository-format)
