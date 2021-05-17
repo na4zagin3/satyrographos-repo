@@ -81,6 +81,12 @@ SATySFi is distributed under the LGPL-3.0 license.
 
 
   [SATySFi]: https://github.com/gfngfn/SATySFi"""
+extra-files: [
+  ["fix-opam-local-switch.patch" "sha256=d2a34c2cca2d8acf6696c756ed30829695dd393f8810caa188fcb9f86cbe9613"]
+]
+patches: [
+  "fix-opam-local-switch.patch"
+]
 url {
   src: "https://github.com/gfngfn/SATySFi/archive/v0.0.3.tar.gz"
 }
