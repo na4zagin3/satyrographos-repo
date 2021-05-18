@@ -34,7 +34,7 @@ depends: [
 
   "satysfi-bibyfi" {= "0.0.2"}
 
-  "satysfi-cancel" {= "0.0.0"}
+  "satysfi-cancel" {= "0.0.1"}
 
   "satysfi-class-exdesign-doc" {= "0.2"}
 
