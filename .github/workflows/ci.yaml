@@ -71,6 +71,9 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
           dune-cache: true
+          # Workaround https://github.com/ocaml/setup-ocaml/issues/80
+          opam-depext: false
+          opam-pin: false
 
       - name: Check validity of the snapshot OPAM files
         run: |
