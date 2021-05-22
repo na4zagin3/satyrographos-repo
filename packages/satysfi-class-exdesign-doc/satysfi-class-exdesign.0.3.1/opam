@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "Documentation: A class file easy to customize with SATySFi"
+description: """Documentation: A class file easy to customize with SATySFi."""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "LGPLv3"
+homepage: "https://github.com/puripuri2100/exdesign"
+bug-reports: "https://github.com/puripuri2100/exdesign/issues"
+dev-repo: "git+https://github.com/puripuri2100/exdesign.git"
+
+depends: [
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-dist"
+
+  # You may want to include the corresponding library
+  "satysfi-class-exdesign" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "class-exdesign-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "class-exdesign-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+
+url {
+  src: "https://github.com/puripuri2100/exdesign/archive/0.3.1.tar.gz"
+  checksum: [
+    "md5=e13a4dfaa5c88825163b50aea0acf3c8"
+    "sha512=bc0c4d0b1ba991d399b3ac13d98582549ba28a645d0fdab92303ae4c101023e5e0a4b9aed01c40e700ae89eadf08e71fa492c10ade9699dcc84961b19bf81831"
+  ]
+}
