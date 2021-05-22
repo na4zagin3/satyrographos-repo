@@ -117,7 +117,7 @@ jobs:
                       if (extractedAction === actionText(snapshot.snapshot)) {
                         switch (snapshot.result) {
                           case 'updated':
-                            return `[ ] ${action} :: ${snapshot.packages}`;
+                            return `[ ] ${extractedAction} :: ${snapshot.packages}`;
                           case 'no-updates':
                             return `~~${extractedAction}~~ (No updates)`;
                           case 'failed':
