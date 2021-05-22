@@ -38,6 +38,12 @@ depends: [
 synopsis: "A statically-typed, functional typesetting system"
 description: """
 SATySFi is a typesetting system equipped with a statically-typed, functional programming language. It consists mainly of two “layers” ― the text layer and the program layer. The former is for writing documents in LaTeX-like syntax. The latter, which has OCaml-like syntax, is for defining functions and commands. SATySFi enables you to write documents markuped with flexible commands of your own making. In addition, its informative type error reporting will be a good help to your writing."""
+extra-files: [
+  ["fix-opam-local-switch.patch" "sha256=d2a34c2cca2d8acf6696c756ed30829695dd393f8810caa188fcb9f86cbe9613"]
+]
+patches: [
+  "fix-opam-local-switch.patch"
+]
 url {
   git: "git+https://github.com/gfngfn/SATySFi.git#4083234d82b8b72c0c5872d11e97f16e63c5955b"
 }
