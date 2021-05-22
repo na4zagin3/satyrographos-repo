@@ -71,6 +71,8 @@ jobs:
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
           dune-cache: true
+          cache-prefix: "snapshot-${{ matrix.snapshot }}"
+
           # Workaround https://github.com/ocaml/setup-ocaml/issues/80
           opam-depext: false
           opam-pin: false
