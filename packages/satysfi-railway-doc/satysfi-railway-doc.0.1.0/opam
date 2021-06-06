@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "Drawing library for SATySFi"
+description: """
+Document for satysfi-railway, drawing library for SATySFi.
+"""
+maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+license: "MIT" # Choose what you want
+homepage: "https://github.com/monaqa/satysfi-railway"
+dev-repo: "git+https://github.com/monaqa/satysfi-railway.git"
+bug-reports: "https://github.com/monaqa/satysfi-railway/issues"
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.7" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-dist"
+
+  # You may want to include the corresponding library
+  "satysfi-railway" {= "%{version}%"}
+  "satysfi-dist"
+  "satysfi-base"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "railway-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "railway-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/satysfi-railway/archive/v0.1.0.tar.gz"
+  checksum: [
+    "md5=44ef0a9c9f012d407d27b6bbff657099"
+    "sha512=747dac385bf2105cb86adace431f734cee898692c8eaa0ca57776a968fe107b3e0503c29216eedf7e68aadbd55f12d1017b37313c3b56d004c5d549f440f829e"
+  ]
+}
