@@ -5,7 +5,7 @@ Document for satysfi-railway, drawing library for SATySFi.
 """
 maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
 authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
-license: "MIT" # Choose what you want
+license: "MIT"
 homepage: "https://github.com/monaqa/satysfi-railway"
 dev-repo: "git+https://github.com/monaqa/satysfi-railway.git"
 bug-reports: "https://github.com/monaqa/satysfi-railway/issues"
@@ -16,8 +16,7 @@ depends: [
 
   # You may want to include the corresponding library
   "satysfi-railway" {= "%{version}%"}
-  "satysfi-dist"
-  "satysfi-base"
+  "satysfi-base" { >= "1.4.0" & < "2.0.0" }
 ]
 build: [
   ["satyrographos" "opam" "build"
