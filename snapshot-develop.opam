@@ -210,6 +210,10 @@ depends: [
 
   "satysfi-quotation" {= "0.2.0"}
 
+  "satysfi-railway-doc" {= "0.1.0"}
+
+  "satysfi-railway" {= "0.1.0"}
+
   "satysfi-ruby-doc" {= "0.1.2"}
 
   "satysfi-ruby" {= "0.1.2"}
