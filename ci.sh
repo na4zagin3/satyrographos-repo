@@ -25,7 +25,7 @@ if true ; then
     git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
             PACKAGE_NAME="${PACKAGE%%.*}"
-            SATYSFI_PACKAGE="satysfi.$(opam show -f version satysfi)"
+            SATYSFI_PACKAGE="satysfi.$(opam show --color=never -f version satysfi)"
 
             case "$PACKAGE_NAME" in
                 satyrographos-*)
