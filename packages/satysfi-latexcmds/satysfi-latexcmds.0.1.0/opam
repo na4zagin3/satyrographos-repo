@@ -1,0 +1,27 @@
+opam-version: "2.0"
+synopsis: "LaTeX-like commands in SATySFi"
+description: """LaTeX-like commands in SATySFi"""
+maintainer: "Yasuo Ozu <yasuo@ozu.email>"
+authors: "Yasuo Ozu <yasuo@ozu.email>"
+license: "LGPL-3.0-or-later"
+homepage: "https://github.com/yasuo-ozu/satysfi-latexcmds"
+bug-reports: "https://github.com/yasuo-ozu/satysfi-latexcmds/issues"
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satysfi-dist"
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "latexcmds"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+dev-repo: "git+https://github.com/yasuo-ozu/satysfi-latexcmds.git"
+url {
+  src: "https://github.com/yasuo-ozu/satysfi-latexcmds/archive/refs/tags/v0.1.0.tar.gz"
+  checksum: [
+    "md5=87dd86a2e53fee536fcdf7b0e0a3dd9b"
+    "sha512=6d1bee6929fb9f82c83374544fe7f0b50f6c8bd8cc2ed240437c737e65c1de6d55837f7d045b57f380c1e9544ea1561e96d4f2cf313a6a03c62375f747eb872a"
+  ]
+}
