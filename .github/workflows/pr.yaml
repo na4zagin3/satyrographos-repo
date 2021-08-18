@@ -36,7 +36,7 @@ jobs:
             };
             const pull_request = await github.pulls.get(pullRequestId);
             const actionHeader = '\n# Automatic follow-ups\n';
-            const body = pull_request.data.body.replace(/\r?\n/g, '\n');
+            const body = (pull_request.data.body || '').replace(/\r?\n/g, '\n');
             console.log('body', body);
             const splitted = body.split(actionHeader);
             const actionSectionMessage = 'Choose follow-up actions.  Do not write anything after this section.';
