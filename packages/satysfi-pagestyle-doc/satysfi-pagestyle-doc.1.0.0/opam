@@ -1,0 +1,35 @@
+opam-version: "2.0"
+synopsis: "Document of satysfi-pagestyle"
+description: """Document for PageStyle package"""
+maintainer: "Noriyuki Abe"
+authors: "Noriyuki Abe"
+license: "BSD-2-Clause-FreeBSD"
+homepage: "https://github.com/abenori/satysfi-pagestyle"
+dev-repo: "git+https://github.com/abenori/satysfi-pagestyle.git"
+bug-reports: "https://github.com/abenori/satysfi-pagestyle/issues"
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.7"}
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-dist"
+
+  "satysfi-pagestyle" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "pagestyle-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "pagestyle-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/abenori/satysfi-pagestyle/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=0191f7456ce9392170b11e81b94ecb5b"
+    "sha512=93af5c4cf94e656988fa61d78d7a63a9385c0baab3fc68f9a04e60a0453648ee5b53156eff2608ccc9fc762eb4ab43153e88f4a4172606208cf526dc15fbbe4e"
+  ]
+}
