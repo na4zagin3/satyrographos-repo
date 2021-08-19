@@ -196,6 +196,10 @@ depends: [
 
   "satysfi-num-conversion" {= "0.1.4"}
 
+  "satysfi-pagenumber-doc" {= "1.0.0"}
+
+  "satysfi-pagenumber" {= "1.0.0"}
+
   "satysfi-quotation-doc" {= "0.2.0"}
 
   "satysfi-quotation" {= "0.2.0"}
