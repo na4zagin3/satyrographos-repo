@@ -44,6 +44,18 @@ jobs:
 
       - name: Output Run ID/Number
         run: echo ${{ github.run_id }} ${{ github.run_number }}
+        
+      - name: Determine the default OPAM Repo
+        id: determine-default-opam-repo
+        # See https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#runner-context
+        # and https://github.com/ocaml/setup-ocaml/blob/4ac56b0fd440c3eef30fd1e34c96e0c740a807da/src/constants.ts#L45
+        run: |
+          if [ "${{ runner.os }}" = "Windows" ] ; then
+            DEFAULT_OPAM_REPO="https://github.com/fdopen/opam-repository-mingw.git#opam2"
+          else
+            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
+          fi
+          echo "::set-output name=opam-repo-default::$(echo "$DEFAULT_OPAM_REPO")"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v2
@@ -55,6 +67,7 @@ jobs:
           opam-repositories: |
             satysfi-external: https://github.com/gfngfn/satysfi-external-repo.git
             satyrographos-local: git+file://${{ github.workspace }}
+            default: ${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}
 
       - name: Check validity of the snapshot OPAM files
         run: |
