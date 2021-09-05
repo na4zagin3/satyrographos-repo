@@ -22,8 +22,6 @@ jobs:
           - stable-0-0-6
           - stable-0-0-5
           - develop
-        cache-opam-directory:
-          - false
         include:
           - os: 'ubuntu-latest'
             ocaml-version: '4.06.1'
@@ -44,27 +42,20 @@ jobs:
           git remote set-branches --add origin master
           git fetch --depth 50 origin master
 
-      - name: Cache OPAM directory (Non Windows)
-        uses: actions/cache@v2
-        if: runner.os != 'Windows' && runner.cache-opam-directory
-        with:
-          path: "~/.opam"
-          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
-
-      - name: Cache OPAM directory (Windows)
-        uses: actions/cache@v2
-        if: runner.os == 'Windows' && runner.cache-opam-directory
-        with:
-          path: "C:\\cygwin\\home\\runneradmin\\.opam"
-          key: ${{ runner.os }}-opam-${{ matrix.ocaml-version }}-${{ matrix.snapshot }}
-
       - name: Output Run ID/Number
         run: echo ${{ github.run_id }} ${{ github.run_number }}
-
-      - name: Remove Cache (workaround)
-        if: endsWith(github.run_number, '2') && runner.cache-opam-directory
+        
+      - name: Determine the default OPAM Repo
+        id: determine-default-opam-repo
+        # See https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#runner-context
+        # and https://github.com/ocaml/setup-ocaml/blob/4ac56b0fd440c3eef30fd1e34c96e0c740a807da/src/constants.ts#L45
         run: |
-          rm -rf "$HOME/.opam"
+          if [ "${{ runner.os }}" = "Windows" ] ; then
+            DEFAULT_OPAM_REPO="https://github.com/fdopen/opam-repository-mingw.git#opam2"
+          else
+            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
+          fi
+          echo "::set-output name=opam-repo-default::$(echo "$DEFAULT_OPAM_REPO")"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v2
@@ -73,9 +64,13 @@ jobs:
           dune-cache: true
           cache-prefix: "snapshot-${{ matrix.snapshot }}"
 
-          # Workaround https://github.com/ocaml/setup-ocaml/issues/80
           opam-depext: false
           opam-pin: false
+
+          opam-repositories: |
+            satysfi-external: https://github.com/gfngfn/satysfi-external-repo.git
+            satyrographos-local: git+file://${{ github.workspace }}
+            default: ${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}
 
       - name: Check validity of the snapshot OPAM files
         run: |
@@ -84,29 +79,6 @@ jobs:
       - name: Check validity of the package OPAM files
         run: |
           find packages -iname opam -exec opam lint --strict '{}' '+'
-
-      - name: Clean up OPAM caches
-        run: |
-          opam clean --logs --repo-cache --switch-cleanup
-        
-      - name: Setup OPAM repositories
-        run: |
-          opam repository remove --all satysfi-external satyrographos-local || true
-          opam repository add satysfi-external https://github.com/gfngfn/satysfi-external-repo.git
-          # opam repository add satyrographos-local "file://$PWD"
-          opam repository add satyrographos-local .
-          opam update --debug
-
-      - name: Update packages
-        run: |
-          show_cudf_files() {
-            for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done
-          }
-          opam pin add --no-action satysfi "$(opam show satysfi -f version)" || true
-          opam pin add --no-action satyrographos "$(opam show satyrographos -f version)" || true
-          opam upgrade --yes --debug --cudf=update-packages || ( show_cudf_files ; false )
-          show_cudf_files
-          opam pin remove satysfi satyrographos
 
       - name: Install the snapshot
         run: |
@@ -166,7 +138,4 @@ jobs:
         with:
           name: "pr-snapshot-${{ matrix.snapshot }}"
           path: pr/
-            
-      - name: Clean up logs and temporary files
-        run: |
-          opam clean --switch-cleanup --logs
+
