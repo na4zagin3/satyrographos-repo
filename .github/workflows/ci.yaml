@@ -80,14 +80,6 @@ jobs:
         run: |
           find packages -iname opam -exec opam lint --strict '{}' '+'
 
-      - name: Update packages
-        run: |
-          show_cudf_files() {
-            for f in update-packages-*.cudf ; do echo "$f" ; cat "$f" ; done
-          }
-          opam upgrade --yes --debug --cudf=update-packages || ( show_cudf_files ; false )
-          show_cudf_files
-
       - name: Install the snapshot
         run: |
           opam pin add "${SNAPSHOT}.dev" . --no-action
