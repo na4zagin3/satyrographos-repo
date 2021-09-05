@@ -54,7 +54,7 @@ jobs:
 
           opam-repositories: |
             satysfi-external: https://github.com/gfngfn/satysfi-external-repo.git
-            satyrographos-local: .
+            satyrographos-local: git+file://${{ github.workspace }}
 
       - name: Check validity of the snapshot OPAM files
         run: |
