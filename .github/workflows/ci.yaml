@@ -52,7 +52,7 @@ jobs:
           dune-cache: true
           cache-prefix: "snapshot-${{ matrix.snapshot }}"
 
-          ocaml-repositories: |
+          opam-repositories: |
             satysfi-external: https://github.com/gfngfn/satysfi-external-repo.git
             satyrographos-local: .
 
