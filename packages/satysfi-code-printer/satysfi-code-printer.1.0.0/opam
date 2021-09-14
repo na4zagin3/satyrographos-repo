@@ -18,6 +18,12 @@ depends: [
   "satysfi-base"
   "satysfi-fonts-dejavu" {>= "2.37"}
 ]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "code-printer"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
 install: [
   ["satyrographos" "opam" "install"
    "--name" "code-printer"
