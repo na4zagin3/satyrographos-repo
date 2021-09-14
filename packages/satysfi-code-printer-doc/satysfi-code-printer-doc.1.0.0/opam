@@ -19,6 +19,12 @@ depends: [
   "satysfi-dist"
   "satysfi-base"
 ]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "code-printer-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
 install: [
   ["satyrographos" "opam" "install"
    "--name" "code-printer-doc"
