@@ -62,6 +62,10 @@ depends: [
 
   "satysfi-class-yabaitech" {= "0.0.8"}
 
+  "satysfi-code-printer-doc" {= "1.0.0"}
+
+  "satysfi-code-printer" {= "1.0.0"}
+
   "satysfi-debug-show-value-doc" {= "0.1.2"}
 
   "satysfi-debug-show-value" {= "0.1.2"}
