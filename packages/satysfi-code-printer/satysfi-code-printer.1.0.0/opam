@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "Typeset source code with SATySFi"
+description: """
+Typeset source code with SATySFi.
+"""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/satysfi-code-printer"
+dev-repo: "git+https://github.com/puripuri2100/satysfi-code-printer.git"
+bug-reports: "https://github.com/puripuri2100/satysfi-code-printer/issues"
+
+depends: [
+  "satysfi" { >= "0.0.6-53-g2867e4d9" & < "0.0.7" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-dist"
+  "satysfi-base" { >= "1.4.0" & < "2.0.0" }
+  "satysfi-fonts-dejavu" {>= "2.37"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "code-printer"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "code-printer"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/satysfi-code-printer/archive/refs/tags/1.0.0.tar.gz"
+  checksum: [
+    "md5=e3e419474a84c37eb8d53dc32cf22d33"
+    "sha512=442c2bd248347464ffaac8dec692badbd5fb18465fb1e34f7882605070912e43f542f9bda448a765a56aae0a77b9ee49a7289427c5c5d73443cdc0852ce62512"
+  ]
+}
