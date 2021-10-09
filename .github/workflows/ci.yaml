@@ -100,7 +100,7 @@ jobs:
 
       - name: Test if the packages can be added to the snapshot
         if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
-        continue-on-error: true
+        # continue-on-error: true
         id: test-update-snapshot
         run: |
           mkdir pr
@@ -122,7 +122,9 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
-          if opam install "$SNAPSHOT" --yes --with-doc --with-test ; then
+          if ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
+            echo 'failed' > pr/result.txt
+          elif opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose ; then
             echo 'updated' > pr/result.txt
           else
             echo 'failed' > pr/result.txt
