@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "A CSV reader and writer for SATySFi"
+description: """
+A CSV reader and writer for SATySFi.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/satysfi-csv"
+dev-repo: "git+https://github.com/puripuri2100/satysfi-csv.git"
+bug-reports: "https://github.com/puripuri2100/satysfi-csv/issues"
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.7" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  "satysfi-dist"
+  "satysfi-base" { >= "1.4.0" & < "2.0.0"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "csv"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "csv"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/satysfi-csv/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=e4147acdca877a1a02a85edbdb6af975"
+    "sha512=232b8b21a96723d0b53232fb3c00412a2b1dc2f89aff351b77f868ed033904d14c0b2f5dff5a8000b0cc086682578921ac0582cd9983207f034985ee2e3e1bcd"
+  ]
+}
