@@ -66,6 +66,10 @@ depends: [
 
   "satysfi-code-printer" {= "1.0.0"}
 
+  "satysfi-csv-doc" {= "1.0.0"}
+
+  "satysfi-csv" {= "1.0.0"}
+
   "satysfi-debug-show-value-doc" {= "0.1.2"}
 
   "satysfi-debug-show-value" {= "0.1.2"}
