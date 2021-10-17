@@ -32,7 +32,7 @@ install: [
    "--script" "%{build}%/Satyristes"]
 ]
 url {
-  src: " https://github.com/puripuri2100/satysfi-csv/archive/1.0.0.tar.gz"
+  src: "https://github.com/puripuri2100/satysfi-csv/archive/1.0.0.tar.gz"
   checksum: [
     "md5=e4147acdca877a1a02a85edbdb6af975"
     "sha512=232b8b21a96723d0b53232fb3c00412a2b1dc2f89aff351b77f868ed033904d14c0b2f5dff5a8000b0cc086682578921ac0582cd9983207f034985ee2e3e1bcd"
