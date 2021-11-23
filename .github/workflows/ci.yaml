@@ -103,6 +103,7 @@ jobs:
         # continue-on-error: true
         id: test-update-snapshot
         run: |
+          set -exo pipefail
           mkdir pr
           echo "$SNAPSHOT" > pr/id.txt
           echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
