@@ -43,6 +43,7 @@ if true ; then
             then
                 echo "Assuming dependency does not meet. Skipping"
                 echo "$PACKAGE: skipped: dependency" >> "$SUCCEEDED_PACKAGES"
+                cat opam-output.json
                 continue
 
                 if [ -n "$SKIP_SATYSFI_MISMATCH" ] && jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
