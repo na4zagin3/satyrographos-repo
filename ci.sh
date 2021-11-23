@@ -34,7 +34,7 @@ if true ; then
                     SKIP_SATYSFI_MISMATCH=1
                     ;;
                 *)
-                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$SNAPSHOT" "$PACKAGE")
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$PACKAGE")
                     SKIP_OCAML_MISMATCH=
                     SKIP_SATYSFI_MISMATCH=1
             esac
