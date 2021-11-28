@@ -39,7 +39,7 @@ if true ; then
                     SKIP_SATYSFI_MISMATCH=1
             esac
 
-            if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
+            if ! opam install --json=opam-output.json --dry-run --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
             then
                 echo "Assuming dependency does not meet. Skipping"
                 echo "$PACKAGE: skipped: dependency" >> "$SUCCEEDED_PACKAGES"
