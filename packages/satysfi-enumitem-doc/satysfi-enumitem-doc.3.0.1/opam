@@ -11,21 +11,21 @@ dev-repo: "git+https://github.com/monaqa/satysfi-enumitem.git"
 
 depends: [
   "satysfi" {>= "0.0.6" & < "0.0.7"}
-  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-enumitem" {= "%{version}%"}
 ]
 build: [
   ["satyrographos" "opam" "build"
-   "-name" "enumitem-doc"
-   "-prefix" "%{prefix}%"
-   "-script" "%{build}%/Satyristes"]
+   "--name" "enumitem-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
 ]
 install: [
   ["satyrographos" "opam" "install"
-   "-name" "enumitem-doc"
-   "-prefix" "%{prefix}%"
-   "-script" "%{build}%/Satyristes"]
+   "--name" "enumitem-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
 ]
 url {
   src: "https://github.com/monaqa/satysfi-enumitem/archive/v3.0.1.tar.gz"
