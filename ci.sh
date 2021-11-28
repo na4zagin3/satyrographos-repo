@@ -15,15 +15,15 @@ if true ; then
 
     eval $(opam config env)
 
-    sed -i.bak -e '/^# Package List$/,/^# Package List End$/d' "$SNAPSHOT".opam
-    opam update
-
     git remote -v
     git branch -va
 
     export OPAMYES=1
     git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
+            # Reset env
+            opam install "$SNAPSHOT"
+
             PACKAGE_NAME="${PACKAGE%%.*}"
             SATYSFI_PACKAGE="satysfi.$(opam show --color=never -f version satysfi)"
 
@@ -34,20 +34,20 @@ if true ; then
                     SKIP_SATYSFI_MISMATCH=1
                     ;;
                 *)
-                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$SATYSFI_PACKAGE" "$PACKAGE")
+                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
                     SKIP_OCAML_MISMATCH=
                     SKIP_SATYSFI_MISMATCH=1
             esac
 
-            if ! opam install --json=opam-output.json --dry-run --unlock-base "${PACKAGES_AND_OPTIONS[@]}"
+            if ! opam install --json=opam-output.json --dry-run --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
             then
-                echo "Assuming dependency does not meet. Skipping"
-                echo "$PACKAGE: skipped: dependency" >> "$SUCCEEDED_PACKAGES"
-                continue
+                echo "Dependency does not meet."
+                cat opam-output.json
 
-                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && jq -e '.conflicts["causes"] | index("No available version of satysfi satisfies the constraints")' opam-output.json
+                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && opam install --json=opam-output.json --dry-run --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
                 then
-                    echo "Dependency does not meet. Skipping"
+                    echo "Can be installed with another satysfi version. Skipping."
+                    cat opam-output.json
                     echo "$PACKAGE: skipped: satysfi-dependency" >> "$SUCCEEDED_PACKAGES"
                     continue
                 else

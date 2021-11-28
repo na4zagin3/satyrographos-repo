@@ -14,7 +14,7 @@ depends: [
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-easytable" {= "%{version}%"}
-  "satysfi-enumitem" {>= "2.0.0"}
+  "satysfi-enumitem" {>= "2.0.0" & < "3.0.0"}
 ]
 build: [
   ["satyrographos" "opam" "build"
