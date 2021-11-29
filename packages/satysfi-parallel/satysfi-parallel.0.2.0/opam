@@ -1,0 +1,30 @@
+opam-version: "2.0"
+synopsis: "Typesetting two texts in parallel"
+description: """Typesetting two texts in parallel"""
+
+maintainer: "Masaki Waga <masakiwaga@gmail.com>"
+authors: "Masaki Waga <masakiwaga@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/MasWag/satysfi-parallel"
+bug-reports: "https://github.com/MasWag/satysfi-parallel/issues"
+dev-repo: "git+https://github.com/MasWag/satysfi-parallel.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satysfi-dist"
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "parallel"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/MasWag/satysfi-parallel/releases/download/v0.2.0/package.tar.gz"
+  checksum: [
+    "md5=dd786870e65e5c47b051c5299d2ed766"
+    "sha512=2d23af2e19bae5b02d793f60edfc33fd72a129e5f12fbaaa6ce59fc9b219c1790bdce2078e7afaff1691b8e7c128ea2bdd1e47b9d9b8fd1619591cacb747e871"
+  ]
+}
