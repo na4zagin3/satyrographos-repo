@@ -1,0 +1,36 @@
+opam-version: "2.0"
+synopsis: "A SATySFi package for creating itemized lists"
+description: """A SATySFi package for creating itemized lists."""
+
+maintainer: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+authors: "Shinichi Mogami <mogassy@yahoo.co.jp>"
+license: "MIT"
+homepage: "https://github.com/monaqa/satysfi-enumitem"
+bug-reports: "https://github.com/monaqa/satysfi-enumitem/issues"
+dev-repo: "git+https://github.com/monaqa/satysfi-enumitem.git"
+
+depends: [
+  "satysfi" {>= "0.0.6" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-dist"
+  "satysfi-enumitem" {= "%{version}%"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "enumitem-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "enumitem-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/satysfi-enumitem/archive/v3.0.1.tar.gz"
+  checksum: [
+    "md5=f03d3236199a59583d458762eaa6d8de"
+    "sha512=c766e0c06a221b5130638b74fe9bd83d90d00ec74e8025e1d9a169172c59fb32b11009be024be0ca49b3d71053d200e27dfec9f5157e304faea6286f482d6fcc"
+  ]
+}
