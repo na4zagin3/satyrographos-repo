@@ -81,6 +81,9 @@ jobs:
           find packages -iname opam -exec opam lint --strict '{}' '+'
 
       - name: Install the snapshot
+        env:
+          # Workaround https://github.com/na4zagin3/satyrographos/issues/287
+          OPAMJOBS: 1
         run: |
           opam pin add "${SNAPSHOT}.dev" . --no-action
           opam depext "$SNAPSHOT" --yes
@@ -95,6 +98,9 @@ jobs:
           opam uninstall "$SNAPSHOT"
 
       - name: Run script
+        env:
+          # Workaround https://github.com/na4zagin3/satyrographos/issues/287
+          OPAMJOBS: 1
         run: |
           ./ci.sh
 
@@ -102,6 +108,9 @@ jobs:
         if: github.event_name == 'pull_request' || github.event_name == 'pull_request_target'
         # continue-on-error: true
         id: test-update-snapshot
+        env:
+          # Workaround https://github.com/na4zagin3/satyrographos/issues/287
+          OPAMJOBS: 1
         run: |
           set -exo pipefail
           mkdir pr
