@@ -69,7 +69,11 @@ if true ; then
                 fi
             fi
 
-            if ! opam install "${PACKAGES_AND_OPTIONS[@]}"
+            if ! opam install --deps-only "${PACKAGES_AND_OPTIONS[@]}"
+            then
+                echo "$PACKAGE: dep-install" >> "$FAILED_PACKAGES"
+                continue
+            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}"
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
