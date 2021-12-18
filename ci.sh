@@ -46,12 +46,12 @@ if true ; then
                     SKIP_SATYSFI_MISMATCH=1
             esac
 
-            if ! opam install --json=opam-output.json --dry-run --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
+            if ! opam install --json=opam-output.json --dry-run --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
             then
                 echo "Dependency does not meet."
                 cat opam-output.json
 
-                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && opam install --json=opam-output.json --dry-run --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
+                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && opam install --json=opam-output.json --dry-run --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
                 then
                     echo "Can be installed with another satysfi version. Skipping."
                     cat opam-output.json
