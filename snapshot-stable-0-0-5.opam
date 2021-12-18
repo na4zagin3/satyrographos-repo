@@ -208,9 +208,9 @@ depends: [
 
   "satysfi-pagestyle" {= "1.0.0"}
 
-  "satysfi-parallel-doc" {= "0.1.0"}
+  "satysfi-parallel-doc" {= "0.2.0"}
 
-  "satysfi-parallel" {= "0.1.0"}
+  "satysfi-parallel" {= "0.2.0"}
 
   "satysfi-quotation-doc" {= "0.2.0"}
 
