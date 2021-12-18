@@ -10,7 +10,11 @@ SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
-opam install opam-0install
+
+if ! opam install opam-0install
+then
+    SKIP_OLDEST_DEPS=1
+fi
 
 # Test install/uninstall regardress if it's a PR
 if true ; then
@@ -84,11 +88,11 @@ if true ; then
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE")
+            elif [ -n "$SKIP_OLDEST_DEPS" ] && ! opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE")
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam exec -- satyrographos install
+            elif [ -n "$SKIP_OLDEST_DEPS" ] && ! opam exec -- satyrographos install
             then
                 echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
