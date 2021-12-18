@@ -28,6 +28,8 @@ depends: [
 
   "satysfi-assert-eq" {= "0.1.2"}
 
+  "satysfi-azmath" {= "0.0.3"}
+
   "satysfi-base" {= "1.4.0"}
 
   "satysfi-bibyfi-doc" {= "0.0.2"}
@@ -68,9 +70,13 @@ depends: [
 
   "satysfi-derive" {= "1.0.0"}
 
+  "satysfi-easytable" {= "1.1.1"}
+
   "satysfi-enumitem-doc" {= "3.0.1"}
 
   "satysfi-enumitem" {= "3.0.1"}
+
+  "satysfi-figbox" {= "0.1.3"}
 
   "satysfi-fonts-asana-math-doc" {= "000.958+1+satysfi0.0.4"}
 
