@@ -20,7 +20,7 @@ jobs:
       - name: List up snapshots
         id: snapshots
         run: |
-            echo "::set-output name=snapshots::$(ls snapshot-*.opam | sed -e 's/\.opam$//' | tr '\n' ' ')"
+            echo "::set-output name=snapshots::$(ls -1 snapshot-*.opam | sed -e 's/\.opam$//' | sort -n | tr '\n' ' ')"
 
       - name: Update the PR body
         uses: actions/github-script@v2
