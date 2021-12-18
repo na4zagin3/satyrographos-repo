@@ -14,6 +14,8 @@ OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 if ! opam install opam-0install
 then
     SKIP_OLDEST_DEPS=1
+else
+    SKIP_OLDEST_DEPS=
 fi
 
 # Test install/uninstall regardress if it's a PR
