@@ -38,12 +38,13 @@ take_snapshots () {
 	local CALLBACK="$1"
 	shift
 	for OPAM_FILE in "$@" ; do
+    TAG="$(echo "$OPAM_FILE" | sed -e 's/\.opam$//; s/--/@/g; s/[^@]*\(@\|$\)/\1/; s/@/-/g')"
 		case "$OPAM_FILE" in
 			snapshot-develop*)
-				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-develop" "" "$CALLBACK"
+				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-develop" "$TAG" "$CALLBACK"
 				;;
 			snapshot-stable-*)
-				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-stable" "" "$CALLBACK"
+				take_snapshot "$OPAM_FILE" "satyrographos-snapshot-stable" "$TAG" "$CALLBACK"
 				;;
 		esac
 	done
