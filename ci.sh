@@ -90,11 +90,11 @@ if true ; then
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -n "$SKIP_OLDEST_DEPS" ] && ! opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE")
+            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE")
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -n "$SKIP_OLDEST_DEPS" ] && ! opam exec -- satyrographos install
+            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! opam exec -- satyrographos install
             then
                 echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
