@@ -19,9 +19,11 @@ jobs:
           - 4.11.1
           - 4.12.0
         snapshot:
+          - develop--1
+          - develop
+          - stable-0-0-6--1
           - stable-0-0-6
           - stable-0-0-5
-          - develop
         include:
           - os: 'ubuntu-latest'
             ocaml-version: '4.06.1'
