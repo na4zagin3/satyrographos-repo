@@ -64,6 +64,8 @@ depends: [
 
   "satysfi-derive" {= "1.0.0"}
 
+  "satysfi-easytable" {= "1.1.1"}
+
   "satysfi-enumitem-doc" {= "3.0.1"}
 
   "satysfi-enumitem" {= "3.0.1"}
