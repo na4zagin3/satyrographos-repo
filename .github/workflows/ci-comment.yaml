@@ -125,6 +125,11 @@ jobs:
                             return `~~${extractedAction}~~ (Inconsistent)`;
                           case 'unknown':
                             return `~~${extractedAction}~~ (Result unknown)`;
+                          default:
+                            if (snapshot.result.startsWith('inconsistent-snapshot ')) {
+                              return `~~${extractedAction}~~ (${snapshot.result})`;
+                            }
+                            return `~~${extractedAction}~~ (Result unknown)`;
                         }
                       }
                     }
