@@ -104,7 +104,7 @@ if true ; then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
             fi
 
-            echo "$PACKAGE: success" ${SKIP_OLDEST_DEPS+skip-oldest-deps} >> "$SUCCEEDED_PACKAGES"
+            echo "$PACKAGE: success" ${SKIP_OLDEST_DEPS:+skip-oldest-deps} >> "$SUCCEEDED_PACKAGES"
         done
     else
         echo "Non pull request"
