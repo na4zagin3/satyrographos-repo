@@ -91,7 +91,7 @@ jobs:
       - name: Check if snapshot is consistent
         run: |
           set -exo pipefail
-          comm -13 <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") > snapshot-diffs.txt
+          comm --nocheck-order -13 <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") > snapshot-diffs.txt
           echo "Missing libraries:"
           cat snapshot-diffs.txt
           # echo "Requiring libraries:"
