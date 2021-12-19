@@ -98,6 +98,8 @@ jobs:
 
       - name: Run script
         run: |
+          # Workaround until https://github.com/ocaml/opam-repository/pull/20284 is merged
+          export SKIP_OLDEST_DEPS=1
           ./ci.sh
 
       - name: Test if the packages can be added to the snapshot
