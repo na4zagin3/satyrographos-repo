@@ -8,9 +8,9 @@ homepage: "https://github.com/abenori/satysfi-colorbox"
 dev-repo: "git+https://github.com/abenori/satysfi-colorbox.git"
 bug-reports: "https://github.com/abenori/satysfi-colorbox/issues"
 depends: [
-  "satysfi" { >= "0.0.6" & < "1.0.0" }
+  "satysfi" { >= "0.0.6" & < "0.0.7" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
-  "satysfi-enumitem" {>= "3.0.0" & < "3.1.0" }
+  "satysfi-enumitem" {>= "3.0.0" & < "3.1" }
 
   # You may want to include the corresponding library
   "satysfi-colorbox" {= "%{version}%"}
