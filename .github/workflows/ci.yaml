@@ -88,6 +88,15 @@ jobs:
           opam depext "$SNAPSHOT" --yes
           opam install "$SNAPSHOT" --yes
 
+      - name: Check if snapshot is consistent
+        run: |
+          set -exo pipefail
+          comm -13 <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") > snapshot-diffs.txt
+          echo "Missing libraries:"
+          cat snapshot-diffs.txt
+          # echo "Requiring libraries:"
+          # cat snapshot-diffs.txt | xargs -r -L1 opam list 'satysfi-*' --recursive --required-by "$SNAPSHOT" --depends-on
+
       - name: Detect file collisions in installed SATySFI libraries
         run: |
           opam exec -- satyrographos install test-satysfi-root
@@ -127,7 +136,9 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
-          if ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
+          if ! diff -u <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") | sed -e '1,/^@@/d' | awk 'BEGIN{ORS=" "; print "inconsistent-snapshot"}; /^[-+]/ {print}' > pr/result.txt ; then
+            :
+          elif ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
             echo 'failed' > pr/result.txt
           elif opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose ; then
             echo 'updated' > pr/result.txt
