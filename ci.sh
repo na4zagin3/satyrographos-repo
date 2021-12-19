@@ -11,8 +11,9 @@ SUCCEEDED_PACKAGES=succeeded.pkgs
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
-if ! opam install opam-0install
+if ! opam install opam-0install || ! opam exec -- opam-0install satyrographos
 then
+    echo "Skipping oldest-deps check"
     SKIP_OLDEST_DEPS=1
 else
     SKIP_OLDEST_DEPS=
@@ -103,7 +104,7 @@ if true ; then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
             fi
 
-            echo "$PACKAGE: success" >> "$SUCCEEDED_PACKAGES"
+            echo "$PACKAGE: success" ${SKIP_OLDEST_DEPS+skip-oldest-deps} >> "$SUCCEEDED_PACKAGES"
         done
     else
         echo "Non pull request"
