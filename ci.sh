@@ -11,7 +11,7 @@ SUCCEEDED_PACKAGES=succeeded.pkgs
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
-if ! opam install opam-0install || ! opam exec -- opam-0install satyrographos
+if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install opam-0install
 then
     echo "Skipping oldest-deps check"
     SKIP_OLDEST_DEPS=1
