@@ -91,6 +91,7 @@ jobs:
       - name: Check if snapshot is consistent
         run: |
           set -exo pipefail
+          export OPAMCOLOR=never
           comm --nocheck-order -13 <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") > snapshot-diffs.txt
           echo "Missing libraries:"
           cat snapshot-diffs.txt
@@ -136,7 +137,9 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
-          if ! diff -u <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") | sed -e '1,/^@@/d' | awk 'BEGIN{ORS=" "; print "inconsistent-snapshot"}; /^[-+]/ {print}' > pr/result.txt ; then
+          opam list --color=never 'satysfi-*' --short --required-by "$SNAPSHOT" > snapshot-deps.txt
+          opam list --color=never 'satysfi-*' --short --recursive --required-by "$SNAPSHOT" > snapshot-recursive-deps.txt
+          if ! diff -u snapshot-deps.txt snapshot-recursive-deps.txt | sed -e '1,/^@@/d' | awk 'BEGIN{ORS=" "; print "inconsistent-snapshot"}; /^[-+]/ {print}' > pr/result.txt ; then
             :
           elif ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
             echo 'failed' > pr/result.txt
