@@ -137,18 +137,21 @@ jobs:
           git config --local user.name "GitHub Action"
           git commit -m 'Update snapshot'
           opam update
-          opam list --color=never 'satysfi-*' --short --required-by "$SNAPSHOT" > snapshot-deps.txt
-          opam list --color=never 'satysfi-*' --short --recursive --required-by "$SNAPSHOT" > snapshot-recursive-deps.txt
-          if ! diff -u snapshot-deps.txt snapshot-recursive-deps.txt | sed -e '1,/^@@/d' | awk 'BEGIN{ORS=" "; print "inconsistent-snapshot"}; /^[-+]/ {print}' > pr/result.txt ; then
-            :
-          elif ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
+          if ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose --dry-run ; then
             echo 'failed' > pr/result.txt
-          elif opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose ; then
-            echo 'updated' > pr/result.txt
-          else
+          elif ! opam install "$SNAPSHOT" --yes --with-doc --with-test --verbose ; then
             echo 'failed' > pr/result.txt
             FAILED=1
+          else
+            opam list --color=never 'satysfi-*' --short --required-by "$SNAPSHOT" > snapshot-deps.txt
+            opam list --color=never 'satysfi-*' --short --recursive --required-by "$SNAPSHOT" > snapshot-recursive-deps.txt
+            if ! diff -u snapshot-deps.txt snapshot-recursive-deps.txt | sed -e '1,/^@@/d' | awk 'BEGIN{ORS=" "; print "inconsistent-snapshot"}; /^[-+]/ {print}' > pr/result.txt ; then
+              :
+            else
+              echo 'updated' > pr/result.txt
+            fi
           fi
+
           opam uninstall "$SNAPSHOT" --yes
           
           if [ -n "$FAILED" ] ; then
