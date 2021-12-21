@@ -58,6 +58,10 @@ depends: [
 
   "satysfi-code-printer" {= "1.0.0"}
 
+  "satysfi-colorbox-doc" {= "0.1.0"}
+
+  "satysfi-colorbox" {= "0.1.0"}
+
   "satysfi-csv-doc" {= "1.0.0"}
 
   "satysfi-csv" {= "1.0.0"}
