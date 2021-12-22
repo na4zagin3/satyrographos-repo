@@ -7,7 +7,7 @@ This package installs fonts from https://www.google.com/get/noto/.
 """
 maintainer: "Yuito Murase <yuito.murase@gmail.com>"
 authors: "Yuito Murase <yuito.murase@gmail.com>"
-license: "OFL"
+license: "OFL-1.1"
 homepage: "https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp"
 bug-reports: "https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp/issues"
 dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-noto-serif-cjk-jp.git"
