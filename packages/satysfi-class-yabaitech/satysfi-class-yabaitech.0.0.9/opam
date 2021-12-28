@@ -26,6 +26,12 @@ depends: [
   "satysfi-fonts-noto-serif-cjk-jp" {>= "2.001+1+satysfi0.0.4"}
   "satysfi-fonts-asana-math" {>= "000.958+1+satysfi0.0.4"}
 ]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "class-yabaitech"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
 install: [
   ["satyrographos" "opam" "install"
    "--name" "class-yabaitech"
