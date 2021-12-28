@@ -50,9 +50,9 @@ depends: [
 
   "satysfi-class-stjarticle" {= "1.3.2"}
 
-  "satysfi-class-yabaitech-doc" {= "0.0.8"}
+  "satysfi-class-yabaitech-doc" {= "0.0.9"}
 
-  "satysfi-class-yabaitech" {= "0.0.8"}
+  "satysfi-class-yabaitech" {= "0.0.9"}
 
   "satysfi-code-printer-doc" {= "1.0.0"}
 
