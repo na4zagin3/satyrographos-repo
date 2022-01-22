@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi class file for Curriculum Vitae"
+description: """
+SATySFi class file for Curriculum Vitae
+"""
+maintainer: "Masaki Waga <masakiwaga@gmail.com>"
+authors: [
+    "Masaki Waga <masakiwaga@gmail.com>"
+]
+license: "MIT"
+homepage: "https://github.com/MasWag/cv-satysfi"
+bug-reports: "https://github.com/MasWag/cv-satysfi/issues"
+dev-repo: "git+https://github.com/MasWag/cv-satysfi.git"
+depends: [
+  "satysfi" {>= "0.0.6" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-base" {>= "1.2.1" & < "2.0"}
+  "satysfi-fonts-asana-math" {>= "000.958+1+satysfi0.0.4"}
+  "satysfi-parallel" {>= "0.1.0" & < "0.3" }
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "class-cv"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "class-cv"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+
+url {
+  src:
+    "https://github.com/MasWag/cv-satysfi/archive/refs/tags/0.1.0.tar.gz"
+  checksum: [
+    "md5=c552b91926680d59a091df3763233949"
+    "sha512=e01d605fb78a8b4753c9999f8b011e88f8d9434185674268945cf9454fe6a8b383a12bde11dc03823892da846e340bb7bf3693871e79844f363001df002f40a0"
+  ]
+}
