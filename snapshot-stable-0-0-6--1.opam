@@ -58,9 +58,9 @@ depends: [
 
   "satysfi-class-yabaitech" {= "0.0.9"}
 
-  "satysfi-colorbox-doc" {= "0.1.0"}
+  "satysfi-colorbox-doc" {= "0.1.1"}
 
-  "satysfi-colorbox" {= "0.1.0"}
+  "satysfi-colorbox" {= "0.1.1"}
 
   "satysfi-csv-doc" {= "1.0.0"}
 
