@@ -1,0 +1,37 @@
+opam-version: "2.0"
+synopsis: "Docs of advanced path algorithms in SATySFi"
+description: """Docs of advanced path algorithms in SATySFi"""
+
+maintainer: "Yasuo Ozu <yasuo@ozu.email>"
+authors: "Yasuo Ozu <yasuo@ozu.email>"
+license: "LGPL-3.0-or-later"
+homepage: "https://github.com/yasuo-ozu/satysfi-xpath"
+bug-reports: "https://github.com/yasuo-ozu/satysfi-xpath/issues"
+dev-repo: "git+https://github.com/yasuo-ozu/satysfi-xpath.git"
+
+depends: [
+  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satysfi-dist"
+  "satysfi-xpath"
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "xpath-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "xpath-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/yasuo-ozu/satysfi-xpath/archive/v0.2.0.tar.gz"
+  checksum: [
+    "md5=8e3c25e773e1ba012fafb0a59f552f47"
+    "sha512=b7bea1d05b4019d6314ef17e036bd543aa6238ddf6ab3cd58d975a7293e4df715100bd146119b5ac4eba9319d2e8738a85a03b7c74adaf33f95ec2df56a63499"
+  ]
+}
+
