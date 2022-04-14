@@ -8,7 +8,7 @@ homepage: "https://github.com/abenori/satysfi-colorbox"
 dev-repo: "git+https://github.com/abenori/satysfi-colorbox.git"
 bug-reports: "https://github.com/abenori/satysfi-colorbox/issues"
 depends: [
-  "satysfi" { >= "0.0.6" & < "0.0.7" }
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
 
   # If your library depends on other libraries, please write down here

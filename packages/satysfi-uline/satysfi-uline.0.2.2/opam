@@ -10,7 +10,7 @@ bug-reports: "https://github.com/puripuri2100/SATySFi-uline/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-uline.git"
 
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satysfi" { >= "0.0.3" & < "0.0.8" }
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
   "satysfi-dist"
 ]

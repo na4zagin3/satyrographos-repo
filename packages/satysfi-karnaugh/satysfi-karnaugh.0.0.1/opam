@@ -12,7 +12,7 @@ bug-reports:  "https://github.com/takagiy/satysfi-karnaugh/issues"
 dev-repo:     "git+https://github.com/takagiy/satysfi-karnaugh.git"
 license:      "MIT"
 depends: [
-  "satysfi" {>= "0.0.4" & < "0.0.7"}
+  "satysfi" { >= "0.0.4" & < "0.0.8" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 build: []

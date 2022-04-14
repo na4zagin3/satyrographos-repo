@@ -8,7 +8,7 @@ homepage: "https://github.com/abenori/satysfi-pagenumber"
 dev-repo: "git+https://github.com/abenori/satysfi-pagenumber.git"
 bug-reports: "https://github.com/abenori/satysfi-pagenumber/issues"
 depends: [
-  "satysfi" { >= "0.0.5" < "0.0.7" }
+  "satysfi" { >= "0.0.5" & < "0.0.8" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-dist"
   "satysfi-pagenumber" {= "%{version}%"}

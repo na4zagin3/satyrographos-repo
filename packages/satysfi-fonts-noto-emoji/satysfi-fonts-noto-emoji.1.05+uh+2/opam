@@ -23,7 +23,7 @@ extra-source "noto-emoji-2019-11-19-unicode12.zip" {
 
 
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satysfi" { >= "0.0.3" & < "0.0.8" }
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
 ]
 build: [

@@ -10,7 +10,7 @@ homepage: "https://github.com/zeptometer/satysfi-test"
 dev-repo: "git+https://github.com/zeptometer/satysfi-test.git"
 bug-reports: "https://github.com/zeptometer/satysfi-test/issues"
 depends: [
-  "satysfi" { >= "0.0.6" & < "0.0.7" }
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
   "satyrographos" { >= "0.0.2.8" & < "0.0.3" }
   "satysfi-dist"
 ]
