@@ -1,0 +1,43 @@
+opam-version: "2.0"
+synopsis: "Document for satysfi-figbox package"
+description: """
+A SATySFi package that creates charts and places them in inappropriate positions in your document
+"""
+maintainer: "Mogami Shinichi <mogassy@yahoo.co.jp>"
+authors: "Mogami Shinichi <mogassy@yahoo.co.jp>"
+license: "MIT" # Choose what you want
+homepage: "https://github.com/monaqa/satysfi-figbox"
+dev-repo: "git+https://github.com/monaqa/satysfi-figbox.git"
+bug-reports: "https://github.com/monaqa/satysfi-figbox/issues"
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # You may want to include the corresponding library
+  "satysfi-figbox" {= "%{version}%"}
+
+  # Other libraries
+  "satysfi-dist"
+  "satysfi-base"
+  "satysfi-easytable" {>= "1.0.0" & < "2.0" }
+  "satysfi-enumitem" {>= "3.0.0" & < "4.0" }
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "figbox-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "figbox-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/monaqa/satysfi-figbox/archive/v0.1.4.tar.gz"
+  checksum: [
+    "md5=c1ef97133c8721fb63d6b22c074039e7"
+    "sha512=8816a6d9d262a890688beafb2ed1c00b9b4f7eda7f7cb5f9f0da488543d3ec245891dc37bb2d132b15a349ecd0f871c3e2a81022db62c6bb5c6deb603126b82a"
+  ]
+}
