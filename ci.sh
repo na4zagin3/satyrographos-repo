@@ -1,5 +1,10 @@
 #!/bin/bash
 
+# Environmental variables
+# SNAPSHOT: Package name of the current Satyrographos Repo snapshot
+# ABORT_IMMEDIATELY: Imdediately abort when installation fails
+# SKIP_OLDEST_DEPS: Skip building against oldest dependencies
+
 set -exo pipefail
 
 export OPAMVERBOSE=1
@@ -19,6 +24,14 @@ else
     SKIP_OLDEST_DEPS=
 fi
 
+check_opam_integrity () {
+    if find "$(opam var prefix)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    then
+        echo "OPAM misdetected file creation as modification"
+        exit 1
+    fi
+}
+
 # Test install/uninstall regardress if it's a PR
 if true ; then
     echo "Test updated packages"
@@ -31,6 +44,13 @@ if true ; then
     export OPAMYES=1
     git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' -e '/^packages\//!d' -e 's!\([^/]*/\)\{2\}!!' -e 's!/.*!!' | sort | uniq \
         | while read PACKAGE ; do
+            # Reset env
+            if [ -n "$ABORT_IMMEDIATELY" ] && [ -s "$FAILED_PACKAGES" ]
+            then
+                sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
+                exit 1
+            fi
+
             # Reset env
             opam install "$SNAPSHOT"
 
@@ -83,15 +103,15 @@ if true ; then
             then
                 echo "$PACKAGE: dep-install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}"
+            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}" || ! check_opam_integrity
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam exec -- satyrographos install
+            elif ! opam exec -- satyrographos install || ! check_opam_integrity
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE")
+            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! ( opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE") ) || ! check_opam_integrity
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
@@ -99,7 +119,7 @@ if true ; then
             then
                 echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam uninstall "$PACKAGE"
+            elif ! opam uninstall "$PACKAGE" || ! check_opam_integrity
             then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
             fi
