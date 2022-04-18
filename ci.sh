@@ -27,7 +27,7 @@ fi
 check_opam_integrity () {
     if find "$(opam var prefix)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
-        echo "OPAM misdetected file creation as midification"
+        echo "OPAM misdetected file creation as modification"
         exit 1
     fi
 }
