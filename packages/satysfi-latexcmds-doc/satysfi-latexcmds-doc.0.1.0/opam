@@ -10,11 +10,11 @@ depends: [
   "satysfi" {>= "0.0.5" & < "0.0.7"}
   "satysfi-dist"
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
-  "satysfi-latexcmds"
+  "satysfi-latexcmds" {= "%{version}%"}
 ]
 install: [
   ["satyrographos" "opam" "install"
-   "--name" "latexcmds"
+   "--name" "latexcmds-doc"
    "--prefix" "%{prefix}%"
    "--script" "%{build}%/Satyristes"]
 ]
