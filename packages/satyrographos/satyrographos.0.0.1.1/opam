@@ -25,7 +25,7 @@ depends: [
   "ppx_inline_test" {build & < "v0.12"}
   "ppx_jane" {build}
   "satysfi" {>= "0.0.3" & < "0.0.4"}
-  "yojson"
+  "yojson" {< "1.5"}
 ]
 synopsis: "A naive package manager for SATySFi"
 description: """

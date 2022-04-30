@@ -26,7 +26,7 @@ depends: [
   "ppx_jane" {build}
   "satysfi" {>= "0.0.3" & < "0.0.4"}
   "uri" {>= "2.0.0" & < "3.0.0"}
-  "yojson"
+  "yojson" {< "1.5"}
 ]
 synopsis: "A naive package manager for SATySFi"
 description: """
