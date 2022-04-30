@@ -35,13 +35,17 @@ check_opam_integrity () {
 }
 
 opam_install_dry_run () {
-	check_opam_integrity
+    local OPAM_INSTALL_RETURN_STATUS
+    check_opam_integrity
     # Workaround https://github.com/ocaml/opam/issues/5132
     mkdir -p "$TEMPORARY_WORK_DIR/opam"
-    rsync -av "$(opam var prefix)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
+    rsync -v "$(opam var prefix)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
     opam install --dry-run "$@"
-    rsync -av "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix)/.opam-switch/install"
-	check_opam_integrity
+    OPAM_INSTALL_RETURN_STATUS=$?
+    rsync -v "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix)/.opam-switch/install"
+    check_opam_integrity
+
+    return $OPAM_INSTALL_RETURN_STATUS
 }
 
 # Test install/uninstall regardress if it's a PR
