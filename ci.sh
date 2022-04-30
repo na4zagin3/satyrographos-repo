@@ -7,6 +7,8 @@
 
 set -exo pipefail
 
+TEMPORARY_WORK_DIR=$(mktemp -dt "ci.sh.XXXXXXXXXX")
+
 export OPAMVERBOSE=1
 
 FAILED_PACKAGES=failed.pkgs
@@ -30,6 +32,15 @@ check_opam_integrity () {
         echo "OPAM misdetected file creation as modification"
         exit 1
     fi
+}
+
+opam_install_dry_run () {
+	check_opam_integrity
+    mkdir -p "$TEMPORARY_WORK_DIR/opam"
+    rsync -av "$(opam var prefix)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
+    opam install --dry-run "$@"
+    rsync -av "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix)/.opam-switch/install"
+	check_opam_integrity
 }
 
 # Test install/uninstall regardress if it's a PR
@@ -69,12 +80,12 @@ if true ; then
                     SKIP_SATYSFI_MISMATCH=1
             esac
 
-            if ! opam install --json=opam-output.json --dry-run --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
+            if ! opam_install_dry_run --json=opam-output.json --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
             then
                 echo "Dependency does not meet."
                 cat opam-output.json
 
-                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && opam install --json=opam-output.json --dry-run --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
+                if [ -n "$SKIP_SATYSFI_MISMATCH" ] && opam_install_dry_run --json=opam-output.json --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}"
                 then
                     echo "Can be installed with another satysfi version. Skipping."
                     cat opam-output.json
@@ -86,7 +97,7 @@ if true ; then
                 fi
             fi
 
-            if ! opam install --json=opam-output.json --dry-run "${PACKAGES_AND_OPTIONS[@]}"
+            if ! opam_install_dry_run --json=opam-output.json "${PACKAGES_AND_OPTIONS[@]}"
             then
                 if [ -n "$SKIP_OCAML_MISMATCH" ]
                 then
@@ -137,4 +148,4 @@ if [ -s "$FAILED_PACKAGES" ] ; then
     sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
     exit 1
 fi
-# vim: set et fenc=utf-8 ff=unix sts=0 sw=8 ts=4 :
+# vim: set et fenc=utf-8 ff=unix sts=0 sw=4 ts=4 :
