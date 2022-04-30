@@ -36,6 +36,7 @@ check_opam_integrity () {
 
 opam_install_dry_run () {
 	check_opam_integrity
+    # Workaround https://github.com/ocaml/opam/issues/5132
     mkdir -p "$TEMPORARY_WORK_DIR/opam"
     rsync -av "$(opam var prefix)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
     opam install --dry-run "$@"
