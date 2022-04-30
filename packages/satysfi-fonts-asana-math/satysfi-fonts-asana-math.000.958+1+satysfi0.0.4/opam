@@ -17,6 +17,12 @@ extra-source "Asana-Math.otf" {
     "sha256=b0d9e681c08ff1f4dc6ebf085cc962585ec12cdbd25dc6225890b9f8fd12d568"
     "sha512=caedaf8dbbdc914a41492605b1ac69b020297bffa8a968e424f758d4aadb0c6391c71ed48b1645bc12eb1820a72d88425a0d2dfbd528c5071566284ad4f5f1b3"
   ]
+  mirrors: [
+    "http://ftp.jaist.ac.jp/pub/CTAN/fonts/Asana-Math/Asana-Math.otf"
+    "https://ftp.yz.yamagata-u.ac.jp/pub/CTAN/fonts/Asana-Math/Asana-Math.otf"
+    "https://mirrors.mit.edu/CTAN/fonts/Asana-Math/Asana-Math.otf"
+    "https://ctan.gutenberg.eu.org/fonts/Asana-Math/Asana-Math.otf"
+  ]
 }
 depends: [
   "satysfi" {>= "0.0.4" & < "0.0.7"}
