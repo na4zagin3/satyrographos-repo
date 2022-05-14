@@ -108,8 +108,9 @@ jobs:
 
       - name: Run script
         run: |
-          # Workaround until https://github.com/ocaml/opam-repository/pull/20284 is merged
-          export SKIP_OLDEST_DEPS=1
+          # The issue may be solved by https://github.com/ocaml/opam/pull/5144
+          # Anyway, let me temporarily enable oldest-deps checks
+          # export SKIP_OLDEST_DEPS=1
           ./ci.sh
 
       - name: Test if the packages can be added to the snapshot
