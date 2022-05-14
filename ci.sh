@@ -52,7 +52,7 @@ check_satyrographos_integrity () {
     if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
     then
         echo "Workaround OPAM Bug #5132"
-        opam exec -- satyrographos install $(opam list --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
+        opam exec -- satyrographos install $(opam list --columns=name --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
         return $?
     fi
 
