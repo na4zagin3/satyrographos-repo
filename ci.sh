@@ -4,6 +4,7 @@
 # SNAPSHOT: Package name of the current Satyrographos Repo snapshot
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
+# WORKAROUND_OPAM_BUG_5132: Skip integrity check against OPAM
 
 set -exo pipefail
 
@@ -16,6 +17,13 @@ FAILED_PACKAGES=failed.pkgs
 SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
+case "$(opam --version)" in
+    2.0.*|2.1.*)
+        echo "Enable workaround for OPAM Bug #5132"
+        WORKAROUND_OPAM_BUG_5132=1
+        ;;
+esac
+
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
 if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install opam-0install
@@ -27,11 +35,28 @@ else
 fi
 
 check_opam_integrity () {
+    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    then
+        echo "Skip OPAM integrity check"
+        return 0
+    fi
+
     if find "$(opam var prefix)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
         echo "OPAM misdetected file creation as modification"
         exit 1
     fi
+}
+
+check_satyrographos_integrity () {
+    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    then
+        echo "Workaround OPAM Bug #5132"
+        opam exec -- satyrographos install $(opam list --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
+        return $?
+    fi
+
+    opam exec -- satyrographos install
 }
 
 opam_install_dry_run () {
@@ -123,7 +148,7 @@ if true ; then
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam exec -- satyrographos install || ! check_opam_integrity
+            elif ! check_satyrographos_integrity || ! check_opam_integrity
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
@@ -131,7 +156,7 @@ if true ; then
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! opam exec -- satyrographos install
+            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! check_satyrographos_integrity
             then
                 echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
