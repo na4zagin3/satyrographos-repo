@@ -13,7 +13,7 @@ depends: [
   "satysfi" {>= "0.0.5" & < "0.0.7"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-dist"
-  "satysfi-base"
+  "satysfi-base" {>= "1.4.0"}
 ]
 install: [
   ["satyrographos" "opam" "install"
