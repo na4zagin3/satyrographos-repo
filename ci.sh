@@ -26,7 +26,7 @@ esac
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
-if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install opam-0install
+if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install --yes opam-0install
 then
     echo "Skipping oldest-deps check"
     SKIP_OLDEST_DEPS=1
@@ -71,6 +71,10 @@ opam_install_dry_run () {
     check_opam_integrity
 
     return $OPAM_INSTALL_RETURN_STATUS
+}
+
+install_oldest_deps () {
+    opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$@" | sed -n -e '/^satyrographos$/p ; /^satysfi$/p ; /^satysfi-/p')
 }
 
 # Test install/uninstall regardress if it's a PR
@@ -152,7 +156,7 @@ if true ; then
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! ( opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE") ) || ! check_opam_integrity
+            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE" || ! check_opam_integrity
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue
