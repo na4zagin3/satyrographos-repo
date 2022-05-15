@@ -4,6 +4,7 @@
 # SNAPSHOT: Package name of the current Satyrographos Repo snapshot
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
+# SKIP_REVERSE_DEPS: Skip building against reverse dependencies
 # WORKAROUND_OPAM_BUG_5132: Skip integrity check against OPAM
 
 set -exo pipefail
@@ -75,6 +76,16 @@ opam_install_dry_run () {
 
 install_oldest_deps () {
     opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos$/p' -e '/^satysfi$/p' -e '/^satysfi-/p')
+}
+
+check_reverse_deps () {
+    opam list --repo=satyrographos-local --all-version --short --depends-on="$1" | while read PACKAGE ; do
+        if ! opam install "$1" "$PACKAGE"
+        then
+            echo "Revdep check failed: $1 for $PACKAGE"
+            return 1
+        fi
+    done
 }
 
 # Test install/uninstall regardress if it's a PR
@@ -155,6 +166,10 @@ if true ; then
             elif ! check_satyrographos_integrity || ! check_opam_integrity
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
+                continue
+            elif [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps || ! check_opam_integrity
+            then
+                echo "$PACKAGE: reverse-deps" >> "$FAILED_PACKAGES"
                 continue
             elif [ -z "$SKIP_OLDEST_DEPS" ] && ! install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE" || ! check_opam_integrity
             then
