@@ -41,7 +41,7 @@ check_opam_integrity () {
         return 0
     fi
 
-    if find "$(opam var prefix)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    if find "$(opam var prefix --color=never)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
         echo "OPAM misdetected file creation as modification"
         exit 1
@@ -52,7 +52,7 @@ check_satyrographos_integrity () {
     if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
     then
         echo "Workaround OPAM Bug #5132"
-        opam exec -- satyrographos install $(opam list --columns=name --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
+        opam exec -- satyrographos install $(opam list --color=never --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
         return $?
     fi
 
@@ -64,10 +64,10 @@ opam_install_dry_run () {
     check_opam_integrity
     # Workaround https://github.com/ocaml/opam/issues/5132
     mkdir -p "$TEMPORARY_WORK_DIR/opam"
-    rsync -v "$(opam var prefix)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
+    rsync -v "$(opam var prefix --color=never)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
     opam install --dry-run "$@"
     OPAM_INSTALL_RETURN_STATUS=$?
-    rsync -v "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix)/.opam-switch/install"
+    rsync -v "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix --color=never)/.opam-switch/install"
     check_opam_integrity
 
     return $OPAM_INSTALL_RETURN_STATUS
