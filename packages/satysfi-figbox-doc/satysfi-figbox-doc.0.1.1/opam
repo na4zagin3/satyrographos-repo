@@ -18,8 +18,8 @@ depends: [
 
   # Other libraries
   "satysfi-dist"
-  "satysfi-base"
-  "satysfi-easytable" {>= "1.0.0"}
+  "satysfi-base" {>= "1.4.0" & < "2"}
+  "satysfi-easytable" {>= "1.0.0" & < "2"}
   "satysfi-enumitem" {>= "2.0.0" & < "3.0.0"}
 ]
 build: [

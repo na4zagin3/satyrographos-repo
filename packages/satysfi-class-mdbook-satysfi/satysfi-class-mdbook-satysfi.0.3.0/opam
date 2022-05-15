@@ -17,16 +17,16 @@ depends: [
 
   # If your library depends on other libraries, please write down here
   "satysfi-dist"
-  "satysfi-base"
-  "satysfi-easytable"
+  "satysfi-base" { >= "1.4.0" }
+  "satysfi-easytable" { >= "1.0.0" }
   "satysfi-quotation" { >="0.2.0" }
-  "satysfi-uline"
-  "satysfi-ruby"
-  "satysfi-fonts-noto-serif"
-  "satysfi-fonts-noto-serif-cjk-jp"
-  "satysfi-fonts-noto-sans"
-  "satysfi-fonts-noto-sans-cjk-jp"
-  "satysfi-fonts-inconsolata"
+  "satysfi-uline" { >= "0.2.0" }
+  "satysfi-ruby" { >= "0.1.2" }
+  "satysfi-fonts-noto-serif" { >= "2.001+1+satysfi0.0.4" }
+  "satysfi-fonts-noto-serif-cjk-jp" { >= "2.001+1+satysfi0.0.4" }
+  "satysfi-fonts-noto-sans" { >= "2.001+1+satysfi0.0.4" }
+  "satysfi-fonts-noto-sans-cjk-jp" { >= "2.001+1+satysfi0.0.4" }
+  "satysfi-fonts-inconsolata" { >= "3.001" }
 ]
 install: [
   ["satyrographos" "opam" "install"
