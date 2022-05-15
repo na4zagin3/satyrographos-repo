@@ -18,7 +18,7 @@ depends: [
 
   # Other libraries
   "satysfi-dist"
-  "satysfi-base"
+  "satysfi-base" {>= "1.4.0"}
 ]
 build: [
   ["satyrographos" "opam" "build"
