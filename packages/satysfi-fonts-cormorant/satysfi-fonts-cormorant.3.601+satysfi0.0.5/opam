@@ -19,7 +19,7 @@ extra-source "Cormorant_Install_v3.601.zip" {
   ]
 }
 depends: [
-  "satysfi" {>= "0.0.5" & < "0.0.7"}
+  "satysfi" { >= "0.0.5" & < "0.0.8" }
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
 ]
 build: [

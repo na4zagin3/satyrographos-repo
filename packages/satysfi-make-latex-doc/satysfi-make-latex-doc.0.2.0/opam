@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-make-latex"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-make-latex.git"
 bug-reports: "https://github.com/puripuri2100/SATySFi-make-latex/issues"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.7" }
+  "satysfi" { >= "0.0.5" & < "0.0.8" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-dist"
   "satysfi-make-latex" {= "%{version}%"}

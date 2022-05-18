@@ -19,7 +19,7 @@ extra-source "noto-sans-cjk-jp.zip" {
   ]
 }
 depends: [
-  "satysfi" {>= "0.0.4" & < "0.0.7"}
+  "satysfi" { >= "0.0.4" & < "0.0.8" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 build: [

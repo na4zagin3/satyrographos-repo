@@ -22,6 +22,7 @@ jobs:
         snapshot:
           - develop--1
           - develop
+          - stable-0-0-7
           - stable-0-0-6--1
           - stable-0-0-6
           - stable-0-0-5
