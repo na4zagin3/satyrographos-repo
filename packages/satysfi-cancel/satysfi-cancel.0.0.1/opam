@@ -10,8 +10,8 @@ homepage: "https://github.com/yuhr/satysfi-cancel"
 bug-reports: "https://github.com/yuhr/satysfi-cancel/issues"
 dev-repo: "git+https://github.com/yuhr/satysfi-cancel.git"
 depends: [
-  "satysfi"
-  "satyrographos"
+  "satysfi" {>= "0.0.3" & < "0.0.7"}
+  "satyrographos" {>= "0.0.2.3" & < "0.0.3"}
   "satysfi-dist"
 ]
 install: [
