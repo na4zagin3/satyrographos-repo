@@ -9,7 +9,7 @@ This package installs fonts from https://github.com/akryukov/theano.
 """
 maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
 authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
-license: "OFL"
+license: "OFL-1.1"
 homepage: "https://github.com/na4zagin3/SATySFi-fonts-theano"
 bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-theano/issues"
 dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-theano.git"

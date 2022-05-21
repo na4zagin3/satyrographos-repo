@@ -7,7 +7,7 @@ This package installs fonts from http://mirrors.ctan.org/fonts/Asana-Math/.
 """
 maintainer: "MURASE Yuito <yuito.murase@gmail.com>"
 authors: "MURASE Yuito <yuito.murase@gmail.com>"
-license: "OFL"
+license: "OFL-1.1"
 homepage: "https://github.com/zeptometer/SATySFi-fonts-asana-math"
 bug-reports: "https://github.com/zeptometer/SATySFi-fonts-asana-math/issues"
 dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-asana-math.git"

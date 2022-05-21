@@ -7,7 +7,7 @@ This package installs fonts from https://cm-unicode.sourceforge.io.
 """
 maintainer: "Yuito Murase <yuito.murase@gmail.com>"
 authors: "Yuito Murase <yuito.murase@gmail.com>"
-license: "OFL"
+license: "OFL-1.1"
 homepage: "https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode"
 bug-reports: "https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode/issues"
 dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-computer-modern-unicode.git"
