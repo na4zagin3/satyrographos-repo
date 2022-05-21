@@ -89,7 +89,7 @@ jobs:
       - name: Check validity of the package OPAM files
         run: |
           set -exo pipefail
-          git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' | xargs opam lint --strict >> "pr/comment.txt"
+          git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' | xargs opam lint --strict | tee -a "pr/comment.txt"
 
       - name: Install the snapshot
         run: |
