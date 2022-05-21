@@ -15,7 +15,7 @@ depends: [
   "satysfi" { >= "0.0.5" & < "0.0.8" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-dist"
-  "satysfi-base" {>= "1.2.1"}
+  "satysfi-base" {>= "1.2.1" & < "2.0"}
   "satysfi-zrbase" {>= "0.4.0"}
   "satysfi-arrows" {>= "0.1.0"}
 ]
