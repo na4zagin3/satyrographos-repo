@@ -22,7 +22,7 @@ extra-source "theano-2.0.otf.zip" {
 }
 depends: [
   "satysfi" {>= "0.0.3" & < "0.0.6"}
-  "satyrographos" {>= "0.0.1" & < "0.0.2"}
+  "satyrographos" {>= "0.0.1.7" & < "0.0.2"}
 ]
 build: [
   ["unzip" "-o" "theano-2.0.otf.zip" "*.otf" "-d" "theano"]
