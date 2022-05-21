@@ -78,7 +78,8 @@ jobs:
                   const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8').trim();
                   const result = readFile(`${dirname}/result.txt`, undefined);
                   const packages = readFile(`${dirname}/packages.txt`, 'unknown');
-                  snapshots.push({pull_number, run_id, snapshot, result, packages});
+                  const comment = readFile(`${dirname}/comment.txt`, undefined);
+                  snapshots.push({pull_number, run_id, snapshot, result, packages, comment});
                }
             }
 
@@ -142,5 +143,16 @@ jobs:
               await github.pulls.update({
                 ...pullRequestId,
                 body: replacedBody
+              });
+            
+            }
+            
+            const comment = snapshots[0].comment;
+            if (comment) {
+              await github.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pull_number,
+                body: comment
               });
             }
