@@ -147,12 +147,18 @@ jobs:
             
             }
             
-            const comment = snapshots[0].comment;
-            if (comment) {
+            const comments = []
+            for (snapshot of snapshots) {
+              if (snapshot.comment) {
+                comments.push(`# Snapshot ${snapshot.snapshot}`);
+                comments.push(snapshot.comment);
+              }
+            }
+            if (comments.length) {
               await github.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pull_number,
-                body: comment
+                body: comments.join('\n')
               });
             }
