@@ -7,7 +7,7 @@ This package installs fonts from https://github.com/indestructible-type/Bodoni
 """
 maintainer: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
 authors: "SAKAMOTO Noriaki <mrty.ityt.pt@gmail.com>"
-license: "OFL"
+license: "OFL-1.1"
 homepage: "https://github.com/na4zagin3/SATySFi-fonts-bodoni-star"
 bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-bodoni-star/issues"
 dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-bodoni-star.git"
