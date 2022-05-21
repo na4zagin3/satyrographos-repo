@@ -2,6 +2,7 @@
 
 # Environmental variables
 # SNAPSHOT: Package name of the current Satyrographos Repo snapshot
+# COMMENT_FILE: File to output results
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
 # SKIP_REVERSE_DEPS: Skip building against reverse dependencies
@@ -34,6 +35,15 @@ then
 else
     SKIP_OLDEST_DEPS=
 fi
+
+cat_to_comment () {
+    if [ -n "$COMMENT_FILE" ]
+    then
+        cat "$@" | tee -a "$COMMENT_FILE"
+    else
+        cat "$@"
+    fi
+}
 
 check_opam_integrity () {
     if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
@@ -191,10 +201,10 @@ if true ; then
 fi
 
 if [ -s "$SUCCEEDED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "1iSucceeded packages:" "$SUCCEEDED_PACKAGES" 1>&2
+    sed -e 's/^/- /' -e "1i#### Succeeded packages\n" "$SUCCEEDED_PACKAGES" 1>&2 | cat_to_comment
 fi
 if [ -s "$FAILED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
+    sed -e 's/^/- /' -e "1i#### Failed packages\n" "$FAILED_PACKAGES" 1>&2 | cat_to_comment
     exit 1
 fi
 # vim: set et fenc=utf-8 ff=unix sts=0 sw=4 ts=4 :

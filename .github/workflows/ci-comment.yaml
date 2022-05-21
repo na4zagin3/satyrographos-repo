@@ -147,10 +147,12 @@ jobs:
             
             }
             
-            const comments = []
+            const comments = [
+              '# CI Summary'
+            ];
             for (snapshot of snapshots) {
               if (snapshot.comment) {
-                comments.push(`# Snapshot ${snapshot.snapshot}`);
+                comments.push(`## Snapshot ${snapshot.snapshot}`);
                 comments.push(snapshot.comment);
               }
             }

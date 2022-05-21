@@ -89,7 +89,8 @@ jobs:
       - name: Check validity of the package OPAM files
         run: |
           set -exo pipefail
-          git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' | xargs opam lint --strict | tee -a "pr/comment.txt"
+          echo "### OPAM Lint" | tee -a "pr/comment.txt"
+          git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' | xargs opam lint --color=never --strict | tee -a "pr/comment.txt"
 
       - name: Install the snapshot
         run: |
@@ -102,8 +103,8 @@ jobs:
           set -exo pipefail
           export OPAMCOLOR=never
           comm --nocheck-order -13 <(opam list 'satysfi-*' --short --required-by "$SNAPSHOT") <(opam list 'satysfi-*' --short --recursive --required-by "$SNAPSHOT") > snapshot-diffs.txt
-          echo "Missing libraries:"
-          cat snapshot-diffs.txt
+          echo "### Missing libraries in the snapshot" | tee -a "pr/comment.txt"
+          cat snapshot-diffs.txt | tee -a "pr/comment.txt"
           # echo "Requiring libraries:"
           # cat snapshot-diffs.txt | xargs -r -L1 opam list 'satysfi-*' --recursive --required-by "$SNAPSHOT" --depends-on
 
@@ -117,12 +118,16 @@ jobs:
 
       - name: Build against snapshots and oldest deps
         run: |
+          export COMMENT_FILE=pr/comment.txt
           export SKIP_REVERSE_DEPS=1
+          echo "### Snapshots and oldest deps" >>"$COMMENT_FILE"
           ./ci.sh
 
       - name: Revdep tests
         run: |
+          export COMMENT_FILE=pr/comment.txt
           export SKIP_OLDEST_DEPS=1
+          echo "### Reverse deps" >>"$COMMENT_FILE"
           ./ci.sh
 
       - name: Test if the packages can be added to the snapshot
@@ -131,7 +136,6 @@ jobs:
         id: test-update-snapshot
         run: |
           set -exo pipefail
-          mkdir pr
           echo "$SNAPSHOT" > pr/id.txt
           echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
           echo "${{ github.run_id }}" > pr/run-id.txt
