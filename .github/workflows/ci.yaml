@@ -76,13 +76,20 @@ jobs:
             satyrographos-local: git+file://${{ github.workspace }}
             default: ${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}
 
+      - name: Create a dir for post-CI actions
+        run: |
+          set -exo pipefail
+          mkdir pr
+
       - name: Check validity of the snapshot OPAM files
         run: |
+          set -exo pipefail
           opam lint --strict *.opam
 
       - name: Check validity of the package OPAM files
         run: |
-          find packages -iname opam -exec opam lint --strict '{}' '+'
+          set -exo pipefail
+          git diff --name-status origin/master... -- packages/ | sed -e '/^D/d' -e 's/^\w*\s//' | xargs opam lint --strict >> "pr/comment.txt"
 
       - name: Install the snapshot
         run: |
