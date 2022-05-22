@@ -45,7 +45,7 @@ let datetime_to_date datetime =
 let construct_version original_version tag date = match tag with
   | None -> return original_version
   | Some tag ->
-    echo (original_version ^ "+" ^ tag ^ date)
+    echo (original_version ^ tag ^ date)
     |- (run "tr" ["\\055"; "."] |> capture_unit [Std_io.Stdout])
     >>| String.trim
 
@@ -77,18 +77,18 @@ type schema =
   | Date
   | GitDescribe
 
-let get_version schema branch tag =
+let get_version schema branch override_version tag =
   get_commit_datetime branch >>= fun datetime ->
   let date = datetime_to_date datetime in
   match schema with
   | Date ->
-    get_version_from_opam_file "satysfi.opam" >>= (fun version ->
+    get_version_from_opam_file "satysfi.opam" >>= (fun original_version ->
+        let version = Option.value ~default:original_version override_version in
         construct_version version tag date)
   | GitDescribe ->
     get_version_from_git_repo >>= fun version ->
     let tag =
-      Option.map (fun s -> "+" ^ s) tag
-      |> Option.value ~default:""
+      Option.value ~default:"" tag
     in
     return (version ^ tag)
 
@@ -111,29 +111,33 @@ let copy_satysfi_dist version hash =
     stdin_from satysfi_dist_template (iter_lines echo_line)
     >> echo (gen_url_section hash))
 
-let create_satysfi schema branch tag =
+let create_satysfi schema branch override_version tag =
   let command =
-    get_version schema branch tag >>= (fun version ->
-    get_commit_hash branch >>= fun hash ->
-    copy_satysfi version hash >>
-    copy_satysfi_dist version hash) in
+    get_version schema branch override_version tag >>= (fun version ->
+        get_commit_hash branch >>= fun hash ->
+        copy_satysfi version hash >>
+        copy_satysfi_dist version hash) in
   get_satysfi branch
   >> chdir satysfi_dir command
 
+let option_override_version = ref None
 let option_date_schema = ref false
 let option_branch = ref "master"
 let option_version_tag = ref None
 let specs =
-  [ ("-b", Arg.Set_string(option_branch), "Branch name");
+  [
+    ("-o", Arg.String(fun version -> option_override_version := Some version), "Override SATySFi version (default: none)");
     ("-t", Arg.String(fun tag -> option_version_tag := Some tag), "Version tag (default: none)");
+    ("-b", Arg.Set_string(option_branch), "Branch name");
     ("-d", Arg.Set(option_date_schema), "Use date format schema");
   ]
 let usage =
   {|USAGE: add-satysfi -b <branch>
 
 OPTIONS:
+ -o <version> Override the SATySFi version. (default: no-override)
  -b <branch> Branch name. (default: master)
- -t <tag> Version tag name (e.g., dev in satysfi.0.0.4+dev2020.02.16). (default: <branch>)
+ -t <tag> Version tag name (e.g., ~dev in satysfi.0.0.4+dev2020.02.16). (default: <branch>)
  -d Use date schema (e.g., satysfi.0.0.5+dev2020.09.05) instead of git describe (e.g., satysfi.0.0.5-27-gc841df+dev).
 |}
 
@@ -144,6 +148,6 @@ let _ =
     then Date
     else GitDescribe
   in
-  let c = create_satysfi schema (!option_branch) (!option_version_tag)
+  let c = create_satysfi schema (!option_branch) (!option_override_version) (!option_version_tag)
   in
   Traced.eval_exn c
