@@ -28,21 +28,11 @@ opam publish --repo=na4zagin3/satyrographos-repo
 
 Maintainers may ask contributors to update files for automation tests.
 
-## Development version
+## For development versions
 
-We have `develop` branch which has development versions, especially SATySFi.
-Execute the following command to use them.
+We have `satyrographos-repo-alpha` repository which has development versions, especially the next versions of SATySFi and those depends on them.
 
-```sh
-# This repository depends on containts in satysfi-external repo
-opam repository add satyrographos-develop https://github.com/na4zagin3/satyrographos-repo.git#develop
-```
-
-To submit a PR to `devel` branch, specify `-b` option.
-
-```sh
-opam publish --repo=na4zagin3/satyrographos-repo -b develop
-```
+See https://github.com/na4zagin3/satyrographos-repo-alpha/tree/main#readme for more details.
 
 ## License
 
