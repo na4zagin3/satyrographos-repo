@@ -50,6 +50,7 @@ jobs:
           for file in *.zip ; do
             unzip "$file" -d "${file%.zip}"
           done
+          ls -lR
 
       - name: Update the PR body
         uses: actions/github-script@v2
