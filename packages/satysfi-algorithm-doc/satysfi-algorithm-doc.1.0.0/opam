@@ -1,0 +1,42 @@
+opam-version: "2.0"
+synopsis: "Document of satysfi-algorithm"
+description: """
+Document of satysfi-algorithm.
+"""
+maintainer: "KOBAYASHI Ryota <koba.pic@gmail.com>"
+authors: "KOBAYASHI Ryota <koba.pic@gmail.com>"
+license: "MIT" # Choose what you want
+homepage: "https://github.com/pickoba/satysfi-algorithm"
+dev-repo: "git+https://github.com/pickoba/satysfi-algorithm.git"
+bug-reports: "https://github.com/pickoba/satysfi-algorithm/issues"
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # You may want to include the corresponding library
+  "satysfi-algorithm" {= "%{version}%"}
+
+  # Other libraries
+  "satysfi-dist"
+  "satysfi-base" { >= "1.4.0" & < "2.0.0" }
+  "satysfi-fss" { >= "0.2.0" & < "0.3.0" }
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "algorithm-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "algorithm-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/pickoba/satysfi-algorithm/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=a7566dab997b947afc45c1fb25147945"
+    "sha512=9c25bb889d85993a6b1cd4287bfbfef538abaeedcff1b00cfc14350cbf28316e9617d9e660b23cda5bf81b3f9d2a686cf53f54a7d0a37c712bea4197c7b46bf1"
+  ]
+}
