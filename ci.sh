@@ -113,7 +113,7 @@ if true ; then
             # Reset env
             if [ -n "$ABORT_IMMEDIATELY" ] && [ -s "$FAILED_PACKAGES" ]
             then
-                sed -e 's/^/- /' -e "1iFailed packages:" "$FAILED_PACKAGES" 1>&2
+                sed -e 's/^/- /' -e "1i#### Failed packages\n" "$FAILED_PACKAGES" | cat_to_comment 1>&2
                 exit 1
             fi
 
@@ -201,10 +201,10 @@ if true ; then
 fi
 
 if [ -s "$SUCCEEDED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "1i#### Succeeded packages\n" "$SUCCEEDED_PACKAGES" 1>&2 | cat_to_comment
+    sed -e 's/^/- /' -e "1i#### Succeeded packages\n" "$SUCCEEDED_PACKAGES" | cat_to_comment 1>&2
 fi
 if [ -s "$FAILED_PACKAGES" ] ; then
-    sed -e 's/^/- /' -e "1i#### Failed packages\n" "$FAILED_PACKAGES" 1>&2 | cat_to_comment
+    sed -e 's/^/- /' -e "1i#### Failed packages\n" "$FAILED_PACKAGES" | cat_to_comment 1>&2
     exit 1
 fi
 # vim: set et fenc=utf-8 ff=unix sts=0 sw=4 ts=4 :
