@@ -83,10 +83,11 @@ jobs:
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`, 'utf8'));
                   const run_id = Number(fs.readFileSync(`${dirname}/run-id.txt`, 'utf8'));
                   const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8').trim();
+                  const matrix = fs.readFileSync(`${dirname}/matrix.txt`, 'utf8').trim();
                   const result = readFile(`${dirname}/result.txt`, undefined);
                   const packages = readFile(`${dirname}/packages.txt`, 'unknown');
                   const comment = readFile(`${dirname}/comment.txt`, undefined);
-                  snapshots.push({pull_number, run_id, snapshot, result, packages, comment});
+                  snapshots.push({pull_number, run_id, snapshot, matrix, result, packages, comment});
                }
             }
 
@@ -159,7 +160,7 @@ jobs:
             ];
             for (snapshot of snapshots) {
               if (snapshot.comment) {
-                comments.push(`## Snapshot ${snapshot.snapshot}`);
+                comments.push(`## Matrix: ${snapshot.matrix}`);
                 comments.push(snapshot.comment);
               }
             }
