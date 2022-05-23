@@ -77,7 +77,7 @@ jobs:
             for await (const dirent of dir) {
               if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
                   const dirname = dirent.name;
-                  if (!fs.existsSync(`${dirname}/pull-number.txt)) {
+                  if (!fs.existsSync(`${dirname}/pull-number.txt`)) {
                     continue;
                   }
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`, 'utf8'));
