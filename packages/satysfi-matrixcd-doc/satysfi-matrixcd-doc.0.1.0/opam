@@ -9,8 +9,8 @@ dev-repo: "git+https://github.com/abenori/satysfi-matrixcd.git"
 license: "MIT"
 depends: [
   "satysfi" {>= "0.0.6" & < "0.0.8"}
-  "satysfi-base" {>= "1.3.0" & < "1.5.0"}
-  "satyrographos" {>= "0.0.2.0" & < "0.0.3.0"}
+  "satysfi-base" {>= "1.3.0" & < "1.5"}
+  "satyrographos" {>= "0.0.2.0" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-matrixcd" {= "%{version}%"}
 ]
