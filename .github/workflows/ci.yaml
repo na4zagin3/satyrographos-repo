@@ -137,6 +137,7 @@ jobs:
         run: |
           set -exo pipefail
           echo "$SNAPSHOT" > pr/id.txt
+          echo "${{ matrix.snapshot }}; OCaml ${{ matrix.ocaml-version }}; ${{ matrix.os }}" > pr/matrix.txt
           echo "${{ github.event.pull_request.number }}" > pr/pull-number.txt
           echo "${{ github.run_id }}" > pr/run-id.txt
           git checkout "$SNAPSHOT.opam"
@@ -177,6 +178,6 @@ jobs:
 
       - uses: actions/upload-artifact@v2
         with:
-          name: "pr-snapshot-${{ matrix.snapshot }}"
+          name: "pr-snapshot-${{ matrix.snapshot }}-${{ matrix.ocaml-version }}-${{ matrix.os }}"
           path: pr/
 
