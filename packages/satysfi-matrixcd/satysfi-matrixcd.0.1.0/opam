@@ -1,0 +1,34 @@
+opam-version: "2.0"
+synopsis: "A package for SATySFi to draw commutative diagrams"
+description: """A package for SATySFi to draw commutative diagrams"""
+authors: "Noriyuki Abe"
+maintainer: "Noriyuki Abe"
+homepage: "https://github.com/abenori/satysfi-matrixcd/"
+bug-reports: "https://github.com/abenori/satysfi-matrixcd/issues"
+dev-repo: "git+https://github.com/abenori/satysfi-matrixcd.git"
+license: "MIT"
+depends: [
+  "satysfi" {>= "0.0.6" & < "0.0.8"}
+  "satysfi-base" {>= "1.3.0" & < "1.5.0"}
+  "satyrographos" {>= "0.0.2.0" & < "0.0.3.0"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "matrixcd"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "matrixcd"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/abenori/satysfi-matrixcd/archive/0.1.0.tar.gz"
+  checksum: [
+    "md5=5e013e5e323c28e2b88c673deaaf4a26"
+    "sha512=efe63e475bc51fb966c7cabaa9bf724a855e34e4014f34cd88752927cdbc222889f6cb9d41fe76d1c05438f315e9a73c4e36ff67b0943d2cfa1e133cf90e7857"
+  ]
+}
