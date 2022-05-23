@@ -50,7 +50,10 @@ jobs:
           for file in *.zip ; do
             unzip "$file" -d "${file%.zip}"
           done
-          ls -lR
+          for f in pr-*/comment.txt ; do
+            echo "# $f"
+            cat "$f"
+          done
 
       - name: Update the PR body
         uses: actions/github-script@v2
@@ -74,6 +77,9 @@ jobs:
             for await (const dirent of dir) {
               if (dirent.isDirectory() && dirent.name.startsWith('pr-')) {
                   const dirname = dirent.name;
+                  if (!fs.existsSync(`${dirname}/pull-number.txt)) {
+                    continue;
+                  }
                   const pull_number = Number(fs.readFileSync(`${dirname}/pull-number.txt`, 'utf8'));
                   const run_id = Number(fs.readFileSync(`${dirname}/run-id.txt`, 'utf8'));
                   const snapshot = fs.readFileSync(`${dirname}/id.txt`, 'utf8').trim();
