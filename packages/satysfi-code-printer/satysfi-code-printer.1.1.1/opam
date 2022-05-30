@@ -15,7 +15,7 @@ depends: [
   "satysfi" { >= "0.0.6-53-g2867e4d9" & < "0.0.8" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-dist"
-  "satysfi-base" { >= "1.4.0" & < "2.0.0" }
+  "satysfi-base" { >= "1.4.0" & < "2.0" }
   "satysfi-fonts-dejavu" {>= "2.37"}
 ]
 build: [

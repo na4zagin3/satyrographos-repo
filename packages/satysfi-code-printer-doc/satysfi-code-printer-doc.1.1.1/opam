@@ -17,7 +17,7 @@ depends: [
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-code-printer" {= "%{version}%"}
   "satysfi-dist"
-  "satysfi-base" { >= "1.4.0" & < "2.0.0" }
+  "satysfi-base" { >= "1.4.0" & < "2.0." }
 ]
 build: [
   ["satyrographos" "opam" "build"
