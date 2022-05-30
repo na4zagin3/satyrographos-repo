@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "Document of satysfi-code-printer"
+description: """
+Document of satysfi-code-printer.
+satysfi-code-printer: https://github.com/puripuri2100/satysfi-code-printer
+"""
+
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/satysfi-code-printer"
+dev-repo: "git+https://github.com/puripuri2100/satysfi-code-printer.git"
+bug-reports: "https://github.com/puripuri2100/satysfi-code-printer/issues"
+
+depends: [
+  "satysfi" { >= "0.0.6-53-g2867e4d9" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+  "satysfi-code-printer" {= "%{version}%"}
+  "satysfi-dist"
+  "satysfi-base" { >= "1.4.0" & < "2.0." }
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "code-printer-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "code-printer-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/satysfi-code-printer/archive/refs/tags/1.1.1.tar.gz"
+  checksum: [
+    "md5=f2d2af1114fa69f9d433a4561f29793b"
+    "sha512=fee836395f18106fac31c4feaf2f39db7c05fe5cdbbee7986a0281395ce4cdc6d339fef944164ca2f3d99a2640690ded31cb635804bdf4c715a092d0988ead3a"
+  ]
+}
