@@ -19,7 +19,7 @@ depends: [
   # Other libraries
   "satysfi-dist"
   "satysfi-base" {>= "1.4.0"}
-  "satysfi-code-printer" {>= "1.0.0" & < "2.0.0"}
+  "satysfi-code-printer" {>= "1.0.0" & < "2.0"}
 ]
 build: [
   ["satyrographos" "opam" "build"
