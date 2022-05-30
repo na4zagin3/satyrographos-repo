@@ -1,0 +1,42 @@
+opam-version: "2.0"
+synopsis: "Document of JSON parser for SATySFi"
+description: """
+Document of JSON parser for SATySFi.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT" # Choose what you want
+homepage: "https://github.com/puripuri2100/SATySFi-json"
+dev-repo: "git+https://github.com/puripuri2100/SATySFi-json.git"
+bug-reports: "https://github.com/puripuri2100/SATySFi-json/issues"
+depends: [
+  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # You may want to include the corresponding library
+  "satysfi-json" {= "%{version}%"}
+
+  # Other libraries
+  "satysfi-dist"
+  "satysfi-base" {>= "1.4.0"}
+  "satysfi-code-printer" {>= "1.0.0" & < "2.0.0"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "json-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "json-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-json/archive/1.1.3.tar.gz"
+  checksum: [
+    "md5=dbea91f6193e08b69740826a9b94348e"
+    "sha512=ba62b643d85a5e3e50ac08b2a0fb344a0cb1cbfc1b1838a6a0d337baee49447e3187f39141a97a0ff0d04ec5370b90a6aad83facea68bc36229333e58cd32ca5"
+  ]
+}
