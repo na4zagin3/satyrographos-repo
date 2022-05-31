@@ -1,0 +1,43 @@
+opam-version: "2.0"
+synopsis: "Document of a SATySFi Package for chemical formulas"
+description: """
+The package `chemfml` is a SATySFi package for drawing chemical reaction formulas.
+This package is a document of chemfml
+"""
+maintainer: "Amadeus_vn <git@amas.dev>"
+authors: "Amadeus_vn <git@amas.dev>"
+license: "MIT"
+homepage: "https://github.com/gw31415/satysfi-chemfml"
+dev-repo: "git+https://github.com/gw31415/satysfi-chemfml.git"
+bug-reports: "https://github.com/gw31415/satysfi-chemfml/issues"
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.7" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # You may want to include the corresponding library
+  "satysfi-chemfml" {= "%{version}%"}
+
+  # Other libraries
+  "satysfi-dist"
+  "satysfi-base"
+  "satysfi-easytable"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "chemfml-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "chemfml-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/gw31415/satysfi-chemfml/archive/v1.0.0.tar.gz"
+  checksum: [
+    "md5=ae69c6160f7bd7b36958de429070435f"
+    "sha512=6d2598f61510a7993ffb2d9cbe8bba4f40fd43c63614b9a238f79e7c1904bcbc22938899ea99b1d97c9bda7213e1085233cfaa205e3fd9bedcd8202540d50d18"
+  ]
+}
