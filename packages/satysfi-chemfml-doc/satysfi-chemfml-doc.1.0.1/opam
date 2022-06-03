@@ -20,7 +20,7 @@ depends: [
   # Other libraries
   "satysfi-dist"
   "satysfi-base"
-  "satysfi-easytable"
+  "satysfi-easytable" {>= "1.1.2" & < "2"}
 ]
 build: [
   ["satyrographos" "opam" "build"
