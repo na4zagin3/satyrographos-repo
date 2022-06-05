@@ -44,6 +44,8 @@ depends: [
 
   "satysfi-cancel" {= "0.0.1"}
 
+  "satysfi-chemfml" {= "1.0.1"}
+
   "satysfi-class-cv-doc" {= "0.1.0"}
 
   "satysfi-class-cv" {= "0.1.0"}
