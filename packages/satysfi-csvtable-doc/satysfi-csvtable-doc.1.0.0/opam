@@ -1,0 +1,43 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi package to embed CSV into tables"
+description: """
+Document of SATySFi package to embed CSV into tables.
+"""
+maintainer: "Wataru Otsubo <urataw421@gmail.com>"
+authors: "Wataru Otsubo <urataw421@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/qwjyh/satysfi-csvtable"
+dev-repo: "git+https://github.com/qwjyh/satysfi-csvtable.git"
+bug-reports: "https://github.com/qwjyh/satysfi-csvtable/issues"
+depends: [
+  "satysfi" { >= "0.0.7" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # You may want to include the corresponding library
+  "satysfi-csvtable" {= "%{version}%"}
+
+  # Other libraries
+  "satysfi-dist"
+  "satysfi-base"
+  "satysfi-csv"
+  "satysfi-easytable" {>= "1.1.2" }
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "csvtable-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "csvtable-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/qwjyh/satysfi-csvtable/archive/1.0.0.tar.gz"
+  checksum: [
+    "md5=8b24e365f133c834ba2f5e0b6cf4e4bb"
+    "sha512=02e4bf58b1e7c99f352f477c36b490e5c1c99f3e0c1d868e040447ff62456f9ae4188e5cbd703505a87e50330ec27e3c4ad06df554ee6dfc8ea7fbf29bf438a0"
+  ]
+}
