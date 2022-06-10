@@ -70,6 +70,10 @@ depends: [
 
   "satysfi-colorbox" {= "0.1.1"}
 
+  "satysfi-csvtable-doc" {= "1.0.0"}
+
+  "satysfi-csvtable" {= "1.0.0"}
+
   "satysfi-csv-doc" {= "1.0.0"}
 
   "satysfi-csv" {= "1.0.0"}
