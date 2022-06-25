@@ -1,0 +1,39 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for IBM Plex typeface"
+description: """
+SATySFi Font Package for IBM Plex typeface
+"""
+maintainer: "Mogami Shinichi <cmonaqa@gmail.com>"
+authors: "Mogami Shinichi <cmonaqa@gmail.com>"
+license: "OFL-1.1"
+homepage: "https://github.com/monaqa/satysfi-fonts-ibm-plex-sans-jp"
+dev-repo: "git+https://github.com/monaqa/satysfi-fonts-ibm-plex-sans-jp.git"
+bug-reports: "https://github.com/monaqa/satysfi-fonts-ibm-plex-sans-jp/issues"
+extra-source "OpenType.zip" {
+  archive: "https://github.com/IBM/plex/releases/download/v5.2.1/OpenType.zip"
+  checksum: [
+    "sha256=12cb0cde34b718304f87156ddf134b343a0e0503e6248497dd3e6015a2b76135"
+    "sha512=2238a0fafd3dfe6d93f90976cbfd00d0ee8b8db9be49e3b58d3e56603d2854017902b9c44a5f81f929767a527ca02eda2424d5f49c5ce875ccb8716e8985a072"
+  ]
+}
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+]
+build: [
+  ["unzip" "-o" "OpenType.zip" "OpenType/IBM-Plex-Sans-JP/hinted/*.otf" "-d" "ibm-plex-sans-jp"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-ibm-plex-sans-jp"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/monaqa/satysfi-fonts-ibm-plex-sans-jp/archive/v1.0.0.tar.gz"
+  checksum: [
+    "md5=2822804b828b9f578a0da1292aad2365"
+    "sha512=d0a3c3ac105e4525d14eb43e55e99bb01e974d1bb202cea11bf1e38cd13b0a6d99c8c065ca3e18a862d08cfeef9b3e364954da99bae0c0d87128c77c7e9a24d4"
+  ]
+}
