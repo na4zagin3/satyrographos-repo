@@ -126,6 +126,10 @@ depends: [
 
   "satysfi-fonts-han-serif-jp" {= "1.001R"}
 
+  "satysfi-fonts-ibm-plex-sans-jp-doc" {= "1.0.0"}
+
+  "satysfi-fonts-ibm-plex-sans-jp" {= "1.0.0"}
+
   "satysfi-fonts-inconsolata-doc" {= "3.001"}
 
   "satysfi-fonts-inconsolata" {= "3.001"}
