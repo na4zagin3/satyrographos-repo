@@ -1,0 +1,55 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Google Material Icons"
+description: """
+SATySFi Font Package for Google Material Icons
+"""
+maintainer: "Mogami Shinichi <cmonaqa@gmail.com>"
+authors: "Mogami Shinichi <cmonaqa@gmail.com>"
+license: "Apache-2.0"
+homepage: "https://github.com/monaqa/satysfi-fonts-material-icons"
+dev-repo: "git+https://github.com/monaqa/satysfi-fonts-material-icons.git"
+bug-reports: "https://github.com/monaqa/satysfi-fonts-material-icons/issues"
+
+extra-source "MaterialIconsOutlined-Regular.otf" {
+  src: "https://github.com/google/material-design-icons/raw/9a68a7b2aa5131c31afd822fa796322754802bfb/font/MaterialIconsOutlined-Regular.otf"
+  checksum: [
+    "sha256=c637b3d3ffb9e2b91b9edc0f0cff8c5d9a28f5db06407cf89ead441d2eb04803"
+  ]
+}
+extra-source "MaterialIconsRound-Regular.otf" {
+  src: "https://github.com/google/material-design-icons/raw/9a68a7b2aa5131c31afd822fa796322754802bfb/font/MaterialIconsRound-Regular.otf"
+  checksum: [
+    "sha256=60f2cf8ac4e72e30456d7bde1fb5f7096655c2aee6fbd6b4bd8f81e7d6b3bcda"
+  ]
+}
+extra-source "MaterialIconsSharp-Regular.otf" {
+  src: "https://github.com/google/material-design-icons/raw/9a68a7b2aa5131c31afd822fa796322754802bfb/font/MaterialIconsSharp-Regular.otf"
+  checksum: [
+    "sha256=8b452267718b45e8c5cdaa0a90c8b7baaa199c876b8d497c8a7010a7cec49197"
+  ]
+}
+extra-source "MaterialIconsTwoTone-Regular.otf" {
+  src: "https://github.com/google/material-design-icons/raw/9a68a7b2aa5131c31afd822fa796322754802bfb/font/MaterialIconsTwoTone-Regular.otf"
+  checksum: [
+    "sha256=119f04df891fee7b8c441361c4e9370bacd69188b7d8b9d4f4b4dc90d2f4cf5f"
+  ]
+}
+
+depends: [
+  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-material-icons"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/monaqa/satysfi-fonts-material-icons/archive/v1.0.0.tar.gz"
+  checksum: [
+    "md5=cbf5176dbe4c8bc1bfebec517a5662f9"
+    "sha512=6fb7c05dec0947a22241c03edc63336fb3de53fbe81b1a2b15242a735b553f187c21f09ff1a6056dacd5eac19a908a29871f0ba1e0f2b9b6b8671148b5199679"
+  ]
+}
