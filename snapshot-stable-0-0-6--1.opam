@@ -134,6 +134,10 @@ depends: [
 
   "satysfi-fonts-junicode" {= "1.0002+satysfi0.0.5"}
 
+  "satysfi-fonts-material-icons-doc" {= "1.0.1"}
+
+  "satysfi-fonts-material-icons" {= "1.0.1"}
+
   "satysfi-fonts-noto-emoji-doc" {= "1.05+uh+2"}
 
   "satysfi-fonts-noto-emoji" {= "1.05+uh+2"}
