@@ -1,0 +1,46 @@
+name: Update SATySFi Dev Flow
+
+on:
+  schedule:
+    - cron: '52 15 * * *'
+
+jobs:
+  update-snapshot:
+    name: Update snapshots
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.SG_REPO_GH_APP_ID }}
+          private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
+
+      - name: Add the latest SATySFi
+        run: |
+          ./scripts/add-satysfi
+      - name: Update the develop snapshot
+        run: |
+          scripts/update-snapshot-satysfi --opam snapshot-develop.opam
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        id: cpr
+        with:
+          # token: ${{ secrets.REPO_PUBLIC }}
+          token: ${{ steps.generate-token.outputs.token }}
+          commit-message: Take snapshots
+          branch: take-snapshots
+          title: '[Automated] Update develop snapshot'
+          body: |
+            Update develop snapshot
+          labels: |
+            automated pr
+          assignees: na4zagin3
+          reviewers: na4zagin3
+          team-reviewers: |
+            owners
+            maintainers
