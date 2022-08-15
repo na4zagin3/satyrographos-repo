@@ -7,6 +7,7 @@
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
 # SKIP_REVERSE_DEPS: Skip building against reverse dependencies
 # WORKAROUND_OPAM_BUG_5132: Skip integrity check against OPAM
+# WORKAROUND_OPAM_BUG_STRICT: Don't use --strict option (See https://github.com/ocaml/opam-repository/pull/21959#discussion_r943873612)
 
 set -exo pipefail
 
@@ -25,6 +26,13 @@ case "$(opam --version)" in
         WORKAROUND_OPAM_BUG_5132=1
         ;;
 esac
+
+TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT=$(date -d 2022-09-01 +%s)
+TIMESTAMP_NOW=$(date +%s)
+if [ $TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT -ge $TIMESTAMP_NOW ] ; then
+    echo "Enable workaround for an OPAM Bug related to --strict"
+    WORKAROUND_OPAM_BUG_STRICT=1
+fi
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
@@ -126,15 +134,18 @@ if true ; then
 
             case "$PACKAGE_NAME" in
                 satyrographos-*)
-                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
+                    declare -a PACKAGES_AND_OPTIONS=('--with-test' "$PACKAGE")
                     SKIP_OCAML_MISMATCH=1
                     SKIP_SATYSFI_MISMATCH=1
                     ;;
                 *)
-                    declare -a PACKAGES_AND_OPTIONS=('--strict' '--with-test' "$PACKAGE")
+                    declare -a PACKAGES_AND_OPTIONS=('--with-test' "$PACKAGE")
                     SKIP_OCAML_MISMATCH=
                     SKIP_SATYSFI_MISMATCH=1
             esac
+            if [ -z "$WORKAROUND_OPAM_BUG_STRICT" ] ; then
+                PACKAGES_AND_OPTIONS+=('--strict')
+            fi
 
             if ! opam_install_dry_run --json=opam-output.json --cli=2.1 --update-invariant "${PACKAGES_AND_OPTIONS[@]}" "$SATYSFI_PACKAGE"
             then
