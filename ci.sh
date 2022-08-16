@@ -85,7 +85,7 @@ opam_install_dry_run () {
 }
 
 install_oldest_deps () {
-    opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos$/p' -e '/^satysfi$/p' -e '/^satysfi-/p')
+    opam install opam-0install && opam install $(opam exec -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
 }
 
 check_reverse_deps () {
