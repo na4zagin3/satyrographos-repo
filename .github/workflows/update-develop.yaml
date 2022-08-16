@@ -20,9 +20,23 @@ jobs:
           app_id: ${{ secrets.SG_REPO_GH_APP_ID }}
           private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
 
+      - name: Setup OCaml
+        uses: ocaml/setup-ocaml@v2
+        with:
+          ocaml-compiler: 4.12
+          dune-cache: true
+
+          opam-depext: false
+          opam-pin: false
+
+      - name: Install OCaml dependencies
+        run: |
+          opam install ocamlfind shexp
+
       - name: Add the latest SATySFi
         run: |
           ./scripts/add-satysfi
+
       - name: Update the develop snapshot
         run: |
           scripts/update-snapshot-satysfi --opam snapshot-develop.opam
