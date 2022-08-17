@@ -35,11 +35,14 @@ jobs:
 
       - name: Add the latest SATySFi
         run: |
+          eval $(opam env)
           ./scripts/add-satysfi
 
       - name: Update the develop snapshot
         run: |
+          eval $(opam env)
           scripts/update-snapshot-satysfi --opam snapshot-develop.opam
+
       - name: Create Pull Request
         uses: peter-evans/create-pull-request@v3
         id: cpr
