@@ -19,6 +19,9 @@ jobs:
     steps:
       - name: Checkout code (10 commits)
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+          submodules: true
 
       - name: 'Download artifact'
         uses: actions/github-script@v3.1.0
