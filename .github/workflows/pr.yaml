@@ -16,6 +16,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 10
+          submodules: true
 
       - name: List up snapshots
         id: snapshots
