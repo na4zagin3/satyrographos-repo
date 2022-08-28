@@ -59,7 +59,7 @@ temp_file=$(mktemp)
 trap "rm -f $temp_file" 0 2 3 15
 
 
-if [ -n "$VERSION" ] ; then
+if [ -n "$SATYSFI_VERSION" ] ; then
 	update_satysfi_version "$SATYSFI_VERSION" "$OPAM_FILE" > "$temp_file"
 else
 	echo "No version specified"
