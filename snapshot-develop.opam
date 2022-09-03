@@ -13,7 +13,7 @@ synopsis: "Snapshot of stable libraries in Satyrographos Repo"
 depends: [
   "dune" {build}
   "ocaml" {>= "4.10.0"}
-  "satysfi" {= "0.0.7-20-g748112c2"}
+  "satysfi" {= "0.0.7-26-g9f4b68ec"}
   "satysfi-dist"
   "satyrographos" {= "0.0.2.11"}
 
