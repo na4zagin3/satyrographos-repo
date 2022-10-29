@@ -12,7 +12,7 @@ homepage: "https://github.com/uemurax/satysfi-ncsq"
 bug-reports: "https://github.com/uemurax/satysfi-ncsq/issues"
 dev-repo: "git+https://github.com/uemurax/satysfi-ncsq.git"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.0.9" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-base" {>= "1.2.1" & < "2.0"}

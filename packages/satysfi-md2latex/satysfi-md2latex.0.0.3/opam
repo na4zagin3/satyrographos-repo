@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-md2latex"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-md2latex.git"
 bug-reports: "https://github.com/puripuri2100/SATySFi-md2latex/issues"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.0.9" }
   "satyrographos" { >= "0.0.2.10" & < "0.0.3" }
   "satysfi-dist"
   "satysfi-make-latex" {>= "0.2.0" & < "0.3.0"}

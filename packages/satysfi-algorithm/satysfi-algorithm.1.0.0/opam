@@ -10,7 +10,7 @@ homepage: "https://github.com/pickoba/satysfi-algorithm"
 dev-repo: "git+https://github.com/pickoba/satysfi-algorithm.git"
 bug-reports: "https://github.com/pickoba/satysfi-algorithm/issues"
 depends: [
-  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satysfi" { >= "0.0.6" & < "0.0.9" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
 
   # If your library depends on other libraries, please write down here

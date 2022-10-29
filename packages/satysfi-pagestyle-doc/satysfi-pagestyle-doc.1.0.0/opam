@@ -8,7 +8,7 @@ homepage: "https://github.com/abenori/satysfi-pagestyle"
 dev-repo: "git+https://github.com/abenori/satysfi-pagestyle.git"
 bug-reports: "https://github.com/abenori/satysfi-pagestyle/issues"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.0.9" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-dist"
 

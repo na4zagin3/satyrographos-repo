@@ -14,7 +14,7 @@ homepage: "https://github.com/nekketsuuu/satysfi-matrix"
 bug-reports: "https://github.com/nekketsuuu/satysfi-matrix/issues"
 dev-repo: "git+https://github.com/nekketsuuu/satysfi-matrix.git"
 depends: [
-  "satysfi" { >= "0.0.3" & < "0.0.8" }
+  "satysfi" { >= "0.0.3" & < "0.0.9" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
 ]
 build: [ ]

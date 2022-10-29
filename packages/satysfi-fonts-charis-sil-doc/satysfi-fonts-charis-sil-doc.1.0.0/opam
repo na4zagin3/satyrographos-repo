@@ -12,7 +12,7 @@ homepage: "https://github.com/yuhr/satysfi-fonts-charis-sil"
 bug-reports: "https://github.com/yuhr/satysfi-fonts-charis-sil/issues"
 dev-repo: "git+https://github.com/yuhr/satysfi-fonts-charis-sil.git"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.0.9" }
   "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
   "satysfi-fonts-charis-sil" {= "%{version}%"}
   "satysfi-dist"

@@ -12,7 +12,7 @@ homepage: "https://github.com/na4zagin3/SATySFi-fonts-bodoni-star"
 bug-reports: "https://github.com/na4zagin3/SATySFi-fonts-bodoni-star/issues"
 dev-repo: "git+https://github.com/na4zagin3/SATySFi-fonts-bodoni-star.git"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.0.9" }
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-fonts-bodoni-star" {= "%{version}%"}

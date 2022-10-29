@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-fonts-han-serif-jp"
 bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-han-serif-jp/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-han-serif-jp.git"
 depends: [
-  "satysfi" { >= "0.0.4" & < "0.0.8" }
+  "satysfi" { >= "0.0.4" & < "0.0.9" }
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-dist"
   "satysfi-fonts-han-serif-jp" { = "%{version}%" }

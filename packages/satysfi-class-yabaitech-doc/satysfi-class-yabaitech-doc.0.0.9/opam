@@ -12,7 +12,7 @@ homepage: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech"
 bug-reports: "https://github.com/yabaitechtokyo/satysfi-class-yabaitech/issues"
 dev-repo: "git+https://github.com/yabaitechtokyo/satysfi-class-yabaitech.git"
 depends: [
-  "satysfi" { >= "0.0.6" & < "0.0.8" }
+  "satysfi" { >= "0.0.6" & < "0.0.9" }
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-class-yabaitech" {= "0.0.9"}
 ]

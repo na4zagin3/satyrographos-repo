@@ -10,7 +10,7 @@ homepage: "https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc"
 bug-reports: "https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-fonts-noto-sans-cjk-sc.git"
 depends: [
-  "satysfi" { >= "0.0.4" & < "0.0.8" }
+  "satysfi" { >= "0.0.4" & < "0.0.9" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-fonts-noto-sans-cjk-sc" {= "%{version}%"}
 ]
