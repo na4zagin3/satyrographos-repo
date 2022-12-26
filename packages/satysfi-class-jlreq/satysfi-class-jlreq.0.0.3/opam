@@ -8,7 +8,7 @@ dev-repo: "git+https://github.com/abenori/satysfi-class-jlreq.git"
 license: "BSD-2-Clause-FreeBSD"
 depends: [
   "satysfi" { >= "0.0.6" & < "0.0.8" }
-  "satysfi-base" {>= "1.3.0" & < "1.5.0"}
+  "satysfi-base" {>= "1.3.0" & < "2.0"}
   "satysfi-fss" {>= "0.0.2" & < "0.3.0"}
   "satyrographos" {>= "0.0.2" & < "0.0.3.0"}
   "satysfi-pagenumber" {>="1.0.0" & < "2.0.0"}

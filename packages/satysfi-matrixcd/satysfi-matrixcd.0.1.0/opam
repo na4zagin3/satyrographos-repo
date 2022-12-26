@@ -10,7 +10,7 @@ license: "MIT"
 depends: [
   "satysfi" {>= "0.0.6" & < "0.0.8"}
   "satysfi-dist"
-  "satysfi-base" {>= "1.3.0" & < "1.5"}
+  "satysfi-base" {>= "1.3.0" & < "2.0"}
   "satyrographos" {>= "0.0.2.0" & < "0.0.3"}
 ]
 build: [
