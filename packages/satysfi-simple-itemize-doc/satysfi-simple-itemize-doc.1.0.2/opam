@@ -10,7 +10,7 @@ bug-reports: "https://github.com/puripuri2100/SATySFi-simple-itemize/issues"
 dev-repo: "git+https://github.com/puripuri2100/SATySFi-simple-itemize.git"
 
 depends: [
-  "satysfi" { >= "0.0.3" & < "0.0.8" }
+  "satysfi" { >= "0.0.3" & < "0.1" }
   "satyrographos" {>= "0.0.2" & < "0.0.4"}
   "satysfi-dist"
   "satysfi-simple-itemize" {= "%{version}%"}
