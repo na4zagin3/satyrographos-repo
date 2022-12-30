@@ -10,7 +10,7 @@ homepage: "https://github.com/zeptometer/SATySFi-fonts-noto-serif"
 bug-reports: "https://github.com/zeptometer/SATySFi-fonts-noto-serif/issues"
 dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-noto-serif.git"
 depends: [
-  "satysfi" { >= "0.0.4" & < "0.0.8" }
+  "satysfi" { >= "0.0.4" & < "0.1" }
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-base" {>= "1.2.0"}
   "satysfi-fonts-noto-serif" {= "2.001+1+satysfi0.0.4"}

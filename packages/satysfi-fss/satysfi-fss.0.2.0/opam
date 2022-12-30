@@ -10,7 +10,7 @@ homepage: "https://github.com/na4zagin3/satysfi-fss"
 dev-repo: "git+https://github.com/na4zagin3/satysfi-fss.git"
 bug-reports: "https://github.com/na4zagin3/satysfi-fss/issues"
 depends: [
-  "satysfi" { >= "0.0.5" & < "0.0.8" }
+  "satysfi" { >= "0.0.5" & < "0.1" }
   "satysfi-dist"
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
 
