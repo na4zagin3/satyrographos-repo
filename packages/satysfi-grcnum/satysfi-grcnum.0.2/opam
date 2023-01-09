@@ -12,7 +12,7 @@ homepage: "https://github.com/na4zagin3/satyrographos"
 bug-reports: "https://github.com/na4zagin3/satyrographos/issues"
 dev-repo: "git+https://github.com/na4zagin3/SATySFi-grcnum.git"
 depends: [
-  "satysfi" { >= "0.0.3+dev2019.02.13" & < "0.0.8" }
+  "satysfi" { >= "0.0.3+dev2019.02.13" & < "0.1" }
   "satysfi-dist"
   "satysfi-fonts-theano" {>= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
   "satyrographos" {>= "0.0.1" & < "0.0.3"}
