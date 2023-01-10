@@ -33,9 +33,9 @@ install: [
 ]
 url {
   src:
-    "https://github.com/puripuri2100/satysfi-class-mdbook-satysfi/archive/0.5.0.tar.gz"
+    "https://github.com/puripuri2100/satysfi-class-mdbook-satysfi/archive/0.5.1.tar.gz"
   checksum: [
-    "md5=e2a228949cfccdcb76053b6ee8f6ce00"
-    "sha512=c67645dde33bf8b7460fd4e758c3899f5bdb1a7c59cf8b39a10c8f377c0956e8bdb1b469261c3f977eb0569095a36ca3bfe6c87c4be02aa8317cacee362460ca"
+    "md5=c9dd4284ea36439cd79267242483ee73"
+    "sha512=4cdbf2fa3236f3350f9c8dd187cf7123fab2fb9fa6098ed01f54484dc3d6355ba7e7a4ffa9bc4693257ae2f71b3a3b10790ba901bbe720888d34cc5a8f51d619"
   ]
 }
