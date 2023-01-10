@@ -188,9 +188,9 @@ depends: [
 
   "satysfi-karnaugh" {= "0.0.1"}
 
-  "satysfi-latexcmds-doc" {= "0.1.1"}
+  "satysfi-latexcmds-doc" {= "0.1.2"}
 
-  "satysfi-latexcmds" {= "0.1.1"}
+  "satysfi-latexcmds" {= "0.1.2"}
 
   "satysfi-lipsum-doc" {= "0.2.1"}
 
