@@ -42,9 +42,9 @@ depends: [
 
   "satysfi-chemfml" {= "1.0.1"}
 
-  "satysfi-class-cv-doc" {= "0.1.0"}
+  "satysfi-class-cv-doc" {= "0.1.1"}
 
-  "satysfi-class-cv" {= "0.1.0"}
+  "satysfi-class-cv" {= "0.1.1"}
 
   "satysfi-class-exdesign-doc" {= "0.3.1"}
 
