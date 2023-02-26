@@ -20,6 +20,10 @@ depends: [
 
 # Package List
 
+  "satysfi-actuarial-doc" {= "0.0.1"}
+
+  "satysfi-actuarial" {= "0.0.1"}
+
   "satysfi-algorithm-doc" {= "1.0.0"}
 
   "satysfi-algorithm" {= "1.0.0"}
