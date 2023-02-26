@@ -60,6 +60,10 @@ depends: [
 
   "satysfi-class-mdbook-satysfi" {= "0.3.0"}
 
+  "satysfi-class-slydifi-doc" {= "0.5.0"}
+
+  "satysfi-class-slydifi" {= "0.5.0"}
+
   "satysfi-class-stjarticle-doc" {= "1.3.2"}
 
   "satysfi-class-stjarticle" {= "1.3.2"}
