@@ -32,6 +32,10 @@ depends: [
 
   "satysfi-assert-eq" {= "0.1.2"}
 
+  "satysfi-azmath-doc" {= "0.0.3+1"}
+
+  "satysfi-azmath" {= "0.0.3"}
+
   "satysfi-base" {= "1.5.0"}
 
   "satysfi-bibyfi-doc" {= "0.0.2"}
