@@ -1,0 +1,111 @@
+diff --git a/doc/azmath.saty b/doc/azmath.saty
+index f849973..43f6429 100644
+--- a/doc/azmath.saty
++++ b/doc/azmath.saty
+@@ -45,6 +45,11 @@ let-block +example str bt =
+     +block-frame(bt);
+   >%
+ 
++let-block +dd dt bt-dd =
++  '<
++    +EnumitemAlias.ditem{#dt;}{}<#bt-dd;>
++  >
++
+ let-math \p-big m =
+   let mathf ctx =
+     let (_, ht, _) = get-natural-metrics (embed-math ctx ${\sqrt{2}}) in
+@@ -489,38 +494,63 @@ document (|
+       パラメータを指定してその振る舞いを変更することができます。
+     }
+ 
+-    +description{
+-      * `allow-display-break`
+-        ** bool 型のパラメータ。デフォルトは `true`。
+-        ** 別行立て数式の途中で改行することを許すかどうか。
+-           false にすると別行立て数式に入る直前及び、
+-           別行立て数式の行の間では改行ができない。
+-
+-      * `vmargin-between-eqn`
+-        ** `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> (get-font-size ctx) *' 0.6)`。
+-        ** 数式同士の間の余白。テキスト処理文脈を引数に取る関数の形で指定する。
+-           たとえば `(fun ctx -> (get-font-size ctx) *' 1.5)` とすると
+-           現在のフォントサイズの 1.5 倍の高さとなり、
+-           `(fun _ -> 20pt)` とすると現在のフォントサイズなどによらず20ptとなる。
+-
+-      * `vmargin-between-eqn`, `vmargin-after-eqn`
+-        ** `context -> length` 型のパラメータ。デフォルトはともに `(fun ctx -> (get-font-size ctx) *' 1.0)`。
+-        ** 別行立て数式前後の余白（段落間空白）。
+-
+-      * `min-gap-between-eqn-and-tag`
+-        ** `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> 2pt)`。
+-        ** 数式やタグがどこまで近づいてよいか。
+-           数式を整列させたとき、数式の右端とタグの左端がこのパラメータで示す値以上無かった場合、
+-           タグは数式の下に回り込んで組まれる。
+-           テキスト処理文脈を引数に取る関数の形で指定する。
+-
+-      * `vmargin-between-eqn-and-tag`
+-        ** `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> (get-font-size ctx) *' 0.3)`。
+-        ** 数式やタグが長いためにタグが数式の下に回り込んだ際に、
+-           数式とタグの間に入る縦方向の余白。
+-           テキスト処理文脈を引数に取る関数の形で指定する。
++    +description<
++      +dd{`allow-display-break`}<
++        +pn{
++          bool 型のパラメータ。デフォルトは `true`。
++        }
++        +pn{
++          別行立て数式の途中で改行することを許すかどうか。
++          false にすると別行立て数式に入る直前及び、
++          別行立て数式の行の間では改行ができない。
++        }
++      >
+ 
+-    }
++      +dd{`vmargin-between-eqn`}<
++        +pn{
++          `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> (get-font-size ctx) *' 0.6)`。
++        }
++        +pn{
++          数式同士の間の余白。テキスト処理文脈を引数に取る関数の形で指定する。
++          たとえば `(fun ctx -> (get-font-size ctx) *' 1.5)` とすると
++          現在のフォントサイズの 1.5 倍の高さとなり、
++          `(fun _ -> 20pt)` とすると現在のフォントサイズなどによらず20ptとなる。
++        }
++      >
++
++      +dd{`vmargin-between-eqn`, `vmargin-after-eqn`}<
++        +pn{
++          `context -> length` 型のパラメータ。デフォルトはともに `(fun ctx -> (get-font-size ctx) *' 1.0)`。
++        }
++        +pn{
++          別行立て数式前後の余白（段落間空白）。
++        }
++      >
++
++      +dd{`min-gap-between-eqn-and-tag`}<
++        +pn{
++          `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> 2pt)`。
++        }
++        +pn{
++          数式やタグがどこまで近づいてよいか。
++          数式を整列させたとき、数式の右端とタグの左端がこのパラメータで示す値以上無かった場合、
++          タグは数式の下に回り込んで組まれる。
++          テキスト処理文脈を引数に取る関数の形で指定する。
++        }
++      >
++
++      +dd{`vmargin-between-eqn-and-tag`}<
++        +pn{
++          `context -> length` 型のパラメータ。デフォルトは `(fun ctx -> (get-font-size ctx) *' 0.3)`。
++        }
++        +pn{
++          数式やタグが長いためにタグが数式の下に回り込んだ際に、
++          数式とタグの間に入る縦方向の余白。
++          テキスト処理文脈を引数に取る関数の形で指定する。
++        }
++      >
++
++    >
+ 
+     +p{
+       パラメータはプリアンブルで以下のように指定することができます。
