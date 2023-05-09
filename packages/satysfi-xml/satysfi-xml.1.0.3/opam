@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "XML parser with SATySFi"
+description: """
+XML parser with SATySFi.
+"""
+maintainer: "Naoki Kaneko <puripuri2100@gmail.com>"
+authors: "Naoki Kaneko <puripuri2100@gmail.com>"
+license: "MIT"
+homepage: "https://github.com/puripuri2100/satysfi-xml"
+dev-repo: "git+https://github.com/puripuri2100/satysfi-xml.git"
+bug-reports: "https://github.com/puripuri2100/satysfi-xml/issues"
+depends: [
+  "satysfi" { >= "0.0.5" & < "1.0" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  # If your library depends on other libraries, please write down here
+  "satysfi-dist"
+  "satysfi-base" {>= "1.4.0" & < "2.0.0"}
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "xml"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "xml"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/puripuri2100/SATySFi-xml/archive/refs/tags/1.0.3.tar.gz"
+  checksum: [
+    "md5=1ca6eade24214b424c0fcea244f64c87"
+    "sha512=a1530f96242bc2ce961d037dfd8aca19f67aab9c3d4150c433f517e4cf02e7728ecca410b494e2ccb731aa2167d13526e4b968a9bcdc1a365f8f090b506edaaa"
+  ]
+}
