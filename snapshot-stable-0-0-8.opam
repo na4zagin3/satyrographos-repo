@@ -106,6 +106,10 @@ depends: [
 
   "satysfi-enumitem" {= "3.0.1"}
 
+  "satysfi-figbox-doc" {= "0.1.4"}
+
+  "satysfi-figbox" {= "0.1.4"}
+
   "satysfi-fonts-asana-math-doc" {= "000.958+1+satysfi0.0.4"}
 
   "satysfi-fonts-asana-math" {= "000.958+1+satysfi0.0.4"}
