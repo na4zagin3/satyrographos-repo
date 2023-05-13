@@ -296,6 +296,10 @@ depends: [
 
   "satysfi-uline" {= "0.2.2"}
 
+  "satysfi-xml-doc" {= "1.0.3"}
+
+  "satysfi-xml" {= "1.0.3"}
+
   "satysfi-xpath-doc" {= "0.3.0"}
 
   "satysfi-xpath-gr" {= "0.3.0"}
