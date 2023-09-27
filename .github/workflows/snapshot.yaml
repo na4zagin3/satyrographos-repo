@@ -24,9 +24,6 @@ jobs:
       - name: Debug output 1
         run: |
           git log -n 10
-      - name: Debug output 2
-        run: |
-          git log -n 10 -- snapshot-develop.opam
       - name: Take snapshots
         run: |
           ./scripts/take-snapshot
