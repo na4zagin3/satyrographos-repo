@@ -2,7 +2,7 @@ name: Pull Request Flow
 
 on:
   pull_request_target:
-    types: [opened, reopened]
+    types: [assigned, opened, synchronize, reopened]
 # tags-ignore and/or paths does not work with pull_request_target
 #    tags-ignore:
 #      - "automated pr"
