@@ -24,6 +24,8 @@ case "$(opam --version)" in
     2.0.*|2.1.*)
         echo "Enable workaround for OPAM Bug #5132"
         WORKAROUND_OPAM_BUG_5132=1
+        echo "Enable workaround for #655"
+        WORKAROUND_OPAM_BUG_STRICT=1
         ;;
 esac
 
