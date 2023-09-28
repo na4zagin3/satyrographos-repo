@@ -16,9 +16,7 @@ jobs:
           - 'ubuntu-latest'
 #         - 'macos-latest'
         ocaml-version:
-#         - 4.10.1
-#         - 4.11.1
-          - 4.12.0
+          - 4.13.0
         snapshot:
           - develop
           - stable-0-0-8
