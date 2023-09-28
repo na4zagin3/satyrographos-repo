@@ -50,8 +50,8 @@ jobs:
         with:
           # token: ${{ secrets.REPO_PUBLIC }}
           token: ${{ steps.generate-token.outputs.token }}
-          commit-message: Take snapshots
-          branch: take-snapshots
+          commit-message: Update develop snapshots
+          branch: update-develop-snapshot
           title: '[Automated] Update develop snapshot'
           body: |
             Update develop snapshot
