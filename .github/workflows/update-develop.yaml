@@ -45,7 +45,7 @@ jobs:
           scripts/update-snapshot-satysfi --opam snapshot-develop.opam
 
       - name: Create Pull Request
-        uses: peter-evans/create-pull-request@v3
+        uses: peter-evans/create-pull-request@v5
         id: cpr
         with:
           # token: ${{ secrets.REPO_PUBLIC }}
