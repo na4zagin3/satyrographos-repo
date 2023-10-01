@@ -178,6 +178,7 @@ jobs:
           fi
 
       - uses: actions/upload-artifact@v2
+        if: success() || failure()
         with:
           name: "pr-snapshot-${{ matrix.snapshot }}-${{ matrix.ocaml-version }}-${{ matrix.os }}"
           path: pr/
