@@ -40,6 +40,6 @@ jobs:
               repo: context.repo.repo,
               body: `
             **Rebase failed!**
-            See the [execution logs](https://github.com/${context.github.repository}/actions/runs/${context.github.run_id}).
+            See the [execution logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).
             `
             })
