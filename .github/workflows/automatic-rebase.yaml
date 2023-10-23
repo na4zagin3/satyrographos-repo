@@ -39,7 +39,7 @@ jobs:
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
-            **Rebase failed!**
+            @${context.actor} **Rebase failed!**
             See the [execution logs](https://github.com/${context.repo.owner}/${context.repo.repo}/actions/runs/${context.runId}).
             `
             })
