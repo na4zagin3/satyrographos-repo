@@ -28,7 +28,7 @@ jobs:
           - stable-0-0-5
         include:
           - os: 'ubuntu-latest'
-            ocaml-version: '4.06.1'
+            ocaml-version: '4.07.1'
             snapshot: stable-0-0-4
     runs-on: ${{ matrix.os }}
     env:
