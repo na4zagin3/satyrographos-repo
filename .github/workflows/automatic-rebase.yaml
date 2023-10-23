@@ -17,14 +17,19 @@ jobs:
         github.event.comment.author_association == 'COLLABORATOR'
       )
     steps:
+      - uses: tibdex/github-app-token@v1
+        id: generate-token
+        with:
+          app_id: ${{ secrets.SG_REPO_GH_APP_ID }}
+          private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
       - name: Checkout the latest code
         uses: actions/checkout@v3
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ steps.generate-token.outputs.token }}
           fetch-depth: 0 # otherwise, you will fail to push refs to dest repo
       - name: Automatic Rebase
         uses: cirrus-actions/rebase@1.8
         with:
           autosquash: ${{ contains(github.event.comment.body, '/autosquash') || contains(github.event.comment.body, '/rebase-autosquash') }}
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
