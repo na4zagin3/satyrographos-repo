@@ -29,7 +29,7 @@ jobs:
           autosquash: ${{ contains(github.event.comment.body, '/autosquash') || contains(github.event.comment.body, '/rebase-autosquash') }}
         env:
           GITHUB_TOKEN: ${{ steps.generate-token.outputs.token }}
-      - name: comment PR
+      - name: Report the failure
         uses: actions/github-script@v2
         if: failure()
         env:
