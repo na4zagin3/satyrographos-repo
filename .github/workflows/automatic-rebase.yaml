@@ -34,8 +34,8 @@ jobs:
         if: failure()
         with:
           script: |
-            github.issues.createComment({
-              issue_number: context.issue.number,
+            github.pulls.createComment({
+              pull_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
               body: `
