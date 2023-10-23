@@ -1,0 +1,44 @@
+name: Pull Request Welcome Comment Flow
+
+on:
+  pull_request_target:
+    types: [opened]
+# tags-ignore and/or paths does not work with pull_request_target
+#    tags-ignore:
+#      - "automated pr"
+#    paths:
+#      - "packages/**"
+
+jobs:
+  welcome:
+    name: Welcome comment
+    runs-on: ubuntu-latest
+    steps:
+
+      - name: comment PR
+        uses: actions/github-script@v2
+        env:
+          HEAD_BRANCH: ${{ github.head_ref }}
+          GITHUB_ACTOR: ${{ github.actor }}
+        with:
+          github-token: ${{ github.token }}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `
+            🎉🎉🎉 Thank you for sending a PR!
+
+            If this PR is to add new or updated SATySFi libraries, I would like you to include your new library in the package snapshots, by following the instructions below.
+
+            After the CI passes, choose “automatic follow-up” options to add your libraries to add snapshots.
+            Please leave a comment in case you don't want.
+
+            **Notes:** I recommend adding your libraries to the snapshot with the latest develop version as well
+            if your library supports the latest stable version,
+            because the snapshot with the latest develop version will be the snapshot with the the comming SATySFi stable version.
+
+            Thanks!
+            `
+            })
