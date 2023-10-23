@@ -32,11 +32,7 @@ jobs:
       - name: Report the failure
         uses: actions/github-script@v2
         if: failure()
-        env:
-          HEAD_BRANCH: ${{ github.head_ref }}
-          GITHUB_ACTOR: ${{ github.actor }}
         with:
-          github-token: ${{ github.token }}
           script: |
             github.issues.createComment({
               issue_number: context.issue.number,
@@ -44,6 +40,6 @@ jobs:
               repo: context.repo.repo,
               body: `
             **Rebase failed!**
-            See the [execution logs](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}).
+            See the [execution logs](https://github.com/${context.github.repository}/actions/runs/${context.github.run_id}).
             `
             })
