@@ -43,6 +43,6 @@ jobs:
             automated pr
           assignees: na4zagin3
           reviewers: na4zagin3
-          team-reviewers: |
-            owners
-            maintainers
+          # team-reviewers: |
+          #   owners
+          #   maintainers
