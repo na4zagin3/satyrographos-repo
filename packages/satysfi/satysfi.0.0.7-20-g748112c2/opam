@@ -18,9 +18,9 @@ remove: [
 ]
 # Packages whose version suffix is "+satysfi" are distributed on satysfi-external-repo.
 depends: [
-  "ocaml" {>= "4.10.0"}
-  "batteries"
-  "camlimages" {>= "5.0.1"}
+  "ocaml" {>= "4.10.0" & < "5.0.0"}
+  "batteries" {< "4.0.0"}
+  "camlimages" {>= "5.0.1" & < "5.0.5"}
   "camlpdf" {= "2.3.1+satysfi"}
   "core_kernel" {>= "v0.13" & < "v0.15"}
   "cppo" {build & >= "1.6.4" & < "1.7.0"}
@@ -28,9 +28,9 @@ depends: [
   "menhir"
   "ocamlfind" {build}
   "otfm" {= "0.3.7+satysfi"}
-  "ppx_deriving"
-  "re" {build}
-  "uutf"
+  "ppx_deriving" {< "6.0.0"}
+  "re" {build & < "2.0.0"}
+  "uutf" {< "2.0.0"}
   "yojson-with-position" {= "1.4.2+satysfi"}
   "omd" {< "2.0.0~"}
 ]
