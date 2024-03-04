@@ -21,6 +21,7 @@ jobs:
           - 4.12.0
         snapshot:
           - develop
+          - stable-0-0-11
           - stable-0-0-10
           - stable-0-0-8
           - stable-0-0-7
