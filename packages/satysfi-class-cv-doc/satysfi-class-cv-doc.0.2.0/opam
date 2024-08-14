@@ -12,8 +12,9 @@ bug-reports: "https://github.com/MasWag/cv-satysfi/issues"
 dev-repo: "git+https://github.com/MasWag/cv-satysfi.git"
 
 depends: [
-  "satysfi" {>= "0.0.3" & < "0.0.9"}
+  "satysfi" {>= "0.0.6" & < "0.1.0"}
   "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-enumitem" {>= "3.0.1" & < "4.0.0"}
   "satysfi-dist"
 ]
   
