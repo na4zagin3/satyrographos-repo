@@ -36,6 +36,13 @@ if [ $TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT -ge $TIMESTAMP_NOW ] ; then
     WORKAROUND_OPAM_BUG_STRICT=1
 fi
 
+case "$(ocamlc --version)" in
+    4.1[1-2].*)
+        # OCaml optimizer may produce code that require extremely large stack size.
+        # See https://github.com/ocaml/ocaml/issues/9839
+        ulimit -s unlimited
+esac
+
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
 
 if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install --yes opam-0install
