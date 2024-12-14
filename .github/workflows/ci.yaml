@@ -65,13 +65,12 @@ jobs:
           echo "::set-output name=opam-repo-default::$(echo "$DEFAULT_OPAM_REPO")"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
-        uses: ocaml/setup-ocaml@v2
+        uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
           dune-cache: true
           cache-prefix: "snapshot-${{ matrix.snapshot }}"
 
-          opam-depext: false
           opam-pin: false
 
           opam-repositories: |
