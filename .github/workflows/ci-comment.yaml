@@ -24,7 +24,7 @@ jobs:
           submodules: true
 
       - name: 'Download artifact'
-        uses: actions/github-script@v3.1.0
+        uses: actions/github-script@v7
         with:
           script: |
             const artifacts = await github.actions.listWorkflowRunArtifacts({
@@ -59,7 +59,7 @@ jobs:
           done
 
       - name: Update the PR body
-        uses: actions/github-script@v2
+        uses: actions/github-script@v7
         env:
           SNAPSHOT_UPDATABLE: ${{ steps.test-update-snapshot.outputs.result }}
           PACKAGES_TO_UPDATE: ${{ steps.test-update-snapshot.outputs.packages }}
