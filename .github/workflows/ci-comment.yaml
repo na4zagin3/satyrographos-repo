@@ -27,7 +27,7 @@ jobs:
         uses: actions/github-script@v7
         with:
           script: |
-            const artifacts = await github.actions.listWorkflowRunArtifacts({
+            const artifacts = await github.rest.actions.listWorkflowRunArtifacts({
                owner: context.repo.owner,
                repo: context.repo.repo,
                run_id: ${{github.event.workflow_run.id }},
@@ -38,7 +38,7 @@ jobs:
             });
             for await (const artifact of matchedArtifacts) {
               console.log('download artifact', artifact);
-              const download = await github.actions.downloadArtifact({
+              const download = await github.rest.actions.downloadArtifact({
                  owner: context.repo.owner,
                  repo: context.repo.repo,
                  artifact_id: artifact.id,
@@ -106,7 +106,7 @@ jobs:
               repo: context.repo.repo,
               pull_number
             };
-            const pull_request = await github.pulls.get(pullRequestId);
+            const pull_request = await github.rest.pulls.get(pullRequestId);
             const actionHeader = '\n# Automatic follow-ups\n';
             const actionText = (snapshot) => `Add to snapshot \`${snapshot}\``;
 
@@ -151,7 +151,7 @@ jobs:
 
               const replacedBody = `${splitted[0]}${actionHeader}${actions.join('\n- ')}`;
 
-              await github.pulls.update({
+              await github.rest.pulls.update({
                 ...pullRequestId,
                 body: replacedBody
               });
@@ -168,7 +168,7 @@ jobs:
               }
             }
             if (comments.length) {
-              await github.issues.createComment({
+              await github.rest.issues.createComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pull_number,
