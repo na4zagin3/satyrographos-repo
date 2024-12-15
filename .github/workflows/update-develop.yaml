@@ -22,12 +22,11 @@ jobs:
           private_key: ${{ secrets.SG_REPO_GH_APP_PRIV_KEY }}
 
       - name: Setup OCaml
-        uses: ocaml/setup-ocaml@v2
+        uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: 4.12
           dune-cache: true
 
-          opam-depext: false
           opam-pin: false
 
       - name: Install OCaml dependencies
