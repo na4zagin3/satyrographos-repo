@@ -13,7 +13,7 @@ depends: [
   "satysfi" {>= "0.0.10" & < "0.1"}
   "satyrographos" {>= "0.0.2" & < "0.0.3"}
   "satysfi-base" {>= "1.2.0"}
-  "satysfi-fonts-roboto" {= "2.138+1+satysfi0.0.10"}
+  "satysfi-fonts-roboto" {= "2.138+1"}
 ]
 build: [
   ["satyrographos" "opam" "build" 
