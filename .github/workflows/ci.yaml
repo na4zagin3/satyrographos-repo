@@ -15,39 +15,39 @@ jobs:
       matrix:
         include:
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: develop
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-11
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-10
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-8
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-7
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-6--1
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-6
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.12.0
             snapshot: stable-0-0-5
           - lane: legacy
-            os: ubuntu-latest
+            os: ubuntu-22.04
             ocaml-version: 4.07.1
             snapshot: stable-0-0-4
           - lane: modern
@@ -84,8 +84,8 @@ jobs:
           if [ "${{ matrix.lane }}" = "legacy" ] ; then
             DEFAULT_OPAM_REPO="${{ vars.LEGACY_OPAM_REPO }}"
             if [ -z "$DEFAULT_OPAM_REPO" ] ; then
-              echo "::warning::LEGACY_OPAM_REPO is not set; falling back to upstream default repository."
-              DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
+              echo "::error::LEGACY_OPAM_REPO is not set. Set it to a pinned opam-repository commit before running legacy CI."
+              exit 1
             fi
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
