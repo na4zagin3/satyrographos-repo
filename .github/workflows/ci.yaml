@@ -8,30 +8,56 @@ on:
 
 jobs:
   build:
-    name: Build
+    name: Build (${{ matrix.lane }} / ${{ matrix.snapshot }} / ocaml-${{ matrix.ocaml-version }})
+    continue-on-error: ${{ matrix.lane == 'modern' }}
     strategy:
       fail-fast: false
       matrix:
-        os:
-          - 'ubuntu-latest'
-#         - 'macos-latest'
-        ocaml-version:
-#         - 4.10.1
-#         - 4.11.1
-          - 4.12.0
-        snapshot:
-          - develop
-          - stable-0-0-11
-          - stable-0-0-10
-          - stable-0-0-8
-          - stable-0-0-7
-          - stable-0-0-6--1
-          - stable-0-0-6
-          - stable-0-0-5
         include:
-          - os: 'ubuntu-latest'
-            ocaml-version: '4.07.1'
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: develop
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-11
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-10
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-8
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-7
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-6--1
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-6
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.12.0
+            snapshot: stable-0-0-5
+          - lane: legacy
+            os: ubuntu-latest
+            ocaml-version: 4.07.1
             snapshot: stable-0-0-4
+          - lane: modern
+            os: ubuntu-latest
+            ocaml-version: 4.14.2
+            snapshot: develop
+          - lane: modern
+            os: ubuntu-latest
+            ocaml-version: 4.14.2
+            snapshot: stable-0-0-11
     runs-on: ${{ matrix.os }}
     env:
       OPAMSOLVERTIMEOUT: 3600
@@ -54,22 +80,31 @@ jobs:
         
       - name: Determine the default OPAM Repo
         id: determine-default-opam-repo
-        # See https://docs.github.com/en/actions/reference/context-and-expression-syntax-for-github-actions#runner-context
-        # and https://github.com/ocaml/setup-ocaml/blob/4ac56b0fd440c3eef30fd1e34c96e0c740a807da/src/constants.ts#L45
         run: |
-          if [ "${{ runner.os }}" = "Windows" ] ; then
-            DEFAULT_OPAM_REPO="https://github.com/fdopen/opam-repository-mingw.git#opam2"
+          if [ "${{ matrix.lane }}" = "legacy" ] ; then
+            DEFAULT_OPAM_REPO="${{ vars.LEGACY_OPAM_REPO }}"
+            if [ -z "$DEFAULT_OPAM_REPO" ] ; then
+              echo "::warning::LEGACY_OPAM_REPO is not set; falling back to upstream default repository."
+              DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
+            fi
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
-          echo "::set-output name=opam-repo-default::$(echo "$DEFAULT_OPAM_REPO")"
+          echo "opam-repo-default=$DEFAULT_OPAM_REPO" >> "$GITHUB_OUTPUT"
+
+      - name: Debug lane/repo selection
+        run: |
+          echo "lane=${{ matrix.lane }}"
+          echo "snapshot=${{ matrix.snapshot }}"
+          echo "ocaml=${{ matrix.ocaml-version }}"
+          echo "opam-repo=${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v3
         with:
           ocaml-compiler: ${{ matrix.ocaml-version }}
           dune-cache: true
-          cache-prefix: "snapshot-${{ matrix.snapshot }}"
+          cache-prefix: "${{ matrix.lane }}-snapshot-${{ matrix.snapshot }}"
 
           opam-pin: false
 
@@ -183,4 +218,3 @@ jobs:
         with:
           name: "pr-snapshot-${{ matrix.snapshot }}-${{ matrix.ocaml-version }}-${{ matrix.os }}"
           path: pr/
-
