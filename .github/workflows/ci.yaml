@@ -82,11 +82,7 @@ jobs:
         id: determine-default-opam-repo
         run: |
           if [ "${{ matrix.lane }}" = "legacy" ] ; then
-            DEFAULT_OPAM_REPO="${{ vars.LEGACY_OPAM_REPO }}"
-            if [ -z "$DEFAULT_OPAM_REPO" ] ; then
-              echo "::error::LEGACY_OPAM_REPO is not set. Set it to a pinned opam-repository commit before running legacy CI."
-              exit 1
-            fi
+            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git#375b66b72b6fb20b7c9ade186ffc3f655e82d6cd"
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
