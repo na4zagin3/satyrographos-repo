@@ -115,10 +115,8 @@ install_oldest_deps () {
     local OPAM_0INSTALL_OUTPUT
     local OPAM_0INSTALL_STATUS
     # Do not upgrade opam-0install here: doing so can remove the installed snapshot.
-    set +e
     OPAM_0INSTALL_OUTPUT=$(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" 2>&1)
     OPAM_0INSTALL_STATUS=$?
-    set -e
     if [ "$OPAM_0INSTALL_STATUS" -ne 0 ]
     then
         echo "$OPAM_0INSTALL_OUTPUT"

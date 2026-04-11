@@ -135,9 +135,25 @@ jobs:
 
       - name: Install the snapshot
         run: |
+          opam_install_retry () {
+            local ATTEMPT
+            for ATTEMPT in 1 2 3
+            do
+              if opam install "$@"
+              then
+                return 0
+              fi
+              if [ "$ATTEMPT" -eq 3 ]
+              then
+                return 1
+              fi
+              sleep 30
+            done
+          }
+
           opam pin add "${SNAPSHOT}.dev" . --no-action
-          opam install "$SNAPSHOT" --yes --depext-only
-          opam install "$SNAPSHOT" --yes
+          opam_install_retry "$SNAPSHOT" --yes --depext-only
+          opam_install_retry "$SNAPSHOT" --yes
 
       - name: Check if snapshot is consistent
         run: |
