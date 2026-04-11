@@ -86,19 +86,36 @@ jobs:
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
+          if [ "${{ matrix.lane }}" = "legacy" ] ; then
+            case "${{ matrix.ocaml-version }}" in
+              4.12.0)
+                OCAML_COMPILER="ocaml-variants.4.12.0+options,ocaml-option-bytecode-only"
+                ;;
+              4.07.1)
+                OCAML_COMPILER="ocaml-variants.4.07.1+bytecode-only"
+                ;;
+              *)
+                OCAML_COMPILER="${{ matrix.ocaml-version }}"
+                ;;
+            esac
+          else
+            OCAML_COMPILER="${{ matrix.ocaml-version }}"
+          fi
           echo "opam-repo-default=$DEFAULT_OPAM_REPO" >> "$GITHUB_OUTPUT"
+          echo "ocaml-compiler=$OCAML_COMPILER" >> "$GITHUB_OUTPUT"
 
       - name: Debug lane/repo selection
         run: |
           echo "lane=${{ matrix.lane }}"
           echo "snapshot=${{ matrix.snapshot }}"
           echo "ocaml=${{ matrix.ocaml-version }}"
+          echo "ocaml-compiler=${{ steps.determine-default-opam-repo.outputs.ocaml-compiler }}"
           echo "opam-repo=${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: ${{ matrix.ocaml-version }}
+          ocaml-compiler: ${{ steps.determine-default-opam-repo.outputs.ocaml-compiler }}
           dune-cache: true
           cache-prefix: "${{ matrix.lane }}-snapshot-${{ matrix.snapshot }}"
 
