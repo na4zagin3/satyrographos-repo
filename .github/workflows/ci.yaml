@@ -48,7 +48,7 @@ jobs:
             snapshot: stable-0-0-5
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.11.2
+            ocaml-version: 4.09.1
             snapshot: stable-0-0-4
           - lane: modern
             os: ubuntu-latest
@@ -131,7 +131,7 @@ jobs:
       - name: Install the snapshot
         run: |
           opam pin add "${SNAPSHOT}.dev" . --no-action
-          opam depext "$SNAPSHOT" --yes
+          opam install "$SNAPSHOT" --yes --depext-only
           opam install "$SNAPSHOT" --yes
 
       - name: Check if snapshot is consistent
