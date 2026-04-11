@@ -63,7 +63,14 @@ check_opam_integrity () {
         return 0
     fi
 
-    if find "$(opam var prefix --color=never)/.opam-switch/install" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    local OPAM_SWITCH_INSTALL_DIR
+    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
+    if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
+    then
+        return 0
+    fi
+
+    if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
         echo "OPAM misdetected file creation as modification"
         exit 1
@@ -83,13 +90,21 @@ check_satyrographos_integrity () {
 
 opam_install_dry_run () {
     local OPAM_INSTALL_RETURN_STATUS
+    local OPAM_INSTALL_BACKUP_DIR
+    local OPAM_SWITCH_INSTALL_DIR
+    mkdir -p "$TEMPORARY_WORK_DIR/opam"
+    OPAM_INSTALL_BACKUP_DIR=$(mktemp -dt "ci.sh.opam-install.XXXXXXXXXX" -p "$TEMPORARY_WORK_DIR/opam")
+    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
     check_opam_integrity
     # Workaround https://github.com/ocaml/opam/issues/5132
-    mkdir -p "$TEMPORARY_WORK_DIR/opam"
-    rsync -v "$(opam var prefix --color=never)/.opam-switch/install/" "$TEMPORARY_WORK_DIR/opam/install"
+    if [ -d "$OPAM_SWITCH_INSTALL_DIR" ]
+    then
+        rsync -a "$OPAM_SWITCH_INSTALL_DIR/" "$OPAM_INSTALL_BACKUP_DIR/"
+    fi
     opam install --dry-run "$@"
     OPAM_INSTALL_RETURN_STATUS=$?
-    rsync -v "$TEMPORARY_WORK_DIR/opam/install/" "$(opam var prefix --color=never)/.opam-switch/install"
+    mkdir -p "$OPAM_SWITCH_INSTALL_DIR"
+    rsync -a "$OPAM_INSTALL_BACKUP_DIR/" "$OPAM_SWITCH_INSTALL_DIR/"
     check_opam_integrity
 
     return $OPAM_INSTALL_RETURN_STATUS
@@ -200,11 +215,11 @@ if true ; then
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps || ! check_opam_integrity
+            elif { [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps "$PACKAGE"; } || ! check_opam_integrity
             then
                 echo "$PACKAGE: reverse-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE" || ! check_opam_integrity
+            elif { [ -z "$SKIP_OLDEST_DEPS" ] && ! install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE"; } || ! check_opam_integrity
             then
                 echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                 continue

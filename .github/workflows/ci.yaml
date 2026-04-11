@@ -82,7 +82,7 @@ jobs:
         id: determine-default-opam-repo
         run: |
           if [ "${{ matrix.lane }}" = "legacy" ] ; then
-            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git#375b66b72b6fb20b7c9ade186ffc3f655e82d6cd"
+            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git#42844088d70eed10b276d49691b1cbd714fa56a9"
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
