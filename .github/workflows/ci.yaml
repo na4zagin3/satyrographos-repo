@@ -16,39 +16,39 @@ jobs:
         include:
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: develop
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-11
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-10
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-8
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-7
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-6--1
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-6
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-5
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.07.1
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-4
           - lane: modern
             os: ubuntu-latest
@@ -86,21 +86,7 @@ jobs:
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
-          if [ "${{ matrix.lane }}" = "legacy" ] ; then
-            case "${{ matrix.ocaml-version }}" in
-              4.12.0)
-                OCAML_COMPILER="ocaml-variants.4.12.0+options,ocaml-option-bytecode-only"
-                ;;
-              4.07.1)
-                OCAML_COMPILER="ocaml-variants.4.07.1+bytecode-only"
-                ;;
-              *)
-                OCAML_COMPILER="${{ matrix.ocaml-version }}"
-                ;;
-            esac
-          else
-            OCAML_COMPILER="${{ matrix.ocaml-version }}"
-          fi
+          OCAML_COMPILER="${{ matrix.ocaml-version }}"
           echo "opam-repo-default=$DEFAULT_OPAM_REPO" >> "$GITHUB_OUTPUT"
           echo "ocaml-compiler=$OCAML_COMPILER" >> "$GITHUB_OUTPUT"
 
