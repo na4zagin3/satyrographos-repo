@@ -37,8 +37,9 @@ if [ $TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT -ge $TIMESTAMP_NOW ] ; then
 fi
 
 OCAML_PACKAGE="ocaml.$(opam show --color=never -f version ocaml)"
+OPAM_0INSTALL_PACKAGE="opam-0install>=0.5.1"
 
-if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install --yes opam-0install
+if [ -n "$SKIP_OLDEST_DEPS" ] || ! opam install --yes "$OPAM_0INSTALL_PACKAGE"
 then
     echo "Skipping oldest-deps check"
     SKIP_OLDEST_DEPS=1
@@ -95,7 +96,15 @@ opam_install_dry_run () {
 }
 
 install_oldest_deps () {
-    opam install opam-0install && opam install $(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
+    local OLDEST_DEPS
+    opam install --yes "$OPAM_0INSTALL_PACKAGE"
+    OLDEST_DEPS=$(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
+    if [ -z "$OLDEST_DEPS" ]
+    then
+        echo "opam-0install produced no satysfi/satyrographos packages"
+        return 1
+    fi
+    opam install $OLDEST_DEPS
 }
 
 check_reverse_deps () {
