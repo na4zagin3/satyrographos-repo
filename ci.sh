@@ -144,7 +144,11 @@ check_reverse_deps () {
                 continue
                 ;;
         esac
-        if ! opam install "$1" "$PACKAGE"
+        if ! opam_install_dry_run --json=opam-output.json "$1" "$PACKAGE"
+        then
+            echo "Skipping reverse dependency with unsatisfied constraints: $PACKAGE"
+            continue
+        elif ! opam install "$1" "$PACKAGE"
         then
             echo "Revdep check failed: $1 for $PACKAGE"
             return 1
