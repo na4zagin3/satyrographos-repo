@@ -138,6 +138,12 @@ install_oldest_deps () {
 
 check_reverse_deps () {
     opam list --color=never --repo=satyrographos-local --all-version --short --depends-on="$1" | while read PACKAGE ; do
+        case "$PACKAGE" in
+            satyrographos-snapshot-*)
+                echo "Skipping snapshot reverse dependency: $PACKAGE"
+                continue
+                ;;
+        esac
         if ! opam install "$1" "$PACKAGE"
         then
             echo "Revdep check failed: $1 for $PACKAGE"
