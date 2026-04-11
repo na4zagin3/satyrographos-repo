@@ -48,7 +48,7 @@ jobs:
             snapshot: stable-0-0-5
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.13.1
+            ocaml-version: 4.11.2
             snapshot: stable-0-0-4
           - lane: modern
             os: ubuntu-latest

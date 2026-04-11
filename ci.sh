@@ -112,7 +112,7 @@ opam_install_dry_run () {
 
 install_oldest_deps () {
     local OLDEST_DEPS
-    opam install --yes "$OPAM_0INSTALL_PACKAGE"
+    # Do not upgrade opam-0install here: doing so can remove the installed snapshot.
     OLDEST_DEPS=$(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
     if [ -z "$OLDEST_DEPS" ]
     then
