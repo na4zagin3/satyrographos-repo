@@ -112,8 +112,24 @@ opam_install_dry_run () {
 
 install_oldest_deps () {
     local OLDEST_DEPS
+    local OPAM_0INSTALL_OUTPUT
+    local OPAM_0INSTALL_STATUS
     # Do not upgrade opam-0install here: doing so can remove the installed snapshot.
-    OLDEST_DEPS=$(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
+    set +e
+    OPAM_0INSTALL_OUTPUT=$(opam exec --set-root --set-switch -- opam-0install --prefer-oldest "$@" 2>&1)
+    OPAM_0INSTALL_STATUS=$?
+    set -e
+    if [ "$OPAM_0INSTALL_STATUS" -ne 0 ]
+    then
+        echo "$OPAM_0INSTALL_OUTPUT"
+        if echo "$OPAM_0INSTALL_OUTPUT" | grep -q 'more recent than this version of opam'
+        then
+            echo "Skipping oldest-deps check: installed opam-0install cannot read this opam root"
+            return 2
+        fi
+        return "$OPAM_0INSTALL_STATUS"
+    fi
+    OLDEST_DEPS=$(echo "$OPAM_0INSTALL_OUTPUT" | tr ' ' '\n' | sed -n -e '/^satyrographos\./p' -e '/^satysfi\./p' -e '/^satysfi-/p')
     if [ -z "$OLDEST_DEPS" ]
     then
         echo "opam-0install produced no satysfi/satyrographos packages"
@@ -123,7 +139,7 @@ install_oldest_deps () {
 }
 
 check_reverse_deps () {
-    opam list --repo=satyrographos-local --all-version --short --depends-on="$1" | while read PACKAGE ; do
+    opam list --color=never --repo=satyrographos-local --all-version --short --depends-on="$1" | while read PACKAGE ; do
         if ! opam install "$1" "$PACKAGE"
         then
             echo "Revdep check failed: $1 for $PACKAGE"
@@ -156,6 +172,7 @@ if true ; then
             opam install "$SNAPSHOT"
 
             PACKAGE_NAME="${PACKAGE%%.*}"
+            PACKAGE_SKIPPED_OLDEST_DEPS=
             SATYSFI_PACKAGE="satysfi.$(opam show --color=never -f version satysfi)"
 
             case "$PACKAGE_NAME" in
@@ -219,20 +236,38 @@ if true ; then
             then
                 echo "$PACKAGE: reverse-deps" >> "$FAILED_PACKAGES"
                 continue
-            elif { [ -z "$SKIP_OLDEST_DEPS" ] && ! install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE"; } || ! check_opam_integrity
+            elif [ -z "$SKIP_OLDEST_DEPS" ]
             then
-                echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
-                continue
-            elif [ -z "$SKIP_OLDEST_DEPS" ] && ! check_satyrographos_integrity
-            then
-                echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
-                continue
-            elif ! opam uninstall "$PACKAGE" || ! check_opam_integrity
-            then
-                echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
+                set +e
+                install_oldest_deps "$PACKAGE" "$SATYSFI_PACKAGE" "$OCAML_PACKAGE"
+                OLDEST_DEPS_STATUS=$?
+                set -e
+                if [ "$OLDEST_DEPS_STATUS" -eq 2 ]
+                then
+                    PACKAGE_SKIPPED_OLDEST_DEPS=1
+                elif [ "$OLDEST_DEPS_STATUS" -ne 0 ] || ! check_opam_integrity
+                then
+                    echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
+                    continue
+                elif ! check_satyrographos_integrity
+                then
+                    echo "$PACKAGE: satyrographos-with-oldest-deps" >> "$FAILED_PACKAGES"
+                    continue
+                fi
             fi
 
-            echo "$PACKAGE: success" ${SKIP_OLDEST_DEPS:+skip-oldest-deps} >> "$SUCCEEDED_PACKAGES"
+            if ! opam uninstall "$PACKAGE" || ! check_opam_integrity
+            then
+                echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
+                continue
+            fi
+
+            SUCCESS_FLAGS=
+            if [ -n "$SKIP_OLDEST_DEPS$PACKAGE_SKIPPED_OLDEST_DEPS" ]
+            then
+                SUCCESS_FLAGS="skip-oldest-deps"
+            fi
+            echo "$PACKAGE: success" $SUCCESS_FLAGS >> "$SUCCEEDED_PACKAGES"
         done
     else
         echo "Non pull request"
