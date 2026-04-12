@@ -137,23 +137,33 @@ install_oldest_deps () {
 }
 
 check_reverse_deps () {
-    opam list --color=never --repo=satyrographos-local --all-version --short --depends-on="$1" | while read PACKAGE ; do
+    local CHECKED_REVERSE_DEPS=0
+    local SKIPPED_REVERSE_DEPS=0
+
+    while read PACKAGE ; do
         case "$PACKAGE" in
             satyrographos-snapshot-*)
                 echo "Skipping snapshot reverse dependency: $PACKAGE"
+                SKIPPED_REVERSE_DEPS=$((SKIPPED_REVERSE_DEPS + 1))
                 continue
                 ;;
         esac
         if ! opam_install_dry_run --json=opam-output.json "$1" "$PACKAGE"
         then
             echo "Skipping reverse dependency with unsatisfied constraints: $PACKAGE"
+            SKIPPED_REVERSE_DEPS=$((SKIPPED_REVERSE_DEPS + 1))
             continue
         elif ! opam install "$1" "$PACKAGE"
         then
             echo "Revdep check failed: $1 for $PACKAGE"
+            echo "$CHECKED_REVERSE_DEPS $SKIPPED_REVERSE_DEPS" > "$REVERSE_DEPS_STATUS_FILE"
             return 1
         fi
-    done
+        echo "Checked reverse dependency: $1 for $PACKAGE"
+        CHECKED_REVERSE_DEPS=$((CHECKED_REVERSE_DEPS + 1))
+    done < <(opam list --color=never --repo=satyrographos-local --all-version --short --depends-on="$1")
+
+    echo "$CHECKED_REVERSE_DEPS $SKIPPED_REVERSE_DEPS" > "$REVERSE_DEPS_STATUS_FILE"
 }
 
 # Test install/uninstall regardress if it's a PR
@@ -181,6 +191,8 @@ if true ; then
 
             PACKAGE_NAME="${PACKAGE%%.*}"
             PACKAGE_SKIPPED_OLDEST_DEPS=
+            REVERSE_DEPS_STATUS_FILE="$TEMPORARY_WORK_DIR/reverse-deps-status"
+            : > "$REVERSE_DEPS_STATUS_FILE"
             SATYSFI_PACKAGE="satysfi.$(opam show --color=never -f version satysfi)"
 
             case "$PACKAGE_NAME" in
@@ -274,6 +286,11 @@ if true ; then
             if [ -n "$SKIP_OLDEST_DEPS$PACKAGE_SKIPPED_OLDEST_DEPS" ]
             then
                 SUCCESS_FLAGS="skip-oldest-deps"
+            fi
+            if [ -s "$REVERSE_DEPS_STATUS_FILE" ]
+            then
+                read CHECKED_REVERSE_DEPS SKIPPED_REVERSE_DEPS < "$REVERSE_DEPS_STATUS_FILE"
+                SUCCESS_FLAGS="$SUCCESS_FLAGS checked-revdeps=$CHECKED_REVERSE_DEPS skipped-revdeps=$SKIPPED_REVERSE_DEPS"
             fi
             echo "$PACKAGE: success" $SUCCESS_FLAGS >> "$SUCCEEDED_PACKAGES"
         done
