@@ -140,26 +140,26 @@ check_reverse_deps () {
     local CHECKED_REVERSE_DEPS=0
     local SKIPPED_REVERSE_DEPS=0
 
-    while read PACKAGE ; do
-        case "$PACKAGE" in
+    while read REVERSE_DEP_PACKAGE ; do
+        case "$REVERSE_DEP_PACKAGE" in
             satyrographos-snapshot-*)
-                echo "Skipping snapshot reverse dependency: $PACKAGE"
+                echo "Skipping snapshot reverse dependency: $REVERSE_DEP_PACKAGE"
                 SKIPPED_REVERSE_DEPS=$((SKIPPED_REVERSE_DEPS + 1))
                 continue
                 ;;
         esac
-        if ! opam_install_dry_run --json=opam-output.json "$1" "$PACKAGE"
+        if ! opam_install_dry_run --json=opam-output.json "$1" "$REVERSE_DEP_PACKAGE"
         then
-            echo "Skipping reverse dependency with unsatisfied constraints: $PACKAGE"
+            echo "Skipping reverse dependency with unsatisfied constraints: $REVERSE_DEP_PACKAGE"
             SKIPPED_REVERSE_DEPS=$((SKIPPED_REVERSE_DEPS + 1))
             continue
-        elif ! opam install "$1" "$PACKAGE"
+        elif ! opam install "$1" "$REVERSE_DEP_PACKAGE"
         then
-            echo "Revdep check failed: $1 for $PACKAGE"
+            echo "Revdep check failed: $1 for $REVERSE_DEP_PACKAGE"
             echo "$CHECKED_REVERSE_DEPS $SKIPPED_REVERSE_DEPS" > "$REVERSE_DEPS_STATUS_FILE"
             return 1
         fi
-        echo "Checked reverse dependency: $1 for $PACKAGE"
+        echo "Checked reverse dependency: $1 for $REVERSE_DEP_PACKAGE"
         CHECKED_REVERSE_DEPS=$((CHECKED_REVERSE_DEPS + 1))
     done < <(opam list --color=never --repo=satyrographos-local --all-version --short --depends-on="$1")
 
