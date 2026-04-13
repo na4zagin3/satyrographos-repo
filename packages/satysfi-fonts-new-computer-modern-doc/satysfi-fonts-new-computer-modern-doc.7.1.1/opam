@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "Document of SATySFi Font Package for New Computer Modern"
+description: """
+Document of SATySFi Font Package for New Computer Modern.
+"""
+maintainer: "ghaaj <91141283+ghaaj@users.noreply.github.com>"
+authors: "ghaaj <91141283+ghaaj@users.noreply.github.com>"
+license: "MIT"
+homepage: "https://github.com/ghaaj/satysfi-fonts-new-computer-modern"
+dev-repo: "git+https://github.com/ghaaj/satysfi-fonts-new-computer-modern.git"
+bug-reports: "https://github.com/ghaaj/satysfi-fonts-new-computer-modern/issues"
+depends: [
+  "satysfi" { >= "0.0.10" }
+  "satyrographos" { >= "0.0.2.6" & < "0.0.3" }
+
+  "satysfi-fonts-new-computer-modern" {= "%{version}%"}
+
+  "satysfi-dist"
+  "satysfi-base"
+]
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "fonts-new-computer-modern-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-new-computer-modern-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/ghaaj/satysfi-fonts-new-computer-modern/archive/refs/tags/v7.1.1.tar.gz"
+  checksum: [
+    "md5=0cf4bf839cab9847ca72901203a1fd30"
+    "sha512=f6a1edd68155cee787590c185a105ead9b36e4fc22e96939a1d4d4a4e1f105c0462a6e2613d8152ef662b62cf0fb359ec3ecaa884b819f254bc4a29544876c07"
+  ]
+}
