@@ -16,39 +16,39 @@ jobs:
         include:
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: develop
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-11
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-10
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-8
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-7
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-6--1
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-6
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.12.0
+            ocaml-version: 4.13.1
             snapshot: stable-0-0-5
           - lane: legacy
             os: ubuntu-22.04
-            ocaml-version: 4.07.1
+            ocaml-version: 4.09.1
             snapshot: stable-0-0-4
           - lane: modern
             os: ubuntu-latest
@@ -62,6 +62,7 @@ jobs:
     env:
       OPAMSOLVERTIMEOUT: 3600
       OPAMVERBOSE: 1
+      OPAMDOWNLOADJOBS: 1
       SNAPSHOT: "snapshot-${{ matrix.snapshot }}"
     steps:
       - name: Checkout code (10 commits)
@@ -82,27 +83,26 @@ jobs:
         id: determine-default-opam-repo
         run: |
           if [ "${{ matrix.lane }}" = "legacy" ] ; then
-            DEFAULT_OPAM_REPO="${{ vars.LEGACY_OPAM_REPO }}"
-            if [ -z "$DEFAULT_OPAM_REPO" ] ; then
-              echo "::error::LEGACY_OPAM_REPO is not set. Set it to a pinned opam-repository commit before running legacy CI."
-              exit 1
-            fi
+            DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git#42844088d70eed10b276d49691b1cbd714fa56a9"
           else
             DEFAULT_OPAM_REPO="https://github.com/ocaml/opam-repository.git"
           fi
+          OCAML_COMPILER="${{ matrix.ocaml-version }}"
           echo "opam-repo-default=$DEFAULT_OPAM_REPO" >> "$GITHUB_OUTPUT"
+          echo "ocaml-compiler=$OCAML_COMPILER" >> "$GITHUB_OUTPUT"
 
       - name: Debug lane/repo selection
         run: |
           echo "lane=${{ matrix.lane }}"
           echo "snapshot=${{ matrix.snapshot }}"
           echo "ocaml=${{ matrix.ocaml-version }}"
+          echo "ocaml-compiler=${{ steps.determine-default-opam-repo.outputs.ocaml-compiler }}"
           echo "opam-repo=${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}"
 
       - name: Setup OCaml ${{ matrix.ocaml-version }}
         uses: ocaml/setup-ocaml@v3
         with:
-          ocaml-compiler: ${{ matrix.ocaml-version }}
+          ocaml-compiler: ${{ steps.determine-default-opam-repo.outputs.ocaml-compiler }}
           dune-cache: true
           cache-prefix: "${{ matrix.lane }}-snapshot-${{ matrix.snapshot }}"
 
@@ -112,6 +112,10 @@ jobs:
             satysfi-external: https://github.com/gfngfn/satysfi-external-repo.git
             satyrographos-local: git+file://${{ github.workspace }}
             default: ${{ steps.determine-default-opam-repo.outputs.opam-repo-default }}
+
+      - name: Reduce OPAM fetch concurrency
+        run: |
+          echo "OPAMDOWNLOADJOBS=1" >> "$GITHUB_ENV"
 
       - name: Create a dir for post-CI actions
         run: |
@@ -131,9 +135,25 @@ jobs:
 
       - name: Install the snapshot
         run: |
+          opam_install_retry () {
+            local ATTEMPT
+            for ATTEMPT in 1 2 3
+            do
+              if opam install "$@"
+              then
+                return 0
+              fi
+              if [ "$ATTEMPT" -eq 3 ]
+              then
+                return 1
+              fi
+              sleep 30
+            done
+          }
+
           opam pin add "${SNAPSHOT}.dev" . --no-action
-          opam depext "$SNAPSHOT" --yes
-          opam install "$SNAPSHOT" --yes
+          opam_install_retry "$SNAPSHOT" --yes --depext-only
+          opam_install_retry "$SNAPSHOT" --yes
 
       - name: Check if snapshot is consistent
         run: |
