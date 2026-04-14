@@ -1,0 +1,38 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Asana Math Fonts"
+description: """
+SATySFi font package for Asana Math fonts.
+
+This package installs fonts from http://mirrors.ctan.org/fonts/Asana-Math/.
+"""
+maintainer: "MURASE Yuito <yuito.murase@gmail.com>"
+authors: "MURASE Yuito <yuito.murase@gmail.com>"
+license: "OFL-1.1"
+homepage: "https://github.com/zeptometer/SATySFi-fonts-asana-math"
+bug-reports: "https://github.com/zeptometer/SATySFi-fonts-asana-math/issues"
+dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-asana-math.git"
+extra-source "Asana-Math.otf" {
+  archive: "https://raw.githubusercontent.com/na4zagin3/satysfi-dist-font-archives/190ce5837e908d4d328f15d9fe748c97e1c376d5/Asana-Math/2025-11-19/Asana-Math.otf"
+  checksum: [
+    "sha256=9fa3bd7294acd349162ca119351212f7712d26442a3089abcb70bb327b03caf1"
+    "sha512=b85ee0683e4fc3f046c80500780a37e0e9a0453fe3c3414118bd5adcf468c77704739fdcf009de494a8bbabf484b091d5a9ede56057a0b67af1ecd12ed6145a6"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.4" & < "0.1.0"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "fonts-asana-math"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/zeptometer/SATySFi-fonts-asana-math/archive/refs/tags/000.962+satysfi0.0.4.tar.gz"
+  checksum: [
+    "md5=de8dde15fb43c42ab0ecfb8f930d59eb"
+    "sha512=b0d66fd87893a5da08a55098163fd574f884242c833d513580527c59932b410338a46ad2046c401e020da038c664c1493a13b21d83668e3288fa2217ccee76d7"
+  ]
+}
