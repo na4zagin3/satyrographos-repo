@@ -11,7 +11,7 @@ bug-reports: "https://github.com/zeptometer/SATySFi-fonts-asana-math/issues"
 dev-repo: "git+https://github.com/zeptometer/SATySFi-fonts-asana-math.git"
 depends: [
   "satysfi" {>= "0.0.4" & < "0.1.0"}
-  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
   "satysfi-fonts-asana-math" {= "000.962+satysfi0.0.4"}
 ]
 build: [
