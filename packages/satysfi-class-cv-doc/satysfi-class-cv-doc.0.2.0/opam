@@ -31,9 +31,9 @@ install: [
    "--script" "%{build}%/Satyristes"]
 ]
 url {
-  src: "https://github.com/MasWag/cv-satysfi/archive/refs/tags/0.2.1.tar.gz"
+  src: "https://github.com/MasWag/cv-satysfi/archive/refs/tags/0.2.0.tar.gz"
   checksum: [
-    "md5=3cfcedcbb14d955a7b525e42f122d95a"
-    "sha512=48876b9fea996eae5608da642af626fb0bf4f78f78e7391cced8b2d0bd6b4f0d8e6cdf6c4d5303d0cf938c8e63535f75891a10e2b2a49fbc71f25c74a0e11705"
+    "md5=ca3ff8defa998df093b69d50ce2e5059"
+    "sha512=3b2353c106a4055ae64bd94ccb519abcbde12baa76c9e06c95152648f16501f0188d5fd68af4dce40493f565639acbdb6e1ca82969da6ce65ec8c1d82c5364ba"
   ]
 }

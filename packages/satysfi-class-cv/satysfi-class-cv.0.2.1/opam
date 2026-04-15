@@ -34,7 +34,7 @@ install: [
 url {
   src: "https://github.com/MasWag/cv-satysfi/archive/refs/tags/0.2.1.tar.gz"
   checksum: [
-    "md5=3cfcedcbb14d955a7b525e42f122d95a"
-    "sha512=48876b9fea996eae5608da642af626fb0bf4f78f78e7391cced8b2d0bd6b4f0d8e6cdf6c4d5303d0cf938c8e63535f75891a10e2b2a49fbc71f25c74a0e11705"
+    "md5=14668524f63214f77e939b5a9e9cacc0"
+    "sha512=3b5f807a9d161ed85f714f6dfdcd34ecf0cca4de7df3eb68615faf56e7423b31097ff72d6b290a2692cffed254b4e06231e90a0e0c4f8ab00065b6cf3e3ab46b"
   ]
 }
