@@ -1,0 +1,40 @@
+opam-version: "2.0"
+synopsis: "Documentation of a class for CV"
+description: """Documentation of a class for CV."""
+
+maintainer: "Masaki Waga <masakiwaga@gmail.com>"
+authors: [
+    "Masaki Waga <masakiwaga@gmail.com>"
+]
+license: "MIT"
+homepage: "https://github.com/MasWag/cv-satysfi"
+bug-reports: "https://github.com/MasWag/cv-satysfi/issues"
+dev-repo: "git+https://github.com/MasWag/cv-satysfi.git"
+
+depends: [
+  "satysfi" {>= "0.0.6" & < "0.1.0"}
+  "satyrographos" {>= "0.0.2.6" & < "0.0.3"}
+  "satysfi-enumitem" {>= "3.0.1" & < "4.0.0"}
+  "satysfi-class-cv" {= "0.2.1"}
+  "satysfi-dist"
+]
+  
+build: [
+  ["satyrographos" "opam" "build"
+   "--name" "class-cv-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "--name" "class-cv-doc"
+   "--prefix" "%{prefix}%"
+   "--script" "%{build}%/Satyristes"]
+]
+url {
+  src: "https://github.com/MasWag/cv-satysfi/archive/refs/tags/0.2.1.tar.gz"
+  checksum: [
+    "md5=14668524f63214f77e939b5a9e9cacc0"
+    "sha512=3b5f807a9d161ed85f714f6dfdcd34ecf0cca4de7df3eb68615faf56e7423b31097ff72d6b290a2692cffed254b4e06231e90a0e0c4f8ab00065b6cf3e3ab46b"
+  ]
+}
