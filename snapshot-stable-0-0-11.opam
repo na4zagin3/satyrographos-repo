@@ -110,9 +110,9 @@ depends: [
 
   "satysfi-figbox" {= "0.1.4"}
 
-  "satysfi-fonts-asana-math-doc" {= "000.958+1+satysfi0.0.4"}
+  "satysfi-fonts-asana-math-doc" {= "000.962+satysfi0.0.4"}
 
-  "satysfi-fonts-asana-math" {= "000.958+1+satysfi0.0.4"}
+  "satysfi-fonts-asana-math" {= "000.962+satysfi0.0.4"}
 
   "satysfi-fonts-bodoni-star-doc" {= "2.3+satysfi0.0.5"}
 
