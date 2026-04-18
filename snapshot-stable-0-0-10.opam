@@ -186,6 +186,10 @@ depends: [
 
   "satysfi-fonts-noto-serif" {= "2.001+1+satysfi0.0.4"}
 
+  "satysfi-fonts-roboto-doc" {= "2.138+1"}
+
+  "satysfi-fonts-roboto" {= "2.138+1"}
+
   "satysfi-fonts-theano-doc" {= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
 
   "satysfi-fonts-theano" {= "2.0+satysfi0.0.3+satyrograhos0.0.2"}
