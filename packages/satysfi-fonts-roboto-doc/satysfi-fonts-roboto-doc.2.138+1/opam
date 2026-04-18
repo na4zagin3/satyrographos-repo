@@ -16,7 +16,7 @@ depends: [
   "satysfi-fonts-roboto" {= "2.138+1"}
 ]
 build: [
-  ["satyrographos" "opam" "build" 
+  ["satyrographos" "opam" "build"
    "-name" "fonts-roboto-doc"
    "-prefix" "%{prefix}%"
    "-script" "%{build}%/Satyristes"]
