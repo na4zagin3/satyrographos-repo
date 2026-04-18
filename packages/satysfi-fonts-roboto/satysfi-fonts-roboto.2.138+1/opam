@@ -1,0 +1,41 @@
+opam-version: "2.0"
+synopsis: "SATySFi Font Package for Roboto fonts"
+description: """
+SATySFi font package for Roboto fonts.
+
+This package installs fonts from https://fonts.google.com/specimen/Roboto/.
+"""
+maintainer: "Masaki Waga <masakiwaga@gmail.com>"
+authors: "Masaki Waga <masakiwaga@gmail.com>"
+license: "Apache-2.0"
+homepage: "https://github.com/MasWag/SATySFi-fonts-roboto"
+bug-reports: "https://github.com/MasWag/SATySFi-fonts-roboto/issues"
+dev-repo: "git+https://github.com/MasWag/SATySFi-fonts-roboto.git"
+extra-source "roboto-unhinted.zip" {
+  archive: "https://github.com/googlefonts/roboto/releases/download/v2.138/roboto-unhinted.zip"
+  checksum: [
+    "sha256=70f64c718510a601fbcf752aafe644314dacaeb85474dc689c89787c4a72a728"
+    "sha512=4cfd20a1e19a986b17f731745a4d5ee909b852649e340d25de8197fbf6656005ccd3b4c591641938edbfebf0de81c71366a2afa007bb403285dea4d3dbfbd2a0"
+  ]
+}
+depends: [
+  "satysfi" {>= "0.0.10" & < "0.1"}
+  "satyrographos" {>= "0.0.2" & < "0.0.3"}
+]
+build: [
+  ["unzip" "-j" "-d" "roboto" "-o" "roboto-unhinted.zip" "*.ttf"]
+]
+install: [
+  ["satyrographos" "opam" "install"
+   "-name" "fonts-roboto"
+   "-prefix" "%{prefix}%"
+   "-script" "%{build}%/Satyristes"]
+]
+url {
+  src:
+    "https://github.com/MasWag/SATySFi-fonts-roboto/archive/refs/tags/2.138+1.tar.gz"
+  checksum: [
+    "md5=1ade186447359c6600e5e8f8f6488cec"
+    "sha512=8e5d0e42d78073a745393ae1c9d41236ecd54aadf70433412ab76bfc1fc4f11181507ed3a8d33eda9901c71237ee6a95087bb690254df4ce959a7a74b19e0756"
+  ]
+}
