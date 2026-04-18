@@ -158,6 +158,10 @@ depends: [
 
   "satysfi-fonts-material-icons" {= "1.0.1"}
 
+  "satysfi-fonts-new-computer-modern-doc" {= "7.1.1"}
+
+  "satysfi-fonts-new-computer-modern" {= "7.1.1"}
+
   "satysfi-fonts-noto-emoji-doc" {= "1.05+uh+2"}
 
   "satysfi-fonts-noto-emoji" {= "1.05+uh+2"}
