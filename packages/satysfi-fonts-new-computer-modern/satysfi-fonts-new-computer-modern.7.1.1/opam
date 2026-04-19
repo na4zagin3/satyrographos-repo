@@ -13,6 +13,9 @@ dev-repo: "git+https://github.com/ghaaj/satysfi-fonts-new-computer-modern.git"
 bug-reports: "https://github.com/ghaaj/satysfi-fonts-new-computer-modern/issues"
 extra-source "newcm-7.1.1.txz" {
   archive: "https://download.gnu.org.ua/release/newcm/newcm-7.1.1.txz"
+  mirrors: [
+    "https://raw.githubusercontent.com/na4zagin3/satysfi-dist-font-archives/8717b6b3afb8d82f400905a797533d8a1b9c04fb/NewComputerModern/7.1.1/newcm-7.1.1.txz"
+  ]
   checksum: [
     "sha256=27ba53922256ebb339a9b1e4e07252ee8e832738b4be6228e4adcaa9a9a76583"
     "sha512=01d2578d1c2b0a4d5f035ad67370c91400b9463bec2a8c404b29df20d11c8553c37b17b9f1a87bc6aa76bb81c1206906dc23f1f7cc8c0781b7f5b9e992e2cb19"
