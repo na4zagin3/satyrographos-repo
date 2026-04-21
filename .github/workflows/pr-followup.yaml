@@ -65,6 +65,5 @@ jobs:
             automated pr
 #          assignees: na4zagin3
 #          reviewers: na4zagin3
-          team-reviewers: |
-            owners
-            maintainers
+          # This repository is under a user account, so organization team reviewers
+          # are not valid and would make the workflow fail after creating the PR.
