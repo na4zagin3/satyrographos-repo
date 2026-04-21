@@ -159,6 +159,7 @@ jobs:
             }
             
             const comments = [
+              '<!-- satyrographos-ci-summary -->',
               '# CI Summary'
             ];
             for (snapshot of snapshots) {
@@ -168,10 +169,32 @@ jobs:
               }
             }
             if (comments.length) {
-              await github.rest.issues.createComment({
+              const body = comments.join('\n');
+              const issueComments = await github.rest.issues.listComments({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: pull_number,
-                body: comments.join('\n')
+                per_page: 100
               });
+              const existingComment = issueComments.data.find((comment) =>
+                comment.user &&
+                comment.user.type === 'Bot' &&
+                comment.body &&
+                comment.body.includes('<!-- satyrographos-ci-summary -->')
+              );
+              if (existingComment) {
+                await github.rest.issues.updateComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  comment_id: existingComment.id,
+                  body
+                });
+              } else {
+                await github.rest.issues.createComment({
+                  owner: context.repo.owner,
+                  repo: context.repo.repo,
+                  issue_number: pull_number,
+                  body
+                });
+              }
             }

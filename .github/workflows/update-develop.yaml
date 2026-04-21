@@ -1,6 +1,7 @@
 name: Update SATySFi Dev Flow
 
 on:
+  workflow_dispatch:
   schedule:
     - cron: '52 15 * * *'
 
