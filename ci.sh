@@ -21,7 +21,7 @@ SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
 case "$(opam --version)" in
-    2.0.*|2.1.*|2.2.*)
+    2.*)
         echo "Enable workaround for OPAM Bug #5132"
         WORKAROUND_OPAM_BUG_5132=1
         echo "Enable workaround for #655"
