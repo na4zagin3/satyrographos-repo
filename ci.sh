@@ -56,7 +56,43 @@ cat_to_comment () {
     fi
 }
 
+dump_opam_integrity_debug () {
+    local OPAM_SWITCH_INSTALL_DIR
+    local CHANGES_FILE
+    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
+
+    echo "==== OPAM integrity debug ===="
+    echo "Context: ${1:-unknown}"
+    echo "opam version: $(opam --version)"
+    echo "opam root: $(opam var root --color=never)"
+    echo "opam prefix: $(opam var prefix --color=never)"
+    echo "repositories:"
+    opam repository list --color=never || true
+
+    if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
+    then
+        echo "install dir missing: $OPAM_SWITCH_INSTALL_DIR"
+        return 0
+    fi
+
+    echo "install dir: $OPAM_SWITCH_INSTALL_DIR"
+    if ! find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort
+    then
+        echo "failed to enumerate satysfi-*.changes"
+        return 0
+    fi
+
+    while read -r CHANGES_FILE
+    do
+        [ -n "$CHANGES_FILE" ] || continue
+        echo "---- $CHANGES_FILE ----"
+        sed -n '1,80p' "$CHANGES_FILE" || true
+    done < <(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort)
+}
+
 check_opam_integrity () {
+    local CONTEXT
+    CONTEXT=${1:-unknown}
     if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
     then
         echo "Skip OPAM integrity check"
@@ -72,6 +108,7 @@ check_opam_integrity () {
 
     if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
+        dump_opam_integrity_debug "$CONTEXT"
         echo "OPAM misdetected file creation as modification"
         exit 1
     fi
@@ -95,7 +132,7 @@ opam_install_dry_run () {
     mkdir -p "$TEMPORARY_WORK_DIR/opam"
     OPAM_INSTALL_BACKUP_DIR=$(mktemp -dt "ci.sh.opam-install.XXXXXXXXXX" -p "$TEMPORARY_WORK_DIR/opam")
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
-    check_opam_integrity
+    check_opam_integrity "before-opam-install-dry-run"
     # Workaround https://github.com/ocaml/opam/issues/5132
     if [ -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
@@ -105,7 +142,7 @@ opam_install_dry_run () {
     OPAM_INSTALL_RETURN_STATUS=$?
     mkdir -p "$OPAM_SWITCH_INSTALL_DIR"
     rsync -a "$OPAM_INSTALL_BACKUP_DIR/" "$OPAM_SWITCH_INSTALL_DIR/"
-    check_opam_integrity
+    check_opam_integrity "after-opam-install-dry-run"
 
     return $OPAM_INSTALL_RETURN_STATUS
 }
@@ -244,15 +281,15 @@ if true ; then
             then
                 echo "$PACKAGE: dep-install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}" || ! check_opam_integrity
+            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}" || ! check_opam_integrity "after-install"
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! check_satyrographos_integrity || ! check_opam_integrity
+            elif ! check_satyrographos_integrity || ! check_opam_integrity "after-satyrographos-install"
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif { [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps "$PACKAGE"; } || ! check_opam_integrity
+            elif { [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps "$PACKAGE"; } || ! check_opam_integrity "after-reverse-deps"
             then
                 echo "$PACKAGE: reverse-deps" >> "$FAILED_PACKAGES"
                 continue
@@ -265,7 +302,7 @@ if true ; then
                 if [ "$OLDEST_DEPS_STATUS" -eq 2 ]
                 then
                     PACKAGE_SKIPPED_OLDEST_DEPS=1
-                elif [ "$OLDEST_DEPS_STATUS" -ne 0 ] || ! check_opam_integrity
+                elif [ "$OLDEST_DEPS_STATUS" -ne 0 ] || ! check_opam_integrity "after-oldest-deps"
                 then
                     echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                     continue
@@ -276,7 +313,7 @@ if true ; then
                 fi
             fi
 
-            if ! opam uninstall "$PACKAGE" || ! check_opam_integrity
+            if ! opam uninstall "$PACKAGE" || ! check_opam_integrity "after-uninstall"
             then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
                 continue
