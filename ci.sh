@@ -58,6 +58,7 @@ cat_to_comment () {
 dump_opam_integrity_debug () {
     local OPAM_SWITCH_INSTALL_DIR
     local CHANGES_FILE
+    local MATCHED_CHANGES_FILES
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
 
     echo "==== OPAM integrity debug ===="
@@ -75,20 +76,27 @@ dump_opam_integrity_debug () {
     fi
 
     echo "install dir: $OPAM_SWITCH_INSTALL_DIR"
-    if ! find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort
+    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
+    if [ -z "$MATCHED_CHANGES_FILES" ]
     then
-        echo "failed to enumerate satysfi-*.changes"
+        echo "no matching *.changes files found during debug dump"
+        echo "all *.changes files:"
+        find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' | sort || true
         return 0
     fi
+
+    echo "matched *.changes files:"
+    printf '%s\n' "$MATCHED_CHANGES_FILES"
 
     while read -r CHANGES_FILE
     do
         [ -n "$CHANGES_FILE" ] || continue
         echo "---- $CHANGES_FILE ----"
         sed -n '1,80p' "$CHANGES_FILE" || true
-    done < <(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort)
+    done <<EOF_CHANGES
+$MATCHED_CHANGES_FILES
+EOF_CHANGES
 }
-
 check_opam_integrity () {
     local CONTEXT
     CONTEXT=${1:-unknown}
@@ -105,7 +113,7 @@ check_opam_integrity () {
         return 0
     fi
 
-    if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    if find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
         dump_opam_integrity_debug "$CONTEXT"
         echo "OPAM misdetected file creation as modification"
