@@ -68,6 +68,8 @@ dump_opam_integrity_debug () {
     echo "opam prefix: $(opam var prefix --color=never)"
     echo "repositories:"
     opam repository list --color=never || true
+    echo "installed dune/jbuilder/opam packages:"
+    opam list --installed --columns=name,version --color=never 2>/dev/null | grep -E "^(dune|jbuilder|opam|opam-format|opam-file-format)\b" || true
 
     if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
