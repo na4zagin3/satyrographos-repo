@@ -25,14 +25,18 @@ has_installed_jbuilder () {
 }
 
 case "$(opam --version)" in
-    2.5.*)
+    2.0.*|2.1.*|2.2.*|2.3.*|2.4.*)
+        echo "Enable workaround for opam .changes false positives on older opam"
+        WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE=1
+        echo "Enable workaround for #655"
+        WORKAROUND_OPAM_BUG_STRICT=1
+        ;;
+    *)
         if has_installed_jbuilder
         then
             echo "Enable workaround for opam .changes false positives with installed jbuilder"
             WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE=1
         fi
-        echo "Enable workaround for #655"
-        WORKAROUND_OPAM_BUG_STRICT=1
         ;;
 esac
 
