@@ -6,7 +6,7 @@
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
 # SKIP_REVERSE_DEPS: Skip building against reverse dependencies
-# WORKAROUND_OPAM_BUG_5132: Skip integrity check against OPAM
+# WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE: Skip opam .changes integrity checks for known false positives
 # WORKAROUND_OPAM_BUG_STRICT: Don't use --strict option (See https://github.com/ocaml/opam-repository/pull/21959#discussion_r943873612)
 
 set -exo pipefail
@@ -20,9 +20,17 @@ FAILED_PACKAGES=failed.pkgs
 SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
+has_installed_jbuilder () {
+    opam list --installed --short --color=never 2>/dev/null | grep -qx jbuilder
+}
+
 case "$(opam --version)" in
-    2.*)
-        echo "Disable OPAM integrity workaround for investigation"
+    2.5.*)
+        if has_installed_jbuilder
+        then
+            echo "Enable workaround for opam .changes false positives with installed jbuilder"
+            WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE=1
+        fi
         echo "Enable workaround for #655"
         WORKAROUND_OPAM_BUG_STRICT=1
         ;;
@@ -102,7 +110,7 @@ EOF_CHANGES
 check_opam_integrity () {
     local CONTEXT
     CONTEXT=${1:-unknown}
-    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
     then
         echo "Skip OPAM integrity check"
         return 0
@@ -124,9 +132,9 @@ check_opam_integrity () {
 }
 
 check_satyrographos_integrity () {
-    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
     then
-        echo "Workaround OPAM Bug #5132"
+        echo "Work around opam .changes false positives with installed jbuilder"
         opam exec -- satyrographos install $(opam list --color=never --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
         return $?
     fi
@@ -142,7 +150,7 @@ opam_install_dry_run () {
     OPAM_INSTALL_BACKUP_DIR=$(mktemp -dt "ci.sh.opam-install.XXXXXXXXXX" -p "$TEMPORARY_WORK_DIR/opam")
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
     check_opam_integrity "before-opam-install-dry-run"
-    # Workaround https://github.com/ocaml/opam/issues/5132
+    # Preserve install metadata around dry-runs when the false-positive workaround is enabled
     if [ -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
         rsync -a "$OPAM_SWITCH_INSTALL_DIR/" "$OPAM_INSTALL_BACKUP_DIR/"
