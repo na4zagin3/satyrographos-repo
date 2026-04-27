@@ -24,21 +24,36 @@ has_installed_jbuilder () {
     opam list --installed --short --color=never 2>/dev/null | grep -qx jbuilder
 }
 
-case "$(opam --version)" in
-    2.0.*|2.1.*|2.2.*|2.3.*|2.4.*)
-        echo "Enable workaround for opam .changes false positives on older opam"
-        WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE=1
-        echo "Enable workaround for #655"
-        WORKAROUND_OPAM_BUG_STRICT=1
-        ;;
-    *)
-        if has_installed_jbuilder
-        then
-            echo "Enable workaround for opam .changes false positives with installed jbuilder"
-            WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE=1
-        fi
-        ;;
-esac
+is_old_affected_opam () {
+    case "$(opam --version)" in
+        2.0.*|2.1.*|2.2.*|2.3.*|2.4.*)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+should_workaround_opam_changes_false_positive () {
+    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
+    then
+        return 0
+    fi
+
+    if is_old_affected_opam || has_installed_jbuilder
+    then
+        return 0
+    fi
+
+    return 1
+}
+
+if is_old_affected_opam
+then
+    echo "Enable workaround for #655"
+    WORKAROUND_OPAM_BUG_STRICT=1
+fi
 
 TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT=$(date -d 2022-09-01 +%s)
 TIMESTAMP_NOW=$(date +%s)
@@ -114,7 +129,7 @@ EOF_CHANGES
 check_opam_integrity () {
     local CONTEXT
     CONTEXT=${1:-unknown}
-    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
+    if should_workaround_opam_changes_false_positive
     then
         echo "Skip OPAM integrity check"
         return 0
@@ -136,9 +151,9 @@ check_opam_integrity () {
 }
 
 check_satyrographos_integrity () {
-    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
+    if should_workaround_opam_changes_false_positive
     then
-        echo "Work around opam .changes false positives with installed jbuilder"
+        echo "Work around opam .changes false positives"
         opam exec -- satyrographos install $(opam list --color=never --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
         return $?
     fi
