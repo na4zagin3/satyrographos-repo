@@ -92,7 +92,7 @@ dump_opam_integrity_debug () {
     do
         [ -n "$CHANGES_FILE" ] || continue
         echo "---- $CHANGES_FILE ----"
-        sed -n '1,80p' "$CHANGES_FILE" || true
+        cat "$CHANGES_FILE" || true
     done <<EOF_CHANGES
 $MATCHED_CHANGES_FILES
 EOF_CHANGES
