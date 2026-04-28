@@ -20,12 +20,6 @@ FAILED_PACKAGES=failed.pkgs
 SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
-has_installed_jbuilder () {
-    local OPAM_SWITCH_INSTALL_DIR
-    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never 2>/dev/null)/.opam-switch/install"
-    [ -f "$OPAM_SWITCH_INSTALL_DIR/jbuilder.changes" ]
-}
-
 is_old_affected_opam () {
     case "$(opam --version)" in
         2.0.*|2.1.*|2.2.*|2.3.*|2.4.*)
@@ -43,7 +37,7 @@ should_workaround_opam_changes_false_positive () {
         return 0
     fi
 
-    if is_old_affected_opam || has_installed_jbuilder
+    if is_old_affected_opam
     then
         return 0
     fi
@@ -97,9 +91,6 @@ dump_opam_integrity_debug () {
     echo "opam prefix: $(opam var prefix --color=never)"
     echo "repositories:"
     opam repository list --color=never || true
-    echo "installed dune/jbuilder/opam packages:"
-    opam list --installed --columns=name,version --color=never 2>/dev/null | grep -E "^(dune|jbuilder|opam|opam-format|opam-file-format)\b" || true
-
     if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
         echo "install dir missing: $OPAM_SWITCH_INSTALL_DIR"
@@ -107,12 +98,12 @@ dump_opam_integrity_debug () {
     fi
 
     echo "install dir: $OPAM_SWITCH_INSTALL_DIR"
-    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
+    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
     if [ -z "$MATCHED_CHANGES_FILES" ]
     then
-        echo "no matching *.changes files found during debug dump"
-        echo "all *.changes files:"
-        find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' | sort || true
+        echo "no matching satysfi-*.changes files found during debug dump"
+        echo "all satysfi-*.changes files:"
+        find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort || true
         return 0
     fi
 
@@ -144,7 +135,7 @@ check_opam_integrity () {
         return 0
     fi
 
-    if find "$OPAM_SWITCH_INSTALL_DIR" -iname '*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
     then
         dump_opam_integrity_debug "$CONTEXT"
         echo "OPAM misdetected file creation as modification"
