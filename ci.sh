@@ -21,7 +21,9 @@ SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
 has_installed_jbuilder () {
-    opam list --installed --short --color=never 2>/dev/null | grep -qx jbuilder
+    local OPAM_SWITCH_INSTALL_DIR
+    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never 2>/dev/null)/.opam-switch/install"
+    [ -f "$OPAM_SWITCH_INSTALL_DIR/jbuilder.changes" ]
 }
 
 is_old_affected_opam () {
