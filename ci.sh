@@ -121,6 +121,8 @@ EOF_CHANGES
 }
 check_opam_integrity () {
     local CONTEXT
+    local OPAM_SWITCH_INSTALL_DIR
+    local MATCHED_CHANGES_FILES
     CONTEXT=${1:-unknown}
     if should_workaround_opam_changes_false_positive
     then
@@ -128,14 +130,14 @@ check_opam_integrity () {
         return 0
     fi
 
-    local OPAM_SWITCH_INSTALL_DIR
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
     if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
         return 0
     fi
 
-    if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
+    if [ -n "$MATCHED_CHANGES_FILES" ]
     then
         dump_opam_integrity_debug "$CONTEXT"
         echo "OPAM misdetected file creation as modification"
