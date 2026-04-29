@@ -6,7 +6,7 @@
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
 # SKIP_REVERSE_DEPS: Skip building against reverse dependencies
-# WORKAROUND_OPAM_BUG_5132: Skip integrity check against OPAM
+# WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE: Skip SATySFi package .changes integrity checks for known false positives on older opam
 # WORKAROUND_OPAM_BUG_STRICT: Don't use --strict option (See https://github.com/ocaml/opam-repository/pull/21959#discussion_r943873612)
 
 set -exo pipefail
@@ -20,14 +20,36 @@ FAILED_PACKAGES=failed.pkgs
 SUCCEEDED_PACKAGES=succeeded.pkgs
 : > "$SUCCEEDED_PACKAGES"
 
-case "$(opam --version)" in
-    2.*)
-        echo "Enable workaround for OPAM Bug #5132"
-        WORKAROUND_OPAM_BUG_5132=1
-        echo "Enable workaround for #655"
-        WORKAROUND_OPAM_BUG_STRICT=1
-        ;;
-esac
+is_old_affected_opam () {
+    case "$(opam --version)" in
+        2.0.*|2.1.*|2.2.*|2.3.*|2.4.*)
+            return 0
+            ;;
+        *)
+            return 1
+            ;;
+    esac
+}
+
+should_workaround_opam_changes_false_positive () {
+    if [ -n "$WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE" ]
+    then
+        return 0
+    fi
+
+    if is_old_affected_opam
+    then
+        return 0
+    fi
+
+    return 1
+}
+
+if is_old_affected_opam
+then
+    echo "Enable workaround for #655"
+    WORKAROUND_OPAM_BUG_STRICT=1
+fi
 
 TIMESTAMP_DEADLINE_WORKAROUND_OPAM_BUG_STRICT=$(date -d 2022-09-01 +%s)
 TIMESTAMP_NOW=$(date +%s)
@@ -56,31 +78,83 @@ cat_to_comment () {
     fi
 }
 
+find_satysfi_changed_files () {
+    local OPAM_SWITCH_INSTALL_DIR
+    OPAM_SWITCH_INSTALL_DIR=${1:?}
+    find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true
+}
+
+dump_opam_integrity_debug () {
+    local OPAM_SWITCH_INSTALL_DIR
+    local CHANGES_FILE
+    local MATCHED_CHANGES_FILES
+    OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
+
+    echo "==== OPAM integrity debug ===="
+    echo "Context: ${1:-unknown}"
+    echo "opam version: $(opam --version)"
+    echo "opam root: $(opam var root --color=never)"
+    echo "opam prefix: $(opam var prefix --color=never)"
+    echo "repositories:"
+    opam repository list --color=never || true
+    if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
+    then
+        echo "install dir missing: $OPAM_SWITCH_INSTALL_DIR"
+        return 0
+    fi
+
+    echo "install dir: $OPAM_SWITCH_INSTALL_DIR"
+    MATCHED_CHANGES_FILES="$(find_satysfi_changed_files "$OPAM_SWITCH_INSTALL_DIR")"
+    if [ -z "$MATCHED_CHANGES_FILES" ]
+    then
+        echo "no matching satysfi-*.changes files found during debug dump"
+        echo "all satysfi-*.changes files:"
+        find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' | sort || true
+        return 0
+    fi
+
+    echo "matched satysfi-*.changes files:"
+    printf '%s\n' "$MATCHED_CHANGES_FILES"
+
+    while read -r CHANGES_FILE
+    do
+        [ -n "$CHANGES_FILE" ] || continue
+        echo "---- $CHANGES_FILE ----"
+        cat "$CHANGES_FILE" || true
+    done <<EOF_CHANGES
+$MATCHED_CHANGES_FILES
+EOF_CHANGES
+}
 check_opam_integrity () {
-    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    local CONTEXT
+    local OPAM_SWITCH_INSTALL_DIR
+    local MATCHED_CHANGES_FILES
+    CONTEXT=${1:-unknown}
+    if should_workaround_opam_changes_false_positive
     then
         echo "Skip OPAM integrity check"
         return 0
     fi
 
-    local OPAM_SWITCH_INSTALL_DIR
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
     if [ ! -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
         return 0
     fi
 
-    if find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -e ^'contents-changed:' '{}' '+'
+    MATCHED_CHANGES_FILES="$(find_satysfi_changed_files "$OPAM_SWITCH_INSTALL_DIR")"
+    if [ -n "$MATCHED_CHANGES_FILES" ]
     then
-        echo "OPAM misdetected file creation as modification"
+        dump_opam_integrity_debug "$CONTEXT"
+        echo "OPAM reported SATySFi package install metadata as contents-changed"
         exit 1
     fi
 }
 
 check_satyrographos_integrity () {
-    if [ -n "$WORKAROUND_OPAM_BUG_5132" ]
+    if should_workaround_opam_changes_false_positive
     then
-        echo "Workaround OPAM Bug #5132"
+        echo "Work around opam .changes false positives"
         opam exec -- satyrographos install $(opam list --color=never --short --installed 'satysfi-*' | sed -e 's/^satysfi-/-l /')
         return $?
     fi
@@ -95,8 +169,8 @@ opam_install_dry_run () {
     mkdir -p "$TEMPORARY_WORK_DIR/opam"
     OPAM_INSTALL_BACKUP_DIR=$(mktemp -dt "ci.sh.opam-install.XXXXXXXXXX" -p "$TEMPORARY_WORK_DIR/opam")
     OPAM_SWITCH_INSTALL_DIR="$(opam var prefix --color=never)/.opam-switch/install"
-    check_opam_integrity
-    # Workaround https://github.com/ocaml/opam/issues/5132
+    check_opam_integrity "before-opam-install-dry-run"
+    # Preserve install metadata around dry-runs when the false-positive workaround is enabled
     if [ -d "$OPAM_SWITCH_INSTALL_DIR" ]
     then
         rsync -a "$OPAM_SWITCH_INSTALL_DIR/" "$OPAM_INSTALL_BACKUP_DIR/"
@@ -105,7 +179,7 @@ opam_install_dry_run () {
     OPAM_INSTALL_RETURN_STATUS=$?
     mkdir -p "$OPAM_SWITCH_INSTALL_DIR"
     rsync -a "$OPAM_INSTALL_BACKUP_DIR/" "$OPAM_SWITCH_INSTALL_DIR/"
-    check_opam_integrity
+    check_opam_integrity "after-opam-install-dry-run"
 
     return $OPAM_INSTALL_RETURN_STATUS
 }
@@ -244,15 +318,15 @@ if true ; then
             then
                 echo "$PACKAGE: dep-install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}" || ! check_opam_integrity
+            elif ! opam install "${PACKAGES_AND_OPTIONS[@]}" || ! check_opam_integrity "after-install"
             then
                 echo "$PACKAGE: install" >> "$FAILED_PACKAGES"
                 continue
-            elif ! check_satyrographos_integrity || ! check_opam_integrity
+            elif ! check_satyrographos_integrity || ! check_opam_integrity "after-satyrographos-install"
             then
                 echo "$PACKAGE: satyrographos" >> "$FAILED_PACKAGES"
                 continue
-            elif { [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps "$PACKAGE"; } || ! check_opam_integrity
+            elif { [ -z "$SKIP_REVERSE_DEPS" ] && ! check_reverse_deps "$PACKAGE"; } || ! check_opam_integrity "after-reverse-deps"
             then
                 echo "$PACKAGE: reverse-deps" >> "$FAILED_PACKAGES"
                 continue
@@ -265,7 +339,7 @@ if true ; then
                 if [ "$OLDEST_DEPS_STATUS" -eq 2 ]
                 then
                     PACKAGE_SKIPPED_OLDEST_DEPS=1
-                elif [ "$OLDEST_DEPS_STATUS" -ne 0 ] || ! check_opam_integrity
+                elif [ "$OLDEST_DEPS_STATUS" -ne 0 ] || ! check_opam_integrity "after-oldest-deps"
                 then
                     echo "$PACKAGE: install-with-oldest-deps" >> "$FAILED_PACKAGES"
                     continue
@@ -276,7 +350,7 @@ if true ; then
                 fi
             fi
 
-            if ! opam uninstall "$PACKAGE" || ! check_opam_integrity
+            if ! opam uninstall "$PACKAGE" || ! check_opam_integrity "after-uninstall"
             then
                 echo "$PACKAGE: uninstall" >> "$FAILED_PACKAGES"
                 continue
