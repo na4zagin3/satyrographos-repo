@@ -6,7 +6,7 @@
 # ABORT_IMMEDIATELY: Imdediately abort when installation fails
 # SKIP_OLDEST_DEPS: Skip building against oldest dependencies
 # SKIP_REVERSE_DEPS: Skip building against reverse dependencies
-# WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE: Skip opam .changes integrity checks for known false positives
+# WORKAROUND_OPAM_CHANGES_FALSE_POSITIVE: Skip SATySFi package .changes integrity checks for known false positives on older opam
 # WORKAROUND_OPAM_BUG_STRICT: Don't use --strict option (See https://github.com/ocaml/opam-repository/pull/21959#discussion_r943873612)
 
 set -exo pipefail
@@ -78,6 +78,12 @@ cat_to_comment () {
     fi
 }
 
+find_satysfi_changed_files () {
+    local OPAM_SWITCH_INSTALL_DIR
+    OPAM_SWITCH_INSTALL_DIR=${1:?}
+    find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true
+}
+
 dump_opam_integrity_debug () {
     local OPAM_SWITCH_INSTALL_DIR
     local CHANGES_FILE
@@ -98,7 +104,7 @@ dump_opam_integrity_debug () {
     fi
 
     echo "install dir: $OPAM_SWITCH_INSTALL_DIR"
-    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
+    MATCHED_CHANGES_FILES="$(find_satysfi_changed_files "$OPAM_SWITCH_INSTALL_DIR")"
     if [ -z "$MATCHED_CHANGES_FILES" ]
     then
         echo "no matching satysfi-*.changes files found during debug dump"
@@ -107,7 +113,7 @@ dump_opam_integrity_debug () {
         return 0
     fi
 
-    echo "matched *.changes files:"
+    echo "matched satysfi-*.changes files:"
     printf '%s\n' "$MATCHED_CHANGES_FILES"
 
     while read -r CHANGES_FILE
@@ -136,11 +142,11 @@ check_opam_integrity () {
         return 0
     fi
 
-    MATCHED_CHANGES_FILES="$(find "$OPAM_SWITCH_INSTALL_DIR" -iname 'satysfi-*.changes' -exec grep -l -e '^contents-changed:' '{}' + | sort || true)"
+    MATCHED_CHANGES_FILES="$(find_satysfi_changed_files "$OPAM_SWITCH_INSTALL_DIR")"
     if [ -n "$MATCHED_CHANGES_FILES" ]
     then
         dump_opam_integrity_debug "$CONTEXT"
-        echo "OPAM misdetected file creation as modification"
+        echo "OPAM reported SATySFi package install metadata as contents-changed"
         exit 1
     fi
 }
